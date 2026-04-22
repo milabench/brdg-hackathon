@@ -51,9 +51,15 @@ Trigger-loaded (read when the trigger fires; evict when done):
 - `REFERENCE.md` — lookup tables (sync-point checklist, HP interactions, and more).
   Each entry declares its own Trigger / Hold / Evict.
 - `FINAL_SUMMARY_TEMPLATE.md` — end-of-session template; load during wrap-up.
+- `sessions/README.md §Commit policy` — what to commit vs keep out of the
+  artifact folder. Load (i) when producing profiler output (`RULES §12` cites
+  it — save a committable summary instead of a binary trace), and (ii) at
+  wrap-up (`EXECUTION §6`) before any `git add sessions/...` runs. Hold
+  until the artifact commit is staged.
 
 Not your doc:
-- Root `README.md` — operator guide + dispatcher.
+- Root `README.md` — operator guide + dispatcher. Exception: `§6` cites the
+  commit policy you also load above; read from `sessions/README.md` directly.
 - `workload-template/` — preparation-time surfaces (template, preparer-agent
   handoff, human preparer guide). The preparation is already done by the time
   you run; read the filled card at

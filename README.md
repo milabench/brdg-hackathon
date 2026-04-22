@@ -126,7 +126,9 @@ The agent:
 - writes artifacts to
   `brdg-hackathon/sessions/<workload-name>/<iteration>/<agent-name>/artifacts/`,
 - creates its own optimisation branch in the **workload repo** (named
-  `agent_<agent-name>_<short_goal>`, per `playbook/EXECUTION.md §1.2`).
+  `hackathon-<workload-name>-<iteration>-<agent-name>`, branched off the
+  preparer's `hackathon-<workload-name>-<iteration>`, per
+  `playbook/EXECUTION.md §1.2`).
 
 ## 5) Verify during the session (your primary role)
 
@@ -174,16 +176,20 @@ it:
 
 ```bash
 cd <workload-repo>
-git push -u origin agent_<agent-name>_<short_goal>
+git push -u origin hackathon-<workload-name>-<iteration>-<agent-name>
 # (exact branch name is recorded in FINAL_SUMMARY.md §0)
 ```
 
 **Commit and push the brdg-hackathon artifacts**, then open a PR back to
-`<workload-name>-<iteration>`:
+`<workload-name>-<iteration>`. Before `git add`, scan the artifact folder
+against `sessions/README.md §Commit policy` — `sessions/.gitignore` filters
+the common large-binary and secret patterns automatically, but the size cap
+and "machine-read vs evidence" split are judgment calls that land on you:
 
 ```bash
 cd <workload-repo>/brdg-hackathon
 git add sessions/<workload-name>/<iteration>/<agent-name>/
+git status                                                   # review what was staged
 git commit -m "Session <agent-name>: results"
 git push -u origin <workload-name>-<iteration>-<agent-name>
 # then open PR: <workload-name>-<iteration>-<agent-name> → <workload-name>-<iteration>

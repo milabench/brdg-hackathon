@@ -1,0 +1,36 @@
+# Non-negotiable excludes under sessions/. Commit policy (what to keep vs
+# leave out deliberately) lives in sessions/README.md; this file covers only
+# the patterns that should never be committed regardless of session outcome.
+
+# Python / notebook ephemera
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+
+# Editor / OS cruft
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Secrets — never commit under sessions/
+.env
+.env.*
+*.pem
+*.key
+.netrc
+wandb/
+
+# Large profiler outputs — store externally and link from FINAL_SUMMARY.md.
+# Do not commit these formats under any size; small extracts belong in
+# artifacts/profiles/ as text or JSON summaries instead.
+*.qdrep
+*.nsys-rep
+*.ncu-rep
+*.prof
+*.pb
+*.sqlite
+*.sqlite-journal

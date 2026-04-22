@@ -12,7 +12,7 @@
 - Workload: `<workload>` / iteration: `<iteration>`
 - **Hackathon repo**: `<brdg-hackathon branch>` @ `<commit-hash>` (as recorded in `[SESSION-START]`)
 - Workload repo + starting commit (= prepared-branch head from `WORKLOAD_CARD §1`):
-- Branch (in workload repo): `agent_<ID>_<short_goal>` (branched off `hackathon-<workload>-<iteration>`)
+- Branch (in workload repo): `hackathon-<workload>-<iteration>-<agent-name>` (branched off `hackathon-<workload>-<iteration>`)
 - **Final commit hash** (workload-repo branch HEAD at session close):
 - Hardware: GPU / CPU / RAM
 - Software: driver / CUDA / framework versions / Python / other

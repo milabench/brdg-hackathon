@@ -59,7 +59,7 @@ Workload: <workload>
 Iteration: <iteration>
 Hackathon repo: <brdg-hackathon branch> @ <short-commit>
 Workload repo: <workload-repo remote> @ <starting-commit>
-Workload branch (agent creates now): agent_<agent-name>_<short-goal>
+Workload branch (agent creates now): hackathon-<workload>-<iteration>-<agent-name>
 Hardware: GPU / CPU / RAM
 Software: driver / CUDA / framework versions / Python
 ```
@@ -266,8 +266,10 @@ invariants).
 
 ### 6.2 Code
 
-- Branch: `agent_<ID>_<short_goal>`
-- Commits should mention the bottleneck addressed.
+- Branch: `hackathon-<workload>-<iteration>-<agent-name>` (branched off the
+  preparer's `hackathon-<workload>-<iteration>`).
+- Commits should mention the bottleneck addressed; put the optimisation
+  hypothesis / short goal in the commit messages, not the branch name.
 
 ### 6.3 Artifacts folder (required structure)
 
@@ -288,3 +290,22 @@ artifacts/
 ### 6.4 Final summary
 
 Create `artifacts/FINAL_SUMMARY.md` using `FINAL_SUMMARY_TEMPLATE.md`.
+
+### 6.5 Commit policy (before any artifact `git add`)
+
+Before staging the session artifacts — whether you run the commands yourself
+or the operator does — read `sessions/README.md §Commit policy` and confirm
+the `<agent-name>/` folder contents match it. Specifically:
+
+- Every "always commit" file listed there is present
+  (`results.csv`, `baseline.txt`, `event_log.md`, `preflight.txt`,
+  `profiler_commands.md`, `FINAL_SUMMARY.md`).
+- Any profile you saved is either a committable text/JSON summary, or is
+  excluded by `sessions/.gitignore` (the proprietary formats `*.qdrep`,
+  `*.nsys-rep`, `*.ncu-rep`, `*.prof`, `*.pb`, `*.sqlite`). Large raw traces
+  go to external storage with a link from `FINAL_SUMMARY.md §Evidence`.
+- `preflight.txt` and any captured env dumps do not contain secrets (API
+  keys, tokens, `.netrc` contents). Redact in place if they do.
+
+Mismatches block the commit until fixed. Do not paper over them with
+`git add -f`.

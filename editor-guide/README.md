@@ -128,8 +128,14 @@ prepared. It holds one template and two preparer-facing docs:
   filled card before approving the commit. Written as a verifier's checklist,
   not a doer's manual — the agent does the mechanical work. Kept separate
   from the operator guide so each human audience reads only its own workflow.
-- **`sessions/README.md`** — one-screen reference for the per-session artifact
-  tree. Not a reading doc; a pointer.
+- **`sessions/README.md`** — per-session artifact tree reference **and** the
+  commit policy (what lands in git, what is excluded by `sessions/.gitignore`,
+  what needs an external link). Dual audience: the human operator reads it at
+  session close (cited from root `README.md §6`), and the session-agent
+  trigger-loads it (listed in `playbook/AGENT_HANDOFF.md` file set, cited from
+  `playbook/RULES.md §12` and `playbook/EXECUTION.md §6.5`). Cross-file
+  citations use `sessions/README.md §Commit policy` — rename the heading
+  only in lockstep with those citers.
 
 ### 2.5 Scripts
 

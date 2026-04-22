@@ -355,6 +355,10 @@ Produce at least one profiler artifact. For each profiling session, save:
 
 Store under `artifacts/profiles/` and list commands in
 `artifacts/profiles/profiler_commands.md`. Tool choices by layer: `REFERENCE §4`.
+Commit policy for large traces (size cap, which formats are kept vs linked
+externally) is in `sessions/README.md §Commit policy` — proprietary-format
+traces (`*.qdrep`, `*.nsys-rep`, `*.ncu-rep`, `*.prof`) are not committed;
+save a text or JSON summary alongside instead.
 
 ---
 
@@ -506,7 +510,7 @@ Workload: <workload>
 Iteration: <iteration>
 Hackathon repo: <brdg-hackathon branch> @ <short-commit>
 Workload repo: <workload-repo remote> @ <starting-commit>
-Workload branch (agent creates now): agent_<agent-name>_<short-goal>
+Workload branch (agent creates now): hackathon-<workload>-<iteration>-<agent-name>
 Hardware: GPU / CPU / RAM
 Software: driver / CUDA / framework versions / Python
 ```

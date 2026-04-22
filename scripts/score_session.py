@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Score a hackathon session's artifacts.
 
-Consumes `results.csv` (schema: `SCHEMA.md` §1) and `event_log.md` (tags:
-`RULES.md` §13.3 / milestones: `RULES.md` §14.3) from a single session artifact root
-and produces:
+Consumes `results.csv` (schema: `playbook/SCHEMA.md` §1) and `event_log.md` (tags:
+`playbook/RULES.md` §13.3 / milestones: `playbook/RULES.md` §14.3) from a single
+session artifact root and produces:
 
 - session_score.md    human-readable report (metrics, timeline, invariant checks)
 - session_score.json  structured data for downstream consumption
@@ -11,15 +11,17 @@ and produces:
 Metrics reported:
   - session-quality counts and rates (experiments, wins, reverts, blocked, bugs,
     dead-end rate, human interventions by `H-*` tag)
-  - `RULES.md` §14.2 checklist compliance (log completeness, per-box miss counts)
-  - `RULES.md` §14.3 milestone timeline (time-to-first-baseline / profile / HPO-done /
-    first-win, per-phase exit times, total duration)
-  - `RULES.md` §14.3 invariant checks (exits unique, wins match results,
-    PE2-after-BASELINE, WIN-after-PE3). Exits non-zero if any invariant FAILs.
+  - `playbook/RULES.md` §14.2 checklist compliance (log completeness, per-box miss
+    counts)
+  - `playbook/RULES.md` §14.3 milestone timeline (time-to-first-baseline / profile /
+    HPO-done / first-win, per-phase exit times, total duration)
+  - `playbook/RULES.md` §14.3 invariant checks (SESSION-START present, exits unique,
+    wins match results, PE2-after-BASELINE, WIN-after-PE3). Exits non-zero if any
+    invariant FAILs.
 
 Usage
 -----
-    python score_session.py --session path/to/<workload>/<iteration>/<agent-name>/ --out DIR
+    python score_session.py --session path/to/sessions/<workload>/<iteration>/<agent-name>/ --out DIR
 """
 from __future__ import annotations
 
@@ -207,6 +209,24 @@ def check_invariants(results: pd.DataFrame,
                      events: list[Event]) -> list[tuple[str, str, str]]:
     checks: list[tuple[str, str, str]] = []
 
+    ss_events = [e for e in events if e.tag == "SESSION-START"]
+    if len(ss_events) == 1:
+        ss = ss_events[0]
+        body = "\n".join(ss.body_lines)
+        if re.search(r"(?mi)^\s*Hackathon repo:\s*\S+\s*@\s*\S+", body):
+            checks.append(("session_start_unique", "PASS",
+                           "exactly one [SESSION-START] with Hackathon repo line"))
+        else:
+            checks.append(("session_start_unique", "FAIL",
+                           "[SESSION-START] missing 'Hackathon repo: <branch> @ "
+                           "<commit>' line"))
+    elif not ss_events:
+        checks.append(("session_start_unique", "FAIL",
+                       "missing [SESSION-START]"))
+    else:
+        checks.append(("session_start_unique", "FAIL",
+                       f"{len(ss_events)} [SESSION-START] entries (expected 1)"))
+
     for N in range(1, 5):
         count = sum(1 for e in events if e.tag == f"PHASE-EXIT {N}")
         name = f"phase_exit_{N}_unique"
@@ -348,7 +368,7 @@ def main() -> int:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--session", required=True, type=Path,
                     help="Session artifact root "
-                         "(<workload>/<iteration>/<agent-name>/).")
+                         "(sessions/<workload>/<iteration>/<agent-name>/).")
     ap.add_argument("--out", required=True, type=Path,
                     help="Output directory for session_score.{md,json}.")
     args = ap.parse_args()

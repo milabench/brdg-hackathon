@@ -1,14 +1,14 @@
 # Workload Card — <workload name>
 
-This file declares the **workload-specific** parameters for the current hackathon session. The
-generic protocol (`AGENT_HANDOFF.md` → `RULES.md` / `EXECUTION.md`) and the human guide
-(`README.md`) reference this card for everything workload-specific, so those files stay
-workload-agnostic and reusable across sessions.
+This file declares the **workload-specific** parameters for the hackathon session. The
+generic protocol (`playbook/`) and the human guide (root `README.md`) reference this
+card for everything workload-specific, so those files stay workload-agnostic and
+reusable across sessions.
 
-**Location:** the human places the filled card inside the session folder
-`hackathon_<name>/` (sibling of the generic `hackathon/` folder), along with the other files
-copied from `hackathon/`. All artifacts produced during the session live under
-`hackathon_<name>/artifacts/`.
+**Location.** This file in `workload-template/` is the blank template. The **preparer**
+copies it to `sessions/<workload>/<iteration>/WORKLOAD_CARD.md` and fills it before the
+session begins. That filled copy is shared read-only across every `<agent-name>/`
+subfolder in the iteration; individual agents never modify it.
 
 Fill this file **before the session begins**. The agent reads it first; the human verifies it.
 
@@ -17,7 +17,8 @@ Fill this file **before the session begins**. The agent reads it first; the huma
 ## 0) Session identity
 
 - Workload name (short slug):
-- Hackathon run folder (`hackathon_<name>/`):
+- Iteration id (e.g. `1`, `2`):
+- Session folder: `sessions/<workload>/<iteration>/`
 - Date:
 - Summary (one sentence — what is being optimized, in plain language):
 

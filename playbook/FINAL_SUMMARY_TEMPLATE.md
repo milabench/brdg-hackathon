@@ -1,13 +1,16 @@
 # FINAL SUMMARY — Agent <ID>
 
-> Lives at `<workload>/<iteration>/<agent-name>/artifacts/FINAL_SUMMARY.md`.
+> Lives at `sessions/<workload>/<iteration>/<agent-name>/artifacts/FINAL_SUMMARY.md`.
 > Workload-specific definitions (primary metric, quality metric, tolerance, benchmark
-> window) come from `../WORKLOAD_CARD.md`. Copy their concrete values into §0 below.
+> window) come from `../../WORKLOAD_CARD.md` (the filled card one level up from your
+> session root). Copy their concrete values into §0 below.
 
 ## 0) Metadata
 - Date:
 - Agent:
 - Human operator:
+- Workload: `<workload>` / iteration: `<iteration>`
+- **Hackathon repo**: `<brdg-hackathon branch>` @ `<commit-hash>` (as recorded in `[SESSION-START]`)
 - Workload repo + starting commit:
 - Branch (in workload repo): `agent_<ID>_<short_goal>`
 - **Final commit hash** (workload-repo branch HEAD at session close):

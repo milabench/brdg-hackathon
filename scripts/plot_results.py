@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Standard plots for hackathon session artifacts.
 
-Consumes `artifacts/benchmarks/results.csv` (schema: `SCHEMA.md` §1) and
-`artifacts/notes/event_log.md` (tags: `RULES.md` §13.3 / milestones: `RULES.md` §14.3)
-and produces:
+Consumes `artifacts/benchmarks/results.csv` (schema: `playbook/SCHEMA.md` §1) and
+`artifacts/notes/event_log.md` (tags: `playbook/RULES.md` §13.3 / milestones:
+`playbook/RULES.md` §14.3) and produces:
 
 1. throughput_distribution_<tier>.png  primary-metric distribution per candidate
 2. pareto.png                          quality vs primary-metric scatter (win_status coded)
@@ -15,11 +15,11 @@ Multi-session mode (pass `--session` more than once) overlays the session timeli
 Usage
 -----
 Single session:
-    python plot_results.py --session path/to/<workload>/<iteration>/<agent-name>/ --out path/to/out/
+    python plot_results.py --session path/to/sessions/<workload>/<iteration>/<agent-name>/ --out path/to/out/
 
 Multi-session overlay:
-    python plot_results.py --session path/to/<workload>/<iteration>/alice \\
-                           --session path/to/<workload>/<iteration>/bob \\
+    python plot_results.py --session path/to/sessions/<workload>/<iteration>/alice \\
+                           --session path/to/sessions/<workload>/<iteration>/bob \\
                            --out path/to/out/
 """
 from __future__ import annotations
@@ -220,6 +220,8 @@ def plot_best_so_far(results: pd.DataFrame, out: Path,
 def _tag_style(tag: str) -> dict:
     if PHASE_EXIT_RE.match(tag):
         return {"marker": "^", "color": "C3", "size": 90, "label": True}
+    if tag == "SESSION-START":
+        return {"marker": "s", "color": "C3", "size": 90, "label": True}
     if tag == "SESSION-CLOSE":
         return {"marker": "s", "color": "C3", "size": 90, "label": True}
     if tag == "WIN":

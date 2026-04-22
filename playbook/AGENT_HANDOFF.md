@@ -10,33 +10,38 @@ guide the search; see `RULES.md §3` and `§8` for the relationship.
 
 ## Your first actions, in order
 
-1. Read `WORKLOAD_CARD.md` (in this same folder) — workload-specific definitions (entry
-   command, metric definitions, quality tolerance, allowed / disallowed edits).
-2. Read `RULES.md` — the measurement, logging, and bug-handling protocol you hold
-   throughout the session.
-3. Run `EXECUTION.md §1` (Bootstrap: session-folder layout, session metadata,
-   preflight capture) **before** Phase 1. The preflight capture is the first entry in
-   `event_log.md`.
+1. Read the filled workload card at
+   `brdg-hackathon/sessions/<workload>/<iteration>/WORKLOAD_CARD.md` —
+   workload-specific definitions (entry command, metric definitions, quality
+   tolerance, allowed / disallowed edits).
+2. Read `RULES.md` (sibling of this file in `playbook/`) — the measurement, logging,
+   and bug-handling protocol you hold throughout the session.
+3. Run `EXECUTION.md §1` (Bootstrap: session folder, `[SESSION-START]` event,
+   preflight capture) **before** Phase 1.
 4. Then begin Phase 1 (`EXECUTION.md §2`).
 
 ## Working model — three locations
 
 - **Shell cwd**: the workload repo root (e.g. milabench). All benchmark commands (see
   `WORKLOAD_CARD.md §6`) run from here.
-- **Instruction folder**: `brdg-hackathon/<workload>/<iteration>/` — this folder,
-  containing the protocol files and `WORKLOAD_CARD.md`. Read-only; shared with other
-  operators.
-- **Session artifact root**: `brdg-hackathon/<workload>/<iteration>/<agent-name>/` —
-  where you write. All `artifacts/…` paths in these docs are relative to this root
-  (e.g. `artifacts/notes/event_log.md` resolves to
-  `brdg-hackathon/<workload>/<iteration>/<agent-name>/artifacts/notes/event_log.md`).
+- **Playbook folder**: `brdg-hackathon/playbook/` — contains this file and the other
+  protocol files (`RULES.md`, `EXECUTION.md`, `SCHEMA.md`, `REFERENCE.md`,
+  `FINAL_SUMMARY_TEMPLATE.md`). Read-only.
+- **Session artifact root**:
+  `brdg-hackathon/sessions/<workload>/<iteration>/<agent-name>/` — where you write.
+  All `artifacts/…` paths in these docs are relative to this root (e.g.
+  `artifacts/notes/event_log.md` resolves to
+  `brdg-hackathon/sessions/<workload>/<iteration>/<agent-name>/artifacts/notes/event_log.md`).
+  The filled `WORKLOAD_CARD.md` lives one level up, at
+  `brdg-hackathon/sessions/<workload>/<iteration>/WORKLOAD_CARD.md`, shared with
+  other operators of this iteration.
 
 ---
 
 ## File set
 
 Eagerly loaded (read before acting):
-- `WORKLOAD_CARD.md` — workload spec (filled by the human before the session).
+- `WORKLOAD_CARD.md` (filled, one level up from your session root) — workload spec.
 - `RULES.md` — rules that govern every action you take during the session.
 - `EXECUTION.md` — phase-by-phase procedure (Phase 1 → 2 → 3 → 4 → wrap-up).
 
@@ -48,7 +53,8 @@ Trigger-loaded (read when the trigger fires; evict when done):
 - `FINAL_SUMMARY_TEMPLATE.md` — end-of-session template; load during wrap-up.
 
 Not your doc:
-- `README.md` — human-verifier guide.
+- Root `README.md` — human operator / preparer guide.
+- `editor-guide/` — meta; read by agents editing the corpus, not by you.
 
 ---
 

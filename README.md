@@ -1,116 +1,52 @@
-# Optimization Hackathon — Human Guide
+# Optimization Hackathon
 
-Each session pairs one human operator with one coding agent against a workload defined
-in `WORKLOAD_CARD.md`. The protocol is designed for **one preparer** to set up a
-workload once, and **multiple operators** to run independent sessions against that same
-setup so their results can be compared.
+This repo hosts the protocol for an ML-optimization hackathon: one human operator
+pairs with one coding agent to optimize a workload, against a written rulebook
+that keeps results comparable across sessions.
 
-This guide has two parts:
-- **Part 1 — Preparing the session.** Done once per workload, by the preparer.
-- **Part 2 — Running the session.** Done per operator, per session.
+## Who are you?
 
-The agent's protocol lives in `AGENT_HANDOFF.md` → `RULES.md` / `EXECUTION.md` /
-`SCHEMA.md` / `REFERENCE.md`. Humans don't need to read those in full — this guide
-summarises what the preparer and operators actually do.
+- **An agent improving the instruction corpus** → read
+  [`editor-guide/README.md`](editor-guide/README.md).
+- **An agent running an optimization session** → start at
+  [`playbook/AGENT_HANDOFF.md`](playbook/AGENT_HANDOFF.md).
+- **A human preparing a new hackathon iteration** → read
+  [`workload-template/README.md`](workload-template/README.md).
+- **A human running a hackathon as operator** → continue below.
 
----
+## Repo layout
 
-## Part 1 — Preparing the session (preparer)
-
-### 1.1 Branch and folder convention
-
-Each workload evaluation uses a dedicated branch and a matching folder at the repo
-root:
-
-- **Git branch:** `<workload-name>-<iteration>` — e.g., `mnist-1`.
-- **Folder:** `<workload-name>/<iteration>/` — e.g., `mnist/1/`.
-
-`<iteration>` increments when you re-run the same workload (e.g., after fixing a bug
-in the card or the protocol). Each iteration is an independent evaluation.
-
-At the end of the exercise, operator branches merge back into
-`<workload-name>-<iteration>`, then `<workload-name>-<iteration>` merges into `main`.
-
-### 1.2 Review the template
-
-At the repo root lives the reusable template:
-
-- `AGENT_HANDOFF.md` — agent's landing page.
-- `RULES.md` — rules the agent holds throughout.
-- `EXECUTION.md` — phase-by-phase procedure.
-- `SCHEMA.md` — `results.csv` column spec.
-- `REFERENCE.md` — lookup tables (sync-point checklist, HP interactions).
-- `FINAL_SUMMARY_TEMPLATE.md` — end-of-session template for the agent.
-- `WORKLOAD_CARD.md` — blank template; you fill the per-iteration copy (§1.3).
-- `scripts/` — validation and scoring tooling.
-
-Review these before a new evaluation campaign. If the rules or metrics don't match
-your evaluation needs, edit the template on `main` before branching.
-
-### 1.3 Fill `WORKLOAD_CARD.md`
-
-The per-iteration `WORKLOAD_CARD.md` is filled *after* you branch (§1.4), in the new
-folder. Decisions that most affect session quality:
-
-- **Primary metric** — must be mechanically extractable (regex, JSON key, specific log
-  line). If you'd have to hand-parse the output to read it, the agent's extraction
-  recipe will fail and the validator will reject rows.
-- **Quality metric + tolerance** — the tolerance is a candidate-gating threshold. Be
-  precise about what "within tolerance" means for this workload (`-5%`,
-  `-2·baseline_std`, or an explicit rule).
-- **Benchmark window** — long enough to be representative, short enough that one full
-  run can be scheduled multiple times during a session. Record the rationale.
-- **Allowed / disallowed edits** — explicit and non-overlapping. The disallowed list
-  is the semantic-surface boundary; if it is vague, agents will gravitate toward it
-  and you will have to arbitrate mid-session.
-- **Known caveats / prior art** — known baseline variance, optimisations already
-  upstreamed, and (optional) a pre-declared Δ_min for cross-agent comparability.
-
-Before handing off, work through §11 (Verification checklist) of the card. In
-particular: **run the baseline command end-to-end from a clean environment yourself**,
-and confirm the primary and quality metrics extract correctly. An un-verified card is
-the most common cause of a lost session.
-
-### 1.4 Hand off — commit to the iteration branch
-
-From `main`, create the iteration branch and folder, then copy the template files in:
-
-```bash
-git checkout main
-git pull
-git checkout -b <workload-name>-<iteration>
-mkdir -p <workload-name>/<iteration>
-cp AGENT_HANDOFF.md RULES.md EXECUTION.md SCHEMA.md REFERENCE.md README.md \
-   FINAL_SUMMARY_TEMPLATE.md WORKLOAD_CARD.md <workload-name>/<iteration>/
-cp -r scripts <workload-name>/<iteration>/
-# now fill <workload-name>/<iteration>/WORKLOAD_CARD.md per §1.3
-git add <workload-name>/
-git commit -m "Prepare <workload-name> iteration <iteration>"
-git push -u origin <workload-name>-<iteration>
+```
+playbook/            agent protocol (read-only; not copied per session)
+workload-template/   blank WORKLOAD_CARD.md + preparer guide
+sessions/            per-session artifacts, grouped by workload/iteration/agent
+editor-guide/        for agents editing the instruction corpus
+scripts/             validation, scoring, plotting, aggregation
+README.md            this file — operator guide + dispatcher
 ```
 
-Notify operators that the branch is ready.
-
-### 1.5 After all sessions complete
-
-Each operator opens a PR from `<workload-name>-<iteration>-<agent-name>` back to
-`<workload-name>-<iteration>`. Because each operator's artifacts live in a distinct
-subfolder `<agent-name>/` (§2.2), the merges are conflict-free.
-
-Once all operator branches are merged, open a PR from `<workload-name>-<iteration>`
-into `main`. Comparison metrics (§"Comparison metrics" below) are computed from the
-aggregated artifacts in `<workload-name>/<iteration>/*/artifacts/`.
+The `playbook/` and `workload-template/` are shared read-only across all
+sessions. Sessions write only under
+`sessions/<workload>/<iteration>/<agent-name>/`. The brdg-hackathon branch +
+commit used for each session is recorded in the session's `[SESSION-START]`
+event-log entry, so the protocol files do not need to be copied into the session
+folder.
 
 ---
 
-## Part 2 — Running the session (operator)
+# Operator guide
 
-### 2.0 Prerequisites
+You are running a session as operator, paired with a coding agent. The preparer
+has already branched `<workload-name>-<iteration>` and committed the filled
+`sessions/<workload-name>/<iteration>/WORKLOAD_CARD.md`. Your job is to branch
+off that, start the agent, and verify what it logs.
 
-The agent operates on two repositories: the **workload repo** (e.g. milabench, where
-the optimisation work happens) and **brdg-hackathon** (where protocol docs live and
-artifacts are written). brdg-hackathon is cloned *inside* the workload repo so the
-agent can reach it from one shell cwd.
+## 1) Prerequisites
+
+The agent operates on two repositories: the **workload repo** (e.g. milabench,
+where the optimisation work happens) and **brdg-hackathon** (where protocol docs
+live and artifacts are written). brdg-hackathon is cloned *inside* the workload
+repo so the agent can reach it from one shell cwd.
 
 First time on this machine:
 
@@ -130,10 +66,11 @@ echo 'brdg-hackathon/' >> .gitignore   # or .git/info/exclude
 ```
 
 The two repos commit independently from now on. You will create a branch in each
-during the session — one in the workload repo for the optimisation (the agent creates
-this per `EXECUTION.md §1.2`), and one in brdg-hackathon for the artifacts (§2.1).
+during the session — one in the workload repo for the optimisation (the agent
+creates this per `playbook/EXECUTION.md §1.2`), and one in brdg-hackathon for the
+artifacts (§2).
 
-### 2.1 Branch off the iteration
+## 2) Branch off the iteration
 
 Inside `brdg-hackathon/`, start from the preparer's branch:
 
@@ -145,16 +82,14 @@ git pull
 git checkout -b <workload-name>-<iteration>-<agent-name>
 ```
 
-`<agent-name>` uniquely identifies your session (e.g., `alice`, `agent-A`). Keep it
-short and filesystem-safe.
+`<agent-name>` uniquely identifies your session (e.g., `alice`, `agent-A`). Keep
+it short and filesystem-safe.
 
-### 2.2 Create your session artifact folder
-
-Inside the iteration folder, create your subfolder:
+## 3) Create your session artifact folder
 
 ```bash
 # still inside brdg-hackathon/
-mkdir -p <workload-name>/<iteration>/<agent-name>
+mkdir -p sessions/<workload-name>/<iteration>/<agent-name>
 ```
 
 Layout (paths shown from workload repo root):
@@ -163,43 +98,48 @@ Layout (paths shown from workload repo root):
 <workload-repo>/
   (workload source)
   brdg-hackathon/
-    <workload-name>/<iteration>/
-      AGENT_HANDOFF.md, RULES.md, EXECUTION.md, ...   ← shared, read-only
-      WORKLOAD_CARD.md                                ← shared, read-only
-      scripts/                                        ← shared, read-only
-      <agent-name>/                                   ← your session artifact root
-        artifacts/                                    ← produced by the agent
+    playbook/                                       ← read-only protocol
+    sessions/<workload-name>/<iteration>/
+      WORKLOAD_CARD.md                              ← shared, read-only (filled)
+      <agent-name>/                                 ← your session artifact root
+        artifacts/                                  ← produced by the agent
 ```
 
-You will only write inside `<agent-name>/`. Instructions and `WORKLOAD_CARD.md` at
-`<workload-name>/<iteration>/` are shared with other operators — do not modify them.
+You will only write inside `<agent-name>/`. The filled `WORKLOAD_CARD.md` one
+level up is shared with other operators — do not modify it.
 
-### 2.3 Start the agent
+## 4) Start the agent
 
-Set the agent's **shell cwd to the workload repo root** (e.g. milabench root) — this is
-where benchmark commands run. Point it at the instruction file
-`brdg-hackathon/<workload-name>/<iteration>/AGENT_HANDOFF.md` as its starting read.
+Set the agent's **shell cwd to the workload repo root** (e.g. milabench root) —
+this is where benchmark commands run. Point it at the protocol entry point
+`brdg-hackathon/playbook/AGENT_HANDOFF.md` as its starting read.
 
 The agent:
-- reads instructions from `brdg-hackathon/<workload-name>/<iteration>/`,
+- reads the protocol from `brdg-hackathon/playbook/`,
+- reads the filled workload card from
+  `brdg-hackathon/sessions/<workload-name>/<iteration>/WORKLOAD_CARD.md`,
 - writes artifacts to
-  `brdg-hackathon/<workload-name>/<iteration>/<agent-name>/artifacts/`,
+  `brdg-hackathon/sessions/<workload-name>/<iteration>/<agent-name>/artifacts/`,
 - creates its own optimisation branch in the **workload repo** (named
-  `agent_<agent-name>_<short_goal>`, per `EXECUTION.md §1.2`).
+  `agent_<agent-name>_<short_goal>`, per `playbook/EXECUTION.md §1.2`).
 
-### 2.4 Verify during the session (your primary role)
+## 5) Verify during the session (your primary role)
 
-You are the **verifier**, not the scribe. The agent writes the logs; your job is to
-confirm they are correct and to prompt the agent when it misses something.
+You are the **verifier**, not the scribe. The agent writes the logs; your job is
+to confirm they are correct and to prompt the agent when it misses something.
 
-**Confirm the agent wrote these at the top of `event_log.md`:**
+**Confirm the agent wrote `[SESSION-START]` at the top of `event_log.md`** with
+the brdg-hackathon branch + commit, the workload / iteration, hardware, and
+software info (`playbook/EXECUTION.md §1.2`).
+
+**Confirm the agent wrote these in its event log after `[SESSION-START]`:**
 - baseline command (matches `WORKLOAD_CARD.md §6` exactly),
 - primary metric definition,
 - quality metric and tolerance,
 - benchmark window (fixed steps or fixed time).
 
 **Confirm every claimed improvement includes:**
-- repeated benchmark runs (median / min / max; N follows `RULES.md §6`),
+- repeated benchmark runs (median / min / max; N follows `playbook/RULES.md §6`),
 - a quality / correctness check with an explicit verdict (`PASS` / `FAIL` /
   `INCONCLUSIVE`).
 
@@ -211,7 +151,7 @@ confirm they are correct and to prompt the agent when it misses something.
 
 If unsure whether something counts as an intervention, log it anyway.
 
-### 2.5 Close the session
+## 6) Close the session
 
 At session end the agent emits `[SESSION-CLOSE]` and produces
 `<agent-name>/artifacts/FINAL_SUMMARY.md`. Review it for:
@@ -220,9 +160,12 @@ At session end the agent emits `[SESSION-CLOSE]` and produces
 - reproduction commands that actually run,
 - dead ends listed,
 - **workload-repo branch and final commit hash recorded** in §0 metadata (so
-  reviewers can check out the optimised code).
+  reviewers can check out the optimised code),
+- **brdg-hackathon branch and commit** recorded in §0 metadata (from
+  `[SESSION-START]`).
 
-**Push the workload-repo branch** (the optimisation work) so reviewers can see it:
+**Push the workload-repo branch** (the optimisation work) so reviewers can see
+it:
 
 ```bash
 cd <workload-repo>
@@ -235,14 +178,15 @@ git push -u origin agent_<agent-name>_<short_goal>
 
 ```bash
 cd <workload-repo>/brdg-hackathon
-git add <workload-name>/<iteration>/<agent-name>/
+git add sessions/<workload-name>/<iteration>/<agent-name>/
 git commit -m "Session <agent-name>: results"
 git push -u origin <workload-name>-<iteration>-<agent-name>
 # then open PR: <workload-name>-<iteration>-<agent-name> → <workload-name>-<iteration>
 ```
 
-Because your artifacts live in `<agent-name>/` — a path no other operator touches —
-the merge into `<workload-name>-<iteration>` is conflict-free.
+Because your artifacts live in `sessions/<workload-name>/<iteration>/<agent-name>/`
+— a path no other operator touches — the merge into
+`<workload-name>-<iteration>` is conflict-free.
 
 ---
 

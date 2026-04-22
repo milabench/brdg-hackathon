@@ -2,16 +2,17 @@
 """Validate a hackathon session's artifact tree before declaring done.
 
 Checks that the artifact layout and `results.csv` schema meet the contract defined in
-`RULES.md` §5 (preflight), §12 (profiling), `SCHEMA.md` §1 (CSV schema), and
-`EXECUTION.md` §6.3 (required folder structure).
+`playbook/RULES.md` §5 (preflight), §12 (profiling), `playbook/SCHEMA.md` §1 (CSV
+schema), and `playbook/EXECUTION.md` §6.3 (required folder structure).
 
 The `--session` argument points at the **session artifact root**
-(`<workload>/<iteration>/<agent-name>/`). `WORKLOAD_CARD.md` is expected one level up
-at `<workload>/<iteration>/WORKLOAD_CARD.md` (shared across operators).
+(`sessions/<workload>/<iteration>/<agent-name>/`). `WORKLOAD_CARD.md` is expected one
+level up at `sessions/<workload>/<iteration>/WORKLOAD_CARD.md` (shared across
+operators).
 
 Usage
 -----
-    python validate_artifacts.py --session path/to/<workload>/<iteration>/<agent-name>/
+    python validate_artifacts.py --session path/to/sessions/<workload>/<iteration>/<agent-name>/
     python validate_artifacts.py --session PATH --strict   # treat WARN as FAIL
 
 Exits 0 on success, 1 if any FAIL occurs (or any WARN in `--strict` mode).
@@ -264,7 +265,7 @@ def main() -> int:
     )
     ap.add_argument("--session", required=True, type=Path,
                     help="Session artifact root "
-                         "(<workload>/<iteration>/<agent-name>/).")
+                         "(sessions/<workload>/<iteration>/<agent-name>/).")
     ap.add_argument("--strict", action="store_true",
                     help="Treat WARN as FAIL.")
     args = ap.parse_args()

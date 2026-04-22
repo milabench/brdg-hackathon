@@ -395,7 +395,8 @@ One table covers every tag. The `Role` column says how the tag is consumed:
 | Measurement / environment | `PROFILE` | New profiling artifact saved (`§12`). First per session is a milestone; subsequent are overlays. | milestone (first) / overlay |
 |  | `DRIFT` | Environment-state change (`§5`). | overlay |
 |  | `NOISE` | CV / N decision recorded (`§6`). | overlay |
-| Session-timeline milestones | `PHASE-EXIT N` (N ∈ {1,2,3,4}) | Phase N's exit criterion met (`EXECUTION §2–§5`). Exactly one per N per session. | milestone |
+| Session-timeline milestones | `SESSION-START` | First event-log entry at `T+0`, emitted by `EXECUTION §1.2`. Body records session identity and the brdg-hackathon branch + commit (body shape in `§14.3`). Exactly one per session. | milestone |
+|  | `PHASE-EXIT N` (N ∈ {1,2,3,4}) | Phase N's exit criterion met (`EXECUTION §2–§5`). Exactly one per N per session. | milestone |
 |  | `SESSION-CLOSE` | End-of-session marker emitted by `EXECUTION §6.1` regardless of outcome. Body: `clean close: no unresolved bugs` or `closed with unresolved bugs: <list>` (see `§16`). Exactly one per session. | milestone |
 |  | `WIN` | Experiment passes both `§7` gates on Tier 2 with `quality_verdict=PASS`. | milestone |
 | Discipline cadence | `AUDIT` | Periodic self-audit (`§14.1`). | overlay |
@@ -493,8 +494,22 @@ Milestones (role column in `§13.3`) are emitted at well-defined points so
 `plot_results.py` and `score_session.py` can parse them without heuristics.
 
 **Tag line format.** Use the standard `§13.2` entry block with the tag in the `[TAG]`
-position. For `[PHASE-EXIT N]`, `[SESSION-CLOSE]`, and `[WIN]`, the body follows a
-canonical single-line shape so parsing stays mechanical:
+position. For `[SESSION-START]`, `[PHASE-EXIT N]`, `[SESSION-CLOSE]`, and `[WIN]`, the
+body follows a canonical shape so parsing stays mechanical:
+
+```
+T+0  [SESSION-START]
+Date: 2026-04-21
+Human operator: <name>
+Agent ID: <agent-name>
+Workload: <workload>
+Iteration: <iteration>
+Hackathon repo: <brdg-hackathon branch> @ <short-commit>
+Workload repo: <workload-repo remote> @ <starting-commit>
+Workload branch (agent creates now): agent_<agent-name>_<short-goal>
+Hardware: GPU / CPU / RAM
+Software: driver / CUDA / framework versions / Python
+```
 
 ```
 T+...  [PHASE-EXIT 2]
@@ -512,6 +527,9 @@ quality_verdict: PASS
 ```
 
 **Invariants** (checked by `score_session.py`):
+- Exactly one `[SESSION-START]` per session, at `T+0` (first tagged entry). Body must
+  include `Hackathon repo: <branch> @ <commit>` so the corpus version used is
+  recoverable.
 - Exactly one `[PHASE-EXIT N]` per `N ∈ {1,2,3,4}` per session. A missing tag means
   the phase was not completed; a duplicate means an edit error.
 - Exactly one `[SESSION-CLOSE]` per session.

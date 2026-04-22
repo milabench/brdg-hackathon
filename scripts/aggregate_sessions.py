@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Aggregate results across multiple hackathon sessions into a comparison table.
 
-Consumes per-session artifacts — `results.csv` (schema: `SCHEMA.md` §1) and
-`event_log.md` (tags: `RULES.md` §13.3 / milestones: `RULES.md` §14.3);
-`FINAL_SUMMARY.md` only checked for existence — and produces:
+Consumes per-session artifacts — `results.csv` (schema: `playbook/SCHEMA.md` §1) and
+`event_log.md` (tags: `playbook/RULES.md` §13.3 / milestones:
+`playbook/RULES.md` §14.3); `FINAL_SUMMARY.md` only checked for existence — and
+produces:
 
 - aggregated.csv  one row per session with comparable columns
 - aggregated.md   markdown rendering of the same data, sorted by `improvement_pct`
@@ -12,7 +13,8 @@ Usage
 -----
     python aggregate_sessions.py --session DIR [--session DIR ...] --out DIR
 
-Each `DIR` is a session artifact root (`<workload>/<iteration>/<agent-name>/`).
+Each `DIR` is a session artifact root
+(`sessions/<workload>/<iteration>/<agent-name>/`).
 """
 from __future__ import annotations
 

@@ -1,8 +1,9 @@
 # EXECUTION — session procedure
 
-> Before running this procedure, you must have already read `WORKLOAD_CARD.md` and
-> `RULES.md`. Rules referenced below as `RULES §X` are defined there.
-> `SCHEMA §X` refers to `SCHEMA.md`.
+> Before running this procedure, you must have already read the filled
+> `WORKLOAD_CARD.md` (one level up from your session root) and the `RULES.md` sibling
+> in `playbook/`. Rules referenced below as `RULES §X` are defined there.
+> `SCHEMA §X` refers to `SCHEMA.md` (also in `playbook/`).
 
 Phases run in order: 1 → 2 → 3 → 4 → wrap-up. Each has an explicit exit criterion.
 The standing bug-handling procedure (`RULES §16`) can fire from any phase and pauses
@@ -15,58 +16,68 @@ the current phase until resolved.
 ### 1.1 Session folder layout
 
 Your shell cwd is the workload repo root (e.g. milabench). `brdg-hackathon/` is cloned
-inside it and holds the instructions, `WORKLOAD_CARD.md`, and your session artifacts:
+inside it. The protocol files live in `brdg-hackathon/playbook/` (read-only); your
+session artifacts go under `brdg-hackathon/sessions/<workload>/<iteration>/<agent-name>/`:
 
 ```
-<workload-repo>/                              ← your shell cwd
+<workload-repo>/                                      ← your shell cwd
   (workload source code, benchmarks, etc.)
   brdg-hackathon/
-    <workload>/<iteration>/                   ← shared, read-only
-      AGENT_HANDOFF.md
-      RULES.md
-      EXECUTION.md
-      SCHEMA.md
-      REFERENCE.md
-      README.md
-      FINAL_SUMMARY_TEMPLATE.md
-      WORKLOAD_CARD.md                        (filled for this workload)
-      scripts/
-      <agent-name>/                           ← your session artifact root
-        artifacts/                             (you produce this during the session)
+    playbook/                                         ← read-only protocol
+      AGENT_HANDOFF.md  RULES.md  EXECUTION.md
+      SCHEMA.md  REFERENCE.md  FINAL_SUMMARY_TEMPLATE.md
+    sessions/<workload>/<iteration>/                  ← this iteration
+      WORKLOAD_CARD.md                                (filled; shared across agents)
+      <agent-name>/                                   ← your session artifact root
+        artifacts/                                    (you produce this)
           benchmarks/
           profiles/
           notes/
           FINAL_SUMMARY.md
+    scripts/                                          ← validation / scoring tools
 ```
 
 **Path convention.** All `artifacts/…` paths in these docs are relative to your
-**session artifact root** (`brdg-hackathon/<workload>/<iteration>/<agent-name>/`), not
-to your shell cwd. Benchmark commands (`WORKLOAD_CARD.md §6`) run from the shell cwd
-(workload repo root). Instruction-file references (`RULES §X`, `SCHEMA §X`, etc.)
-resolve to files in the same instruction folder.
+**session artifact root** (`brdg-hackathon/sessions/<workload>/<iteration>/<agent-name>/`),
+not to your shell cwd. Benchmark commands (`WORKLOAD_CARD.md §6`) run from the shell
+cwd (workload repo root). Instruction-file references (`RULES §X`, `SCHEMA §X`,
+`REFERENCE §X`) resolve to sibling files in `brdg-hackathon/playbook/`. The filled
+`WORKLOAD_CARD.md` lives one level up from your session root.
 
-### 1.2 Session metadata
+### 1.2 Session start — emit `[SESSION-START]`
 
-Record these at the top of `artifacts/notes/event_log.md`:
+Open `artifacts/notes/event_log.md` and write the `[SESSION-START]` milestone as the
+first entry, at `T+0`. Its body records the session's identity and the corpus version
+so a reviewer can reproduce the environment later:
 
-- Date:
-- Agent ID:
-- Human operator:
-- Repo + remote:
-- Starting commit hash:
-- Branch name (create now): `agent_<ID>_<short_goal>`
-- Hardware: GPU / CPU / RAM
-- Software: driver / CUDA / framework versions / Python
+```
+T+0  [SESSION-START]
+Date: 2026-04-21
+Human operator: <name>
+Agent ID: <agent-name>
+Workload: <workload>
+Iteration: <iteration>
+Hackathon repo: <brdg-hackathon branch> @ <short-commit>
+Workload repo: <workload-repo remote> @ <starting-commit>
+Workload branch (agent creates now): agent_<agent-name>_<short-goal>
+Hardware: GPU / CPU / RAM
+Software: driver / CUDA / framework versions / Python
+```
+
+`<brdg-hackathon branch>` and `<short-commit>` come from the brdg-hackathon clone the
+agent is running against (`git -C brdg-hackathon rev-parse --abbrev-ref HEAD` and
+`git -C brdg-hackathon rev-parse --short HEAD`). `[SESSION-START]` is a milestone tag:
+see `RULES §13.3` (role) and `RULES §14.3` (body shape + invariants).
 
 Workload-specific fields (benchmark command, primary / quality metrics, tolerance) come
-from `WORKLOAD_CARD.md` unchanged.
+from `WORKLOAD_CARD.md` unchanged — do not duplicate them into the `[SESSION-START]`
+body.
 
 ### 1.3 Pre-flight environment capture
 
 Run the preflight check (`RULES §5`) **before** Phase 1, using the field list in
 `REFERENCE §3`. Store the raw dumps in `artifacts/notes/preflight.txt`; summarise the
-key fields at the top of `artifacts/notes/event_log.md`. This is the first entry in
-the session's event log.
+key fields in the event log immediately after `[SESSION-START]`.
 
 ---
 

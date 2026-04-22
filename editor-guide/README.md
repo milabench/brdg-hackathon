@@ -30,12 +30,30 @@ files in order to modify them; this guide is your lens.
 
 ## 2) The corpus
 
-The instruction corpus spans **prose files**, a **per-session template**, and
+The instruction corpus spans **prose files**, a **per-iteration template**, and
 **scripts**. All of them are in scope when reviewing or editing.
+
+Layout (repo root):
+
+```
+playbook/                      agent-facing corpus (eagerly + trigger-loaded)
+workload-template/             blank WORKLOAD_CARD.md + preparer guide
+  WORKLOAD_CARD.md             (template, copied to sessions/ per iteration)
+  README.md                    (preparer workflow)
+sessions/                      <workload>/<iteration>/<agent-name>/ artifacts
+editor-guide/                  this guide
+scripts/                       validation / scoring / plotting / aggregation
+README.md                      root: dispatcher + operator guide
+```
+
+The agent-facing files all live in `playbook/`. Cross-references between them are
+written as bare filenames (`RULES §X`, `SCHEMA §1`) because they are sibling files;
+references from outside `playbook/` (this guide, scripts, the root README) use the
+qualified form (`playbook/RULES.md §X`).
 
 ### 2.1 Agent-facing prose (eagerly loaded)
 
-Read before acting; held for the whole session.
+Read before acting; held for the whole session. All live in `playbook/`.
 
 - **`AGENT_HANDOFF.md`** — the entry pointer. Tells the agent what to read and in
   what order. Intentionally thin. Not a summary of `RULES.md`.
@@ -47,11 +65,11 @@ Read before acting; held for the whole session.
 
 ### 2.2 Agent-facing prose (trigger-loaded)
 
-Each file in this group declares its own load / hold / evict pattern. The pattern
-is encoded at the top of the file itself (`SCHEMA.md` preamble, `REFERENCE.md`
-per-entry header, `AGENT_HANDOFF.md` wrap-up pointer). Respect those declarations
-when editing — do not promote a trigger-loaded file into the eagerly-loaded group
-without reconsidering the whole load pattern.
+Each file in this group declares its own load / hold / evict pattern, and all live
+in `playbook/`. The pattern is encoded at the top of the file itself
+(`SCHEMA.md` preamble, `REFERENCE.md` per-entry header, `AGENT_HANDOFF.md` wrap-up
+pointer). Respect those declarations when editing — do not promote a trigger-loaded
+file into the eagerly-loaded group without reconsidering the whole load pattern.
 
 - **`SCHEMA.md`** — the `results.csv` data contract. Fixed 23-column header and
   validation rules. Load pattern: **loaded on first `results.csv` write (end of
@@ -67,18 +85,27 @@ without reconsidering the whole load pattern.
   deliverable. Load pattern: **loaded during wrap-up** (`EXECUTION §6.4`) and not
   before. Changes here flow into every future session's `FINAL_SUMMARY.md`.
 
-### 2.3 Per-session template
+### 2.3 Per-iteration template
 
-- **`WORKLOAD_CARD.md`** — the blank template for the one file filled per session.
-  The only place where workload-specific values (metric names, tolerances, commands)
-  are allowed to live.
+- **`workload-template/WORKLOAD_CARD.md`** — the blank template the preparer copies
+  to `sessions/<workload>/<iteration>/WORKLOAD_CARD.md` and fills before the
+  session. The filled copy is shared across every `<agent-name>/` in the iteration.
+  The only place where workload-specific values (metric names, tolerances,
+  commands) are allowed to live.
 
 ### 2.4 Human-facing prose
 
-- **`README.md`** — the human operator and preparer guide. Split into Part 1
-  (preparer, one-time) and Part 2 (operator, per-session). Different audience from
-  the agent files; the agent reads `AGENT_HANDOFF.md`, the human reads `README.md`.
-  Both describe the same session but from different vantage points.
+- **Root `README.md`** — entry dispatcher ("who are you?") + operator guide. The
+  dispatcher routes each reader to their own entry point; the operator guide
+  below is the per-session workflow for humans running a session paired with an
+  agent. Different audience from the agent files; the agent reads
+  `playbook/AGENT_HANDOFF.md`, the operator reads the root `README.md`.
+- **`workload-template/README.md`** — preparer guide. One-time workflow for the
+  human setting up a new `<workload>-<iteration>`: branching, reviewing the
+  corpus, filling `WORKLOAD_CARD.md`, handing off to operators. Kept separate
+  from the operator guide so each audience reads only its own workflow.
+- **`sessions/README.md`** — one-screen reference for the per-session artifact
+  tree. Not a reading doc; a pointer.
 
 ### 2.5 Scripts
 
@@ -108,7 +135,7 @@ vice versa.
 | `[PHASE-EXIT N]` range `N ∈ {1..4}` | `RULES §13.3` / `§14.3` | `PHASE_EXIT_RE` + `range(1, 5)` loops in `score_session.py` |
 | Tag `Role` column (milestone / overlay / —) | `RULES §13.3` table | `_tag_style` function in `plot_results.py` (distinct marker + label flags per role) |
 | Milestone invariants (counts, ordering) | `RULES §14.3` invariants | `check_invariants` in `score_session.py` |
-| `[WIN]` / `[PHASE-EXIT N]` / `[SESSION-CLOSE]` body shapes | `RULES §14.3` | parsing logic in `score_session.py`, `aggregate_sessions.py` |
+| `[SESSION-START]` / `[WIN]` / `[PHASE-EXIT N]` / `[SESSION-CLOSE]` body shapes | `RULES §14.3` | parsing logic in `score_session.py`, `aggregate_sessions.py` |
 | Post-experiment checklist line | `RULES §14.2` | checklist regex in `score_session.py` |
 | Script-printed section labels (e.g. `"Checklist compliance (RULES §14.2)"`) | `RULES §X` numbering | docstrings + `print` / output-building lines in `score_session.py` |
 
@@ -119,7 +146,7 @@ reader of the output. Grep the scripts for `§` when renumbering.
 
 ### 2.6 This guide
 
-- **`INSTRUCTIONS_DESIGN_GUIDELINES.md`** (this file) — meta. Applies to itself.
+- **`editor-guide/README.md`** (this file) — meta. Applies to itself.
 
 ---
 
@@ -197,12 +224,12 @@ duplication in a comment so it is not silently diverged from later.
 **Default: instructions stay workload-agnostic. Examples are fine when clearly
 marked illustrative (`e.g.`, `— e.g. mnist-1`).**
 
-**Reasoning.** The whole template is designed to be copied into
-`<workload>/<iteration>/` and used across workloads. Any workload-specific value
-(a metric name, a tolerance, a baseline command) embedded in `RULES.md` or
-`EXECUTION.md` becomes wrong the next time the template is used. That is what
-`WORKLOAD_CARD.md` exists for: everything workload-specific lives there, and only
-there.
+**Reasoning.** The `playbook/` is used across workloads unchanged — only the
+filled `WORKLOAD_CARD.md` at `sessions/<workload>/<iteration>/` differs between
+workloads. Any workload-specific value (a metric name, a tolerance, a baseline
+command) embedded in `RULES.md` or `EXECUTION.md` becomes wrong the next time the
+playbook is used against a different workload. That is what `WORKLOAD_CARD.md`
+exists for: everything workload-specific lives there, and only there.
 
 Illustrative examples, however, help the agent form a mental model. "e.g.
 `steps/sec`, `samples/sec`" makes the abstract "primary metric" concrete without
@@ -223,9 +250,9 @@ exactly. These are contracts, not suggestions. Rewording them "for clarity" brea
 the scripts silently.
 
 Conversely, the phase descriptions in `EXECUTION.md`, the reasoning paragraphs in
-`RULES.md`, and the preparer narrative in `README.md` are read by humans and agents
-but not by scripts. They can be reworked freely as long as cross-references and
-semantics hold.
+`RULES.md`, and the human-facing narratives (root `README.md`,
+`workload-template/README.md`) are read by humans and agents but not by scripts.
+They can be reworked freely as long as cross-references and semantics hold.
 
 **Override when:** never, for the machine-parsed surfaces. If a mechanical shape is
 genuinely unclear, change the shape in prose **and scripts together** in one edit
@@ -268,24 +295,29 @@ inventory when the corpus layout changes.
 
 ### 3.8 Agent-facing vs human-facing phrasing
 
-**Default: preserve the split between `AGENT_HANDOFF.md` (agent) and `README.md`
-(human). Do not collapse them even when content overlaps.**
+**Default: preserve the split between `playbook/AGENT_HANDOFF.md` (agent) and
+the human-facing READMEs (root `README.md` for operators,
+`workload-template/README.md` for preparers). Do not collapse them even when
+content overlaps.**
 
-**Reasoning.** The two audiences read differently. The human reads `README.md`
-once before a session to know what to do as preparer or operator; they skim and
-skip. The agent reads `AGENT_HANDOFF.md` at the start of every session and is
-expected to internalise it. Phrasings optimised for one audience feel wrong to the
-other: the human's "notify operators that the branch is ready" has no meaning to the
-agent, and the agent's "begin Phase 1 in `EXECUTION.md`" is not actionable for the
-human.
+**Reasoning.** The audiences read differently. Humans read their README once
+before a session to know what to do as preparer or operator; they skim and skip.
+The agent reads `AGENT_HANDOFF.md` at the start of every session and is expected
+to internalise it. Phrasings optimised for one audience feel wrong to the other:
+the human's "notify operators that the branch is ready" has no meaning to the
+agent, and the agent's "begin Phase 1 in `EXECUTION.md`" is not actionable for
+the human. Splitting preparer and operator workflows into separate READMEs is
+the same principle: the preparer reads once, up front; the operator reads at the
+start of every session.
 
-Some duplication is therefore expected — both files describe the session folder
-layout, for example. That is acceptable as long as each framing is right for its
-audience and they agree on the facts.
+Some duplication is therefore expected — multiple files describe the session
+folder layout, for example. That is acceptable as long as each framing is right
+for its audience and they agree on the facts.
 
-**Override when:** the two files contradict each other on a fact (different folder
+**Override when:** two files contradict each other on a fact (different folder
 path, different command). Reconcile immediately — make the fact canonical in one
-file and cite it from the other, or ensure both wordings describe the same truth.
+file and cite it from the others, or ensure all wordings describe the same
+truth.
 
 ### 3.9 Backwards compatibility vs clean refactor
 
@@ -363,10 +395,13 @@ in the same change.
 - The `Role` column in `RULES §13.3` (milestone / overlay / —) matches the branch
   structure of `_tag_style` in `plot_results.py`. Promoting a tag's role in the
   table without updating `_tag_style` silently mis-renders the timeline.
-- The canonical single-line shapes for `[WIN]`, `[PHASE-EXIT N]`, and
-  `[SESSION-CLOSE]` in `RULES §14.3` are the shapes `score_session.py` parses. Do
-  not reword them for prose reasons. The sign convention for `delta_ttr` (negative
-  = improvement) is part of the canonical shape, not a prose preference.
+- The canonical single-line shapes for `[SESSION-START]`, `[WIN]`, `[PHASE-EXIT N]`,
+  and `[SESSION-CLOSE]` in `RULES §14.3` are the shapes `score_session.py` parses.
+  Do not reword them for prose reasons. The sign convention for `delta_ttr`
+  (negative = improvement) is part of the canonical shape, not a prose preference.
+  The `[SESSION-START]` body fields — including `Hackathon repo: <branch> @
+  <commit>` — are the session's own version record; renaming them drops corpus
+  provenance silently.
 - `PHASE-EXIT N` is fixed at `N ∈ {1..4}`. `PHASE_EXIT_RE` and the `range(1, 5)`
   loops in `score_session.py` encode this; adding a phase number requires updating
   both.
@@ -387,6 +422,8 @@ in the same change.
 
 ### 4.3 Structural invariants encoded in `§14.3`
 
+- Exactly one `[SESSION-START]` per session, at `T+0`, with a
+  `Hackathon repo: <branch> @ <commit>` line in its body.
 - Exactly one `[PHASE-EXIT N]` per `N ∈ {1,2,3,4}` per session.
 - Exactly one `[SESSION-CLOSE]` per session.
 - `[WIN]` events appear only after `[PHASE-EXIT 3]`.
@@ -438,7 +475,7 @@ independent. Adding or removing a phase cascades into:
 - `PHASE_EXIT_RE` + `range(…)` loops in `score_session.py`;
 - the `phase` enum values in `SCHEMA §1`;
 - the `phase` values written by `EXECUTION §3` / `§4` / `§5` into rows;
-- every `[PHASE-EXIT N]` or `[SESSION-CLOSE]` mention in prose.
+- every `[PHASE-EXIT N]`, `[SESSION-START]`, or `[SESSION-CLOSE]` mention in prose.
 
 A previous drift had `[PHASE-EXIT 5]` overloaded as a session-close marker for a
 non-sequential phase, plus a `phase_5_bug` enum value with no consumer — that is
@@ -448,9 +485,10 @@ the exact shape to avoid. Treat phase changes as large, multi-file edits.
 
 - The agent is the primary scribe. The human is the verifier. Neither collapses
   into the other.
-- `WORKLOAD_CARD.md` is filled by the preparer, not the agent.
-- `AGENT_HANDOFF.md` / `RULES.md` / `EXECUTION.md` address the agent;
-  `README.md` addresses the human.
+- `WORKLOAD_CARD.md` is filled by the preparer, not the agent or the operator.
+- `playbook/AGENT_HANDOFF.md` / `playbook/RULES.md` / `playbook/EXECUTION.md`
+  address the agent. Root `README.md` addresses the operator.
+  `workload-template/README.md` addresses the preparer.
 
 Edits that have the agent editing `WORKLOAD_CARD.md` during the session, or that
 have the human maintaining `event_log.md`, are redesigns of the protocol, not
@@ -509,7 +547,12 @@ Decision order:
    - Bad: "during optimization" (too broad — covers most of Phase 4).
    - Bad: "when the agent is stuck" (subjective).
    - Bad: "if needed" (no observable precondition).
-6. **Is it human workflow?** → `README.md`.
+6. **Is it human workflow?** → the relevant human-facing README. Preparer
+   workflow (branching, filling the card, handoff) → `workload-template/README.md`.
+   Operator workflow (starting the agent, verifying during the session, closing)
+   → root `README.md`. The root README also carries the "who are you?"
+   dispatcher; add new audience entry-points there, not inline in a workflow
+   section.
 7. **Is it an agent entry-point update?** → `AGENT_HANDOFF.md`, but only if it is
    a pointer or an invariant the agent must hold before reading the rest. Not a
    summary of rules.
@@ -534,10 +577,13 @@ extracted to `RULES.md`.
 Use this when reviewing the corpus without a specific change request — e.g. a
 periodic audit or a new-workload readiness check.
 
-1. **Inventory walk.** Re-read `AGENT_HANDOFF.md` end to end, then follow its file
-   list in the order the agent would: `RULES.md` → `EXECUTION.md` → `SCHEMA.md` →
-   `REFERENCE.md` → `FINAL_SUMMARY_TEMPLATE.md` → `WORKLOAD_CARD.md`. Then read
-   `README.md` separately. Then open the scripts in `scripts/`.
+1. **Inventory walk.** Re-read `playbook/AGENT_HANDOFF.md` end to end, then
+   follow its file list in the order the agent would: `playbook/RULES.md` →
+   `playbook/EXECUTION.md` → `playbook/SCHEMA.md` → `playbook/REFERENCE.md` →
+   `playbook/FINAL_SUMMARY_TEMPLATE.md` → `workload-template/WORKLOAD_CARD.md`.
+   Then read the human-facing READMEs separately (root `README.md`,
+   `workload-template/README.md`, and `sessions/README.md`). Then open the
+   scripts in `scripts/`.
 2. **Cross-reference resolution.** Grep for `RULES §`, `EXECUTION §`, `SCHEMA §`,
    `REFERENCE §`, `WORKLOAD_CARD §`. Confirm each points at a real section.
    Dangling references are audit failures.
@@ -557,8 +603,9 @@ periodic audit or a new-workload readiness check.
    session, it may need to move to `RULES.md`; if nothing triggers it, it may be
    dead weight.
 8. **Role split.** Scan `RULES.md` and `EXECUTION.md` for any instruction that
-   asks the human to scribe, or any instruction in `README.md` that asks the agent
-   to set up environment. Flag any crossing of the split.
+   asks the human to scribe, or any instruction in the human-facing READMEs
+   (root `README.md`, `workload-template/README.md`) that asks the agent to set
+   up environment. Flag any crossing of the split.
 9. **Self-consistency between prose and scripts.** Skim the scripts for any
    constant or regex that, if the prose changed, would now be out of date.
 
@@ -581,9 +628,11 @@ the most common corpus regression.
 - Identify the **scripts** that consume the contract being changed. If the change
   touches `SCHEMA.md`, the validator and scorer are in scope. If it touches tag
   formats in `§13.3` / `§14.3`, the scorer is in scope.
-- Identify whether `README.md` needs to change. If the preparer or operator
-  surface (branching convention, folder layout, workflow steps) is affected, it
-  does. If only the agent's internal procedure changes, it does not.
+- Identify whether a human-facing README needs to change. If the preparer
+  surface (branching, filling the card, handoff) shifts, edit
+  `workload-template/README.md`. If the operator surface (starting the agent,
+  verifying, closing) shifts, edit root `README.md`. If the change affects
+  neither — only the agent's internal procedure — neither README changes.
 
 ### 7.2 Draft the primary edit
 
@@ -597,7 +646,9 @@ the most common corpus regression.
 - Re-thread every inbound `§ref` to match the new section numbering or naming.
 - Update mirrored constants in scripts (`REQUIRED_COLUMNS`, tag regexes,
   checklist regex) in the same change.
-- Update `README.md` if the preparer/operator surface shifted.
+- Update the relevant human-facing README if the preparer surface shifted
+  (`workload-template/README.md`) or the operator surface shifted (root
+  `README.md`).
 - Update `AGENT_HANDOFF.md` only if the file inventory or the two "even if you
   read nothing else" rules change. Normal edits to `RULES.md` do not touch
   `AGENT_HANDOFF.md`.

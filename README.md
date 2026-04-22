@@ -50,27 +50,30 @@ where the optimisation work happens) and **brdg-hackathon** (where protocol docs
 live and artifacts are written). brdg-hackathon is cloned *inside* the workload
 repo so the agent can reach it from one shell cwd.
 
+The preparer has already pushed a workload-repo branch named
+`hackathon-<workload>-<iteration>` with `brdg-hackathon/` committed to `.gitignore`
+and the baseline verified end-to-end. You check that branch out — you do not
+edit the workload repo's `.gitignore` yourself. The branch name and head commit
+are pinned in `WORKLOAD_CARD.md §1`.
+
 First time on this machine:
 
 ```bash
-# 1) Update the workload repo's main branch.
+# 1) Check out the prepared workload-repo branch.
 cd <workload-repo>           # e.g. milabench/
-git checkout main
-git pull
+git fetch
+git checkout hackathon-<workload-name>-<iteration>
 
-# 2) Clone brdg-hackathon inside it (if not already present).
+# 2) Clone brdg-hackathon inside the workload repo (if not already present).
+#    It is already listed in .gitignore on this branch, so the workload repo's
+#    tree stays clean — no local edits required.
 git clone <brdg-hackathon-remote> brdg-hackathon
-
-# 3) Make sure the workload repo ignores brdg-hackathon so the two histories stay
-#    independent. Either add it to the shared .gitignore (one-time commit), or to
-#    .git/info/exclude (local-only).
-echo 'brdg-hackathon/' >> .gitignore   # or .git/info/exclude
 ```
 
 The two repos commit independently from now on. You will create a branch in each
 during the session — one in the workload repo for the optimisation (the agent
-creates this per `playbook/EXECUTION.md §1.2`), and one in brdg-hackathon for the
-artifacts (§2).
+creates this off `hackathon-<workload-name>-<iteration>` per `playbook/EXECUTION.md §1.2`),
+and one in brdg-hackathon for the artifacts (§2).
 
 ## 2) Branch off the iteration
 

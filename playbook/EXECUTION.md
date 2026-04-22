@@ -69,6 +69,12 @@ agent is running against (`git -C brdg-hackathon rev-parse --abbrev-ref HEAD` an
 `git -C brdg-hackathon rev-parse --short HEAD`). `[SESSION-START]` is a milestone tag:
 see `RULES §13.3` (role) and `RULES §14.3` (body shape + invariants).
 
+**Workload-repo starting commit consistency.** The `Workload repo: ... @ <starting-commit>`
+you emit must match the *Prepared-branch head commit* pinned in `WORKLOAD_CARD §1`.
+The operator checked out `hackathon-<workload>-<iteration>` per the root `README.md`;
+your starting commit is that branch's HEAD. A mismatch means the operator started from
+the wrong base — stop and report, do not paper over it.
+
 Workload-specific fields (benchmark command, primary / quality metrics, tolerance) come
 from `WORKLOAD_CARD.md` unchanged — do not duplicate them into the `[SESSION-START]`
 body.

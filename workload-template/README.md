@@ -19,6 +19,10 @@ copy and fill. You do not edit it by hand.
 - **A rough sense of the goal** — what metric matters, what the quality
   constraint is, which parts of the code are in-scope to modify. You do not
   need to write this up; the agent will ask.
+- **Push access to both remotes** — the workload repo (milabench or fork)
+  and brdg-hackathon. The agent pushes a prepared branch to each:
+  `hackathon-<workload>-<iteration>` on the workload repo, and
+  `<workload>-<iteration>` on brdg-hackathon.
 
 The iteration number is inferred by the agent from `sessions/<workload>/` —
 confirm or override it when the agent reports what it found. Everything else
@@ -67,6 +71,10 @@ write in a custom answer.
 The agent runs the baseline end-to-end and fills §11 (the verification
 checklist). Before you say "go", confirm:
 
+- [ ] The **prepared workload-repo branch** `hackathon-<workload>-<iteration>`
+  is the current branch in the workload repo and contains a commit adding
+  `brdg-hackathon/` to `.gitignore`. The agent will also have pasted the
+  branch's head commit short-SHA into `WORKLOAD_CARD §1`; confirm it matches.
 - [ ] The **primary-metric extraction recipe** in §2 returned a real number
   from the captured baseline. Ask the agent to show the recipe applied to the
   capture if unclear.
@@ -78,8 +86,9 @@ checklist). Before you say "go", confirm:
 - [ ] **Allowed / disallowed** surfaces in §7 / §8 are non-overlapping and
   together cover everything. The disallowed list is the semantic-surface
   boundary; a vague one lets operators drift.
-- [ ] The **baseline command** in §6 ran. You do not need to re-run it; the
-  capture is at `sessions/<workload>/<iteration>/baseline_capture.txt`.
+- [ ] The **baseline command** in §6 ran on the prepared workload-repo
+  branch. You do not need to re-run it; the capture is at
+  `sessions/<workload>/<iteration>/baseline_capture.txt`.
 
 If any check fails, tell the agent what to correct. **Do not approve a
 commit with a ticked §11 box that is not actually verified** — that is the
@@ -89,10 +98,18 @@ single biggest cause of a lost session downstream.
 
 ## 5) After the commit
 
-The agent pushes `<workload>-<iteration>` and reports the branch name.
-Operators follow the root `README.md` from here: they branch off
-`<workload>-<iteration>` into `<workload>-<iteration>-<agent-name>` and run
-their sessions.
+The agent pushes two branches and reports both names:
+
+- `hackathon-<workload>-<iteration>` on the workload repo (carries the
+  `.gitignore` entry and any approved prep-time fixups; operators check it
+  out when starting a session),
+- `<workload>-<iteration>` on brdg-hackathon (carries the filled
+  `WORKLOAD_CARD.md`, pinning the workload-repo prep-branch head commit).
+
+Operators follow the root `README.md` from here: they check out
+`hackathon-<workload>-<iteration>` on the workload repo, branch off
+brdg-hackathon's `<workload>-<iteration>` into
+`<workload>-<iteration>-<agent-name>`, and run their sessions.
 
 Once all sessions have merged back into `<workload>-<iteration>`, open a PR
 from `<workload>-<iteration>` to `main`. Comparison metrics (see root

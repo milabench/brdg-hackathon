@@ -30,7 +30,10 @@ the operator verifies it at session start.
 
 ## 1) Target workload
 
-- Repo URL + commit (the state from which the session starts):
+- Repo URL (workload remote the preparer branched from):
+- Upstream base (branch @ commit the prep branch started from, e.g. `main @ <sha>`):
+- Prepared branch (preparer pushes this; operators check it out): `hackathon-<workload>-<iteration>`
+- Prepared-branch head commit (short SHA — what operators will start their sessions from):
 - Benchmark code path(s) (relative to repo root):
 - Entry point (script / module that the baseline command invokes):
 - Environment / dataset name:

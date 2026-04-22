@@ -103,8 +103,11 @@ prepared. It holds one template and two preparer-facing docs:
 - **`workload-template/AGENT_HANDOFF.md`** — the preparer-agent's entry
   pointer. Distinct audience from `playbook/AGENT_HANDOFF.md` (which is for
   the session-running optimisation agent). The preparer-agent reads it once
-  per iteration, interviews the human, drafts the card, verifies the
-  baseline, commits; the file is not held turn-by-turn like the session
+  per iteration, interviews the human, **creates the workload-repo prep
+  branch `hackathon-<workload>-<iteration>` with the `brdg-hackathon/`
+  gitignore entry and any approved prep-time fixups**, drafts the card
+  (pinning that branch + commit in §1), verifies the baseline on that branch,
+  pushes both branches; the file is not held turn-by-turn like the session
   corpus. Thin-entry-pointer rule (§3.7) still applies: it points into
   `WORKLOAD_CARD.md` and the relevant `playbook/` sections, it does not
   summarise them.
@@ -510,10 +513,19 @@ the exact shape to avoid. Treat phase changes as large, multi-file edits.
 Two human roles and two agent roles, paired:
 
 - **Preparer (human) ↔ preparer-agent.** The preparer-agent interviews the
-  human, drafts `WORKLOAD_CARD.md`, runs the baseline, commits. The human
-  specifies the pipeline, answers judgment questions (metric, tolerance,
-  scope), and verifies the filled card before approving the commit. Neither
-  side fills the card alone.
+  human, drafts `WORKLOAD_CARD.md`, creates the workload-repo prep branch
+  `hackathon-<workload>-<iteration>` (with `brdg-hackathon/` gitignored and
+  any approved prep-time fixups), runs the baseline on that branch, pushes
+  both the workload-repo prep branch and the brdg-hackathon iteration
+  branch. The human specifies the pipeline, answers judgment questions
+  (metric, tolerance, scope), and verifies the filled card — including the
+  pinned prep-branch commit — before approving the commit. Neither side
+  fills the card alone. The prep branch carrying environment / ignore /
+  known-upstream-bug changes is the preparer's surface, not the operator's
+  or the session-agent's; edits that have the operator mutating the workload
+  repo's tree (e.g. appending to `.gitignore`) or the session-agent doing
+  so outside its declared optimisation branch are redesigns of the role
+  split, not clarifications.
 - **Operator (human) ↔ session-agent.** The session-agent is the primary
   scribe (maintains `event_log.md`, `results.csv`, profiles, `FINAL_SUMMARY.md`).
   The operator is the verifier. Neither collapses into the other.

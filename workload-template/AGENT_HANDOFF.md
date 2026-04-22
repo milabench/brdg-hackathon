@@ -12,9 +12,11 @@ per-pipeline code lives under `benchmarks/<pipeline>/` in the same repo.
 
 ## Goal (one sentence)
 
-Produce a filled `brdg-hackathon/sessions/<workload>/<iteration>/WORKLOAD_CARD.md`
-on a fresh `<workload>-<iteration>` branch, with an end-to-end-verified
-baseline, ready for operators to run optimisation sessions against.
+Produce two prepared branches — `hackathon-<workload>-<iteration>` on the
+workload repo (with `brdg-hackathon/` committed to `.gitignore` and the baseline
+verified end-to-end) and `<workload>-<iteration>` on brdg-hackathon (with a
+filled `sessions/<workload>/<iteration>/WORKLOAD_CARD.md` pinning that workload
+branch) — ready for operators to run optimisation sessions against.
 
 ---
 
@@ -51,7 +53,11 @@ baseline, ready for operators to run optimisation sessions against.
 ## Working model — three locations
 
 - **Shell cwd**: milabench repo root. `config/standard.yaml` and `benchmarks/`
-  are at your fingertips; baseline commands run from here.
+  are at your fingertips; baseline commands run from here. You will also
+  **create and push a `hackathon-<workload>-<iteration>` branch on this
+  repo** carrying prep-time changes (the `.gitignore` entry below, and any
+  fixups the human approves before baseline) — operators start their sessions
+  from this branch, not from the upstream default.
 - **Hackathon folder**: `brdg-hackathon/` (cloned inside milabench). Contains
   `workload-template/` (this file, the blank card, the human README),
   `playbook/` (the session-agent protocol you read selectively), `sessions/`
@@ -103,10 +109,14 @@ Per-section guidance:
 - **§0 Session identity.** Workload slug from the pipeline name; iteration
   from step 2 (inferred, human-confirmed); date = today; draft a one-sentence
   summary from the code, ask the human to approve or rewrite.
-- **§1 Target workload.** Repo URL + current `HEAD` commit; benchmark code
-  path from `config/standard.yaml`; entry point from the config; read-only
-  reference code = files whose change would alter semantics (dataset loader,
-  eval, reward / loss). Ask the human to narrow.
+- **§1 Target workload.** Repo URL = the workload remote; upstream base = the
+  branch @ commit you branched from (normally `main @ <current HEAD>`);
+  **prepared branch = `hackathon-<workload>-<iteration>`** (you will create and
+  push it in §Workload-branch preparation below); prepared-branch head commit
+  is filled in **after** that commit lands. Benchmark code path from
+  `config/standard.yaml`; entry point from the config; read-only reference
+  code = files whose change would alter semantics (dataset loader, eval,
+  reward / loss). Ask the human to narrow.
 - **§2 Primary metric.** Propose 2–3 candidates you saw logged, ordered by
   how mechanically extractable they are. Show the extraction recipe (regex /
   JSON key / log line) for each. Warn explicitly if any candidate needs
@@ -135,9 +145,43 @@ Per-section guidance:
 
 ---
 
+## Workload-branch preparation (before baseline)
+
+The baseline runs on a dedicated workload-repo branch, not on upstream `main`,
+so every operator starts from the same pinned commit. Create it after the
+interview (so you know the workload slug + iteration) and before baseline
+verification:
+
+```bash
+# Shell cwd is the workload repo root (e.g. milabench).
+git checkout <upstream-base-branch>     # usually main
+git pull
+git checkout -b hackathon-<workload>-<iteration>
+
+# Ensure brdg-hackathon/ is gitignored on this branch so the two repo histories
+# stay independent. The sed normalises the trailing newline first — `echo >>`
+# would otherwise merge with an unterminated last line.
+sed -i -e '$a\' .gitignore
+echo 'brdg-hackathon/' >> .gitignore
+
+git add .gitignore
+git commit -m "hackathon <workload> iteration <iteration>: ignore brdg-hackathon/"
+```
+
+If the human requests any other prep-time fixups (e.g. a known upstream bug
+that must be patched before baseline), apply them on this branch with their
+explicit approval before running the baseline. Record the prepared-branch head
+commit in `WORKLOAD_CARD §1` after the final prep commit.
+
+Do **not** push yet — push both branches together at the end of the
+§Mechanical pipeline, after baseline verifies and the human approves.
+
+---
+
 ## Baseline verification (before commit)
 
-Before filling §11 and committing:
+Before filling §11 and committing, running **on the
+`hackathon-<workload>-<iteration>` branch**:
 
 1. Run the §6 baseline command end-to-end in a clean environment.
 2. Capture stdout + relevant logs to
@@ -155,9 +199,14 @@ the single biggest cause of a lost session.
 
 ## Mechanical pipeline
 
-Once the interview is complete and baseline verifies:
+Once the interview is complete, the workload-repo prep branch exists with the
+`.gitignore` commit, and baseline verifies:
 
 ```bash
+# Still in the workload repo root. Record the workload-repo prep branch's
+# head commit (you will paste it into WORKLOAD_CARD §1).
+git -C . rev-parse --short HEAD
+
 cd brdg-hackathon
 git checkout main
 git pull
@@ -166,20 +215,27 @@ git checkout -b <workload>-<iteration>
 mkdir -p sessions/<workload>/<iteration>
 cp workload-template/WORKLOAD_CARD.md \
    sessions/<workload>/<iteration>/WORKLOAD_CARD.md
-# fill the copy (never the blank template in workload-template/)
+# fill the copy (never the blank template in workload-template/), including
+# the prepared-branch head commit captured above
 # place baseline_capture.txt alongside WORKLOAD_CARD.md
 ```
 
 Show the filled card to the human. Wait for **explicit approval** ("go",
-"approved", "commit") — silent non-objection is not approval. On approval:
+"approved", "commit") — silent non-objection is not approval. On approval,
+push both branches:
 
 ```bash
+# 1) brdg-hackathon artifacts
 git add sessions/<workload>/<iteration>/
 git commit -m "Prepare <workload> iteration <iteration>"
 git push -u origin <workload>-<iteration>
+
+# 2) workload-repo prep branch (from the workload repo root, one level up)
+cd ..
+git push -u origin hackathon-<workload>-<iteration>
 ```
 
-Report the pushed branch name to the human and point them at root
+Report both pushed branch names to the human and point them at root
 `README.md` for the operator workflow.
 
 ---
@@ -197,6 +253,10 @@ Report the pushed branch name to the human and point them at root
   missing), stop and ask. Do not invent a pipeline.
 - **If baseline verification fails** (command errors, extraction non-numeric),
   stop and ask. Do not commit a half-working card.
+- **Never force-push to the workload repo, and never commit to its default
+  branch.** Prep-time changes land on `hackathon-<workload>-<iteration>`
+  only. If the upstream prep branch name already exists (re-preparing the
+  same iteration), confirm with the human before deleting or overwriting it.
 
 ---
 

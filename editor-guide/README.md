@@ -36,24 +36,28 @@ The instruction corpus spans **prose files**, a **per-iteration template**, and
 Layout (repo root):
 
 ```
-playbook/                      agent-facing corpus (eagerly + trigger-loaded)
-workload-template/             blank WORKLOAD_CARD.md + preparer guide
+playbook/                      session-agent corpus (eagerly + trigger-loaded)
+workload-template/             per-iteration template + preparer surfaces
   WORKLOAD_CARD.md             (template, copied to sessions/ per iteration)
-  README.md                    (preparer workflow)
+  AGENT_HANDOFF.md             (preparer-agent entry point)
+  README.md                    (human preparer workflow)
 sessions/                      <workload>/<iteration>/<agent-name>/ artifacts
 editor-guide/                  this guide
 scripts/                       validation / scoring / plotting / aggregation
 README.md                      root: dispatcher + operator guide
 ```
 
-The agent-facing files all live in `playbook/`. Cross-references between them are
-written as bare filenames (`RULES §X`, `SCHEMA §1`) because they are sibling files;
-references from outside `playbook/` (this guide, scripts, the root README) use the
-qualified form (`playbook/RULES.md §X`).
+Two agent audiences: the **session-running agent** reads from `playbook/`; the
+**preparer-agent** reads `workload-template/AGENT_HANDOFF.md`. Cross-references
+inside `playbook/` are bare filenames (`RULES §X`, `SCHEMA §1`) because the
+files are siblings; references from outside `playbook/` (this guide, scripts,
+the root README, `workload-template/AGENT_HANDOFF.md`) use the qualified form
+(`playbook/RULES.md §X`).
 
-### 2.1 Agent-facing prose (eagerly loaded)
+### 2.1 Session-agent prose (eagerly loaded)
 
-Read before acting; held for the whole session. All live in `playbook/`.
+Read before acting; held for the whole session. All live in `playbook/` and
+address the session-running optimisation agent.
 
 - **`AGENT_HANDOFF.md`** — the entry pointer. Tells the agent what to read and in
   what order. Intentionally thin. Not a summary of `RULES.md`.
@@ -85,13 +89,27 @@ file into the eagerly-loaded group without reconsidering the whole load pattern.
   deliverable. Load pattern: **loaded during wrap-up** (`EXECUTION §6.4`) and not
   before. Changes here flow into every future session's `FINAL_SUMMARY.md`.
 
-### 2.3 Per-iteration template
+### 2.3 Preparer surfaces (`workload-template/`)
 
-- **`workload-template/WORKLOAD_CARD.md`** — the blank template the preparer copies
-  to `sessions/<workload>/<iteration>/WORKLOAD_CARD.md` and fills before the
-  session. The filled copy is shared across every `<agent-name>/` in the iteration.
-  The only place where workload-specific values (metric names, tolerances,
-  commands) are allowed to live.
+The `workload-template/` directory is where a new `<workload>-<iteration>` is
+prepared. It holds one template and two preparer-facing docs:
+
+- **`workload-template/WORKLOAD_CARD.md`** — the blank template the
+  preparer-agent copies to `sessions/<workload>/<iteration>/WORKLOAD_CARD.md`
+  and fills under the human preparer's supervision. The filled copy is shared
+  across every `<agent-name>/` in the iteration. The only place where
+  workload-specific values (metric names, tolerances, commands) are allowed
+  to live.
+- **`workload-template/AGENT_HANDOFF.md`** — the preparer-agent's entry
+  pointer. Distinct audience from `playbook/AGENT_HANDOFF.md` (which is for
+  the session-running optimisation agent). The preparer-agent reads it once
+  per iteration, interviews the human, drafts the card, verifies the
+  baseline, commits; the file is not held turn-by-turn like the session
+  corpus. Thin-entry-pointer rule (§3.7) still applies: it points into
+  `WORKLOAD_CARD.md` and the relevant `playbook/` sections, it does not
+  summarise them.
+- **`workload-template/README.md`** — the human preparer's counterpart to
+  the preparer-agent handoff. Covered in §2.4 (human-facing prose).
 
 ### 2.4 Human-facing prose
 
@@ -100,10 +118,13 @@ file into the eagerly-loaded group without reconsidering the whole load pattern.
   below is the per-session workflow for humans running a session paired with an
   agent. Different audience from the agent files; the agent reads
   `playbook/AGENT_HANDOFF.md`, the operator reads the root `README.md`.
-- **`workload-template/README.md`** — preparer guide. One-time workflow for the
-  human setting up a new `<workload>-<iteration>`: branching, reviewing the
-  corpus, filling `WORKLOAD_CARD.md`, handing off to operators. Kept separate
-  from the operator guide so each audience reads only its own workflow.
+- **`workload-template/README.md`** — human preparer guide. One-time workflow
+  for the human setting up a new `<workload>-<iteration>`: the human pairs
+  with a preparer-agent (entry at `workload-template/AGENT_HANDOFF.md`),
+  specifies the pipeline, answers judgment questions, and verifies the
+  filled card before approving the commit. Written as a verifier's checklist,
+  not a doer's manual — the agent does the mechanical work. Kept separate
+  from the operator guide so each human audience reads only its own workflow.
 - **`sessions/README.md`** — one-screen reference for the per-session artifact
   tree. Not a reading doc; a pointer.
 
@@ -295,20 +316,23 @@ inventory when the corpus layout changes.
 
 ### 3.8 Agent-facing vs human-facing phrasing
 
-**Default: preserve the split between `playbook/AGENT_HANDOFF.md` (agent) and
-the human-facing READMEs (root `README.md` for operators,
-`workload-template/README.md` for preparers). Do not collapse them even when
-content overlaps.**
+**Default: preserve the split across four audiences — session-agent
+(`playbook/AGENT_HANDOFF.md`), preparer-agent
+(`workload-template/AGENT_HANDOFF.md`), operator (root `README.md`), preparer
+(`workload-template/README.md`). Do not collapse them even when content
+overlaps.**
 
 **Reasoning.** The audiences read differently. Humans read their README once
 before a session to know what to do as preparer or operator; they skim and skip.
-The agent reads `AGENT_HANDOFF.md` at the start of every session and is expected
-to internalise it. Phrasings optimised for one audience feel wrong to the other:
-the human's "notify operators that the branch is ready" has no meaning to the
-agent, and the agent's "begin Phase 1 in `EXECUTION.md`" is not actionable for
-the human. Splitting preparer and operator workflows into separate READMEs is
-the same principle: the preparer reads once, up front; the operator reads at the
-start of every session.
+Agents read their handoff once and are expected to internalise it. Phrasings
+optimised for one audience feel wrong to the others: the human's "notify
+operators that the branch is ready" has no meaning to an agent, and the
+session-agent's "begin Phase 1 in `EXECUTION.md`" is not actionable for a
+human. The same principle splits preparer and operator: preparer reads once,
+up front; operator reads at the start of every session. It also splits
+session-agent from preparer-agent: the session-agent's life is
+profile→hypothesise→change→measure; the preparer-agent's life is
+interview→draft→verify→commit. Mixing those protocols confuses both.
 
 Some duplication is therefore expected — multiple files describe the session
 folder layout, for example. That is acceptable as long as each framing is right
@@ -483,16 +507,31 @@ the exact shape to avoid. Treat phase changes as large, multi-file edits.
 
 ### 4.6 Role split
 
-- The agent is the primary scribe. The human is the verifier. Neither collapses
-  into the other.
-- `WORKLOAD_CARD.md` is filled by the preparer, not the agent or the operator.
+Two human roles and two agent roles, paired:
+
+- **Preparer (human) ↔ preparer-agent.** The preparer-agent interviews the
+  human, drafts `WORKLOAD_CARD.md`, runs the baseline, commits. The human
+  specifies the pipeline, answers judgment questions (metric, tolerance,
+  scope), and verifies the filled card before approving the commit. Neither
+  side fills the card alone.
+- **Operator (human) ↔ session-agent.** The session-agent is the primary
+  scribe (maintains `event_log.md`, `results.csv`, profiles, `FINAL_SUMMARY.md`).
+  The operator is the verifier. Neither collapses into the other.
+
+Other invariants:
+
+- `WORKLOAD_CARD.md` is filled during preparation (preparer + preparer-agent),
+  not during the session. The session-agent and operator read it read-only.
 - `playbook/AGENT_HANDOFF.md` / `playbook/RULES.md` / `playbook/EXECUTION.md`
-  address the agent. Root `README.md` addresses the operator.
+  address the session-agent. `workload-template/AGENT_HANDOFF.md` addresses
+  the preparer-agent. Root `README.md` addresses the operator.
   `workload-template/README.md` addresses the preparer.
 
-Edits that have the agent editing `WORKLOAD_CARD.md` during the session, or that
-have the human maintaining `event_log.md`, are redesigns of the protocol, not
-clarifications. Flag them as such.
+Edits that have the session-agent editing `WORKLOAD_CARD.md` during the
+session, that have the operator maintaining `event_log.md`, that have the
+preparer editing the card by hand without an agent, or that have the
+preparer-agent committing without explicit human approval, are redesigns of
+the protocol, not clarifications. Flag them as such.
 
 ### 4.7 Append-only data log
 
@@ -548,18 +587,23 @@ Decision order:
    - Bad: "when the agent is stuck" (subjective).
    - Bad: "if needed" (no observable precondition).
 6. **Is it human workflow?** → the relevant human-facing README. Preparer
-   workflow (branching, filling the card, handoff) → `workload-template/README.md`.
-   Operator workflow (starting the agent, verifying during the session, closing)
-   → root `README.md`. The root README also carries the "who are you?"
-   dispatcher; add new audience entry-points there, not inline in a workflow
-   section.
-7. **Is it an agent entry-point update?** → `AGENT_HANDOFF.md`, but only if it is
-   a pointer or an invariant the agent must hold before reading the rest. Not a
-   summary of rules.
-8. **Is it something scripts must enforce?** → the relevant script, in the same
+   workflow (specifying the pipeline, answering the preparer-agent's
+   questions, verifying the filled card) → `workload-template/README.md`.
+   Operator workflow (starting the session-agent, verifying during the
+   session, closing) → root `README.md`. The root README also carries the
+   "who are you?" dispatcher; add new audience entry-points there, not inline
+   in a workflow section.
+7. **Is it preparer-agent workflow?** → `workload-template/AGENT_HANDOFF.md`.
+   Pipeline discovery, interview protocol, baseline verification, mechanical
+   commit pipeline. Do not push this into `workload-template/README.md` — that
+   file is the human's verification checklist, not the agent's manual.
+8. **Is it a session-agent entry-point update?** → `playbook/AGENT_HANDOFF.md`,
+   but only if it is a pointer or an invariant the agent must hold before
+   reading the rest. Not a summary of rules.
+9. **Is it something scripts must enforce?** → the relevant script, in the same
    change as the prose edit.
-9. **None of the above?** → it probably does not belong in the instruction corpus.
-   Leave it out.
+10. **None of the above?** → it probably does not belong in the instruction corpus.
+    Leave it out.
 
 When in doubt between `RULES.md` and `REFERENCE.md`: if the content is consulted
 on nearly every turn, it belongs in `RULES.md`; if it is consulted on specific
@@ -578,12 +622,13 @@ Use this when reviewing the corpus without a specific change request — e.g. a
 periodic audit or a new-workload readiness check.
 
 1. **Inventory walk.** Re-read `playbook/AGENT_HANDOFF.md` end to end, then
-   follow its file list in the order the agent would: `playbook/RULES.md` →
-   `playbook/EXECUTION.md` → `playbook/SCHEMA.md` → `playbook/REFERENCE.md` →
-   `playbook/FINAL_SUMMARY_TEMPLATE.md` → `workload-template/WORKLOAD_CARD.md`.
-   Then read the human-facing READMEs separately (root `README.md`,
-   `workload-template/README.md`, and `sessions/README.md`). Then open the
-   scripts in `scripts/`.
+   follow its file list in the order the session-agent would:
+   `playbook/RULES.md` → `playbook/EXECUTION.md` → `playbook/SCHEMA.md` →
+   `playbook/REFERENCE.md` → `playbook/FINAL_SUMMARY_TEMPLATE.md` →
+   `workload-template/WORKLOAD_CARD.md`. Then read the preparer-agent corpus
+   (`workload-template/AGENT_HANDOFF.md`). Then the human-facing READMEs
+   (root `README.md`, `workload-template/README.md`, `sessions/README.md`).
+   Then open the scripts in `scripts/`.
 2. **Cross-reference resolution.** Grep for `RULES §`, `EXECUTION §`, `SCHEMA §`,
    `REFERENCE §`, `WORKLOAD_CARD §`. Confirm each points at a real section.
    Dangling references are audit failures.
@@ -602,10 +647,13 @@ periodic audit or a new-workload readiness check.
    trigger is still named and still narrow. If a section is being loaded every
    session, it may need to move to `RULES.md`; if nothing triggers it, it may be
    dead weight.
-8. **Role split.** Scan `RULES.md` and `EXECUTION.md` for any instruction that
-   asks the human to scribe, or any instruction in the human-facing READMEs
-   (root `README.md`, `workload-template/README.md`) that asks the agent to set
-   up environment. Flag any crossing of the split.
+8. **Role split.** Scan `playbook/RULES.md` and `playbook/EXECUTION.md` for any
+   instruction that asks the operator to scribe. Scan the human-facing READMEs
+   (root `README.md`, `workload-template/README.md`) for any instruction that
+   asks an agent to set up environment. Scan
+   `workload-template/AGENT_HANDOFF.md` for any step that commits without
+   explicit human approval, or that silently picks §2 (primary metric) or §4
+   (tolerance) on the human's behalf. Flag any crossing of the split.
 9. **Self-consistency between prose and scripts.** Skim the scripts for any
    constant or regex that, if the prose changed, would now be out of date.
 
@@ -629,10 +677,14 @@ the most common corpus regression.
   touches `SCHEMA.md`, the validator and scorer are in scope. If it touches tag
   formats in `§13.3` / `§14.3`, the scorer is in scope.
 - Identify whether a human-facing README needs to change. If the preparer
-  surface (branching, filling the card, handoff) shifts, edit
-  `workload-template/README.md`. If the operator surface (starting the agent,
-  verifying, closing) shifts, edit root `README.md`. If the change affects
-  neither — only the agent's internal procedure — neither README changes.
+  surface shifts, decide which *half* of the surface: the human's verification
+  checklist → `workload-template/README.md`; the preparer-agent's interview,
+  pipeline-discovery, or commit flow → `workload-template/AGENT_HANDOFF.md`;
+  often both, when the fact itself changes (a new card section, a renamed
+  field). If the operator surface (starting the session-agent, verifying,
+  closing) shifts, edit root `README.md`. If the change affects none of these
+  — only the session-agent's internal procedure — none of the surfaces
+  change.
 
 ### 7.2 Draft the primary edit
 
@@ -646,12 +698,17 @@ the most common corpus regression.
 - Re-thread every inbound `§ref` to match the new section numbering or naming.
 - Update mirrored constants in scripts (`REQUIRED_COLUMNS`, tag regexes,
   checklist regex) in the same change.
-- Update the relevant human-facing README if the preparer surface shifted
-  (`workload-template/README.md`) or the operator surface shifted (root
-  `README.md`).
-- Update `AGENT_HANDOFF.md` only if the file inventory or the two "even if you
-  read nothing else" rules change. Normal edits to `RULES.md` do not touch
-  `AGENT_HANDOFF.md`.
+- Update the relevant preparer-surface file(s) if the preparer surface
+  shifted: `workload-template/README.md` for the human's checklist,
+  `workload-template/AGENT_HANDOFF.md` for the preparer-agent's flow, or
+  both. Update root `README.md` if the operator surface shifted.
+- Update `playbook/AGENT_HANDOFF.md` only if the session file inventory or the
+  two "even if you read nothing else" rules change. Normal edits to
+  `playbook/RULES.md` do not touch `playbook/AGENT_HANDOFF.md`. Same
+  thin-entry-pointer discipline applies to
+  `workload-template/AGENT_HANDOFF.md`: do not push interview protocol,
+  metric-check rules, or tolerance semantics into it if they belong in
+  `WORKLOAD_CARD.md` or `playbook/RULES.md`.
 
 ### 7.4 Validate
 

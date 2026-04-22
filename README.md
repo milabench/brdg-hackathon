@@ -10,6 +10,8 @@ that keeps results comparable across sessions.
   [`editor-guide/README.md`](editor-guide/README.md).
 - **An agent running an optimization session** → start at
   [`playbook/AGENT_HANDOFF.md`](playbook/AGENT_HANDOFF.md).
+- **An agent preparing a new hackathon iteration** → start at
+  [`workload-template/AGENT_HANDOFF.md`](workload-template/AGENT_HANDOFF.md).
 - **A human preparing a new hackathon iteration** → read
   [`workload-template/README.md`](workload-template/README.md).
 - **A human running a hackathon as operator** → continue below.
@@ -17,8 +19,8 @@ that keeps results comparable across sessions.
 ## Repo layout
 
 ```
-playbook/            agent protocol (read-only; not copied per session)
-workload-template/   blank WORKLOAD_CARD.md + preparer guide
+playbook/            session-agent protocol (read-only; not copied per session)
+workload-template/   WORKLOAD_CARD.md template + preparer-agent handoff + human preparer guide
 sessions/            per-session artifacts, grouped by workload/iteration/agent
 editor-guide/        for agents editing the instruction corpus
 scripts/             validation, scoring, plotting, aggregation

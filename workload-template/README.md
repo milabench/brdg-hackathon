@@ -1,110 +1,99 @@
 # Preparer guide
 
-You are setting up a new hackathon iteration for a workload. Done once per
-`<workload>-<iteration>`. Operators will run sessions against what you produce
-here.
+You are setting up a new hackathon iteration for a milabench pipeline. You do
+this **by pairing with a preparer-agent** — the agent drives the mechanical
+work (branching, copying the template, drafting the card, running the
+baseline, committing). Your job is to specify the pipeline, answer judgment
+questions, and verify what the agent produces before it commits.
 
-The blank `WORKLOAD_CARD.md` in this folder is the only file you fill in. The
-agent-facing protocol in `playbook/` is workload-agnostic and is not copied —
-every session reads it directly from `playbook/` in the brdg-hackathon clone.
-
----
-
-## 1) Branch and folder convention
-
-Each workload evaluation uses a dedicated branch and a matching session folder:
-
-- **Git branch:** `<workload-name>-<iteration>` — e.g., `mnist-1`.
-- **Session folder:** `sessions/<workload-name>/<iteration>/` — e.g.,
-  `sessions/mnist/1/`.
-
-`<iteration>` increments when you re-run the same workload (e.g., after fixing a
-bug in the card or the protocol). Each iteration is an independent evaluation.
-
-At the end of the exercise, operator branches merge back into
-`<workload-name>-<iteration>`, then `<workload-name>-<iteration>` merges into
-`main`.
+The blank `WORKLOAD_CARD.md` in this folder is the template the agent will
+copy and fill. You do not edit it by hand.
 
 ---
 
-## 2) Review the corpus
+## 1) What you bring
 
-Before a new evaluation campaign, review the protocol on `main`:
+- **A milabench pipeline name** — the entry in
+  [`config/standard.yaml`](https://github.com/milabench/milabench/blob/master/config/standard.yaml)
+  that identifies the workload (e.g. `resnet`, `llm-lora-single`).
+- **An iteration number** — `1` if this pipeline has never been evaluated,
+  otherwise the next unused integer.
+- **A rough sense of the goal** — what metric matters, what the quality
+  constraint is, which parts of the code are in-scope to modify. You do not
+  need to write this up; the agent will ask.
 
-- `playbook/AGENT_HANDOFF.md` — agent's landing page.
-- `playbook/RULES.md` — rules the agent holds throughout.
-- `playbook/EXECUTION.md` — phase-by-phase procedure.
-- `playbook/SCHEMA.md` — `results.csv` column spec.
-- `playbook/REFERENCE.md` — lookup tables (sync-point checklist, HP interactions).
-- `playbook/FINAL_SUMMARY_TEMPLATE.md` — end-of-session template for the agent.
-- `workload-template/WORKLOAD_CARD.md` — blank template you will fill.
-- `scripts/` — validation and scoring tooling.
-
-If the rules or metrics don't match your evaluation needs, edit them on `main`
-(or via a corpus-edit branch) before branching for this iteration. See
-`editor-guide/README.md` for corpus-editing conventions.
+Everything else the agent handles.
 
 ---
 
-## 3) Fill `WORKLOAD_CARD.md`
+## 2) Start the preparer-agent
 
-Copy `workload-template/WORKLOAD_CARD.md` into
-`sessions/<workload-name>/<iteration>/WORKLOAD_CARD.md` and fill it *after* you
-branch (§4). Decisions that most affect session quality:
+Set the agent's shell cwd to the milabench repo root (that is where
+`config/standard.yaml` lives and where baseline commands run). Clone
+`brdg-hackathon/` inside milabench if it is not already there.
 
-- **Primary metric** — must be mechanically extractable (regex, JSON key,
-  specific log line). If you'd have to hand-parse the output to read it, the
-  agent's extraction recipe will fail and the validator will reject rows.
-- **Quality metric + tolerance** — the tolerance is a candidate-gating threshold.
-  Be precise about what "within tolerance" means for this workload (`-5%`,
-  `-2·baseline_std`, or an explicit rule).
-- **Benchmark window** — long enough to be representative, short enough that one
-  full run can be scheduled multiple times during a session. Record the
-  rationale.
-- **Allowed / disallowed edits** — explicit and non-overlapping. The disallowed
-  list is the semantic-surface boundary; if it is vague, agents will gravitate
-  toward it and you will have to arbitrate mid-session.
-- **Known caveats / prior art** — known baseline variance, optimisations already
-  upstreamed, and (optional) a pre-declared Δ_min for cross-agent comparability.
+Point the agent at its entry file:
+`brdg-hackathon/workload-template/AGENT_HANDOFF.md`.
 
-Before handing off, work through §11 (Verification checklist) of the card. In
-particular: **run the baseline command end-to-end from a clean environment
-yourself**, and confirm the primary and quality metrics extract correctly. An
-un-verified card is the most common cause of a lost session.
+Answer its first question — pipeline name + iteration number.
 
 ---
 
-## 4) Hand off — commit to the iteration branch
+## 3) What the agent will ask
 
-From `main`, create the iteration branch and the session folder with the filled
-card:
+The agent reads `config/standard.yaml`, finds your pipeline, reads its code,
+then interviews you. Expect **multiple-choice questions grounded in what it
+saw**, not open-ended requests:
 
-```bash
-git checkout main
-git pull
-git checkout -b <workload-name>-<iteration>
-mkdir -p sessions/<workload-name>/<iteration>
-cp workload-template/WORKLOAD_CARD.md \
-   sessions/<workload-name>/<iteration>/WORKLOAD_CARD.md
-# now fill sessions/<workload-name>/<iteration>/WORKLOAD_CARD.md per §3
-git add sessions/<workload-name>/
-git commit -m "Prepare <workload-name> iteration <iteration>"
-git push -u origin <workload-name>-<iteration>
-```
+- **Primary metric**: "I see `samples/sec` logged via `log_scalar` and
+  `wall_time_per_step` from the profiler. Which is primary?"
+- **Quality metric**: "I see `val_acc` every N epochs and `eval_loss` every
+  step. Which constrains your optimisation?"
+- **Tolerance**: `-2·baseline_std` (safe default) vs `-X%` vs explicit rule.
+- **Benchmark window**: fixed N steps (agent estimates wall-time) vs fixed T
+  seconds.
+- **Allowed / disallowed edits**: agent proposes a split based on the code; you
+  narrow or extend.
+- **Known caveats / prior art**: open question — the agent cannot infer.
 
-Notify operators that the branch is ready. Operators follow the root `README.md`
-from here.
+For every question the agent proposes defaults; you confirm, redirect, or
+write in a custom answer.
 
 ---
 
-## 5) After all sessions complete
+## 4) What you verify before approving the commit
 
-Each operator opens a PR from `<workload-name>-<iteration>-<agent-name>` back to
-`<workload-name>-<iteration>`. Because each operator's artifacts live in a
-distinct subfolder `sessions/<workload-name>/<iteration>/<agent-name>/`, the
-merges are conflict-free.
+The agent runs the baseline end-to-end and fills §11 (the verification
+checklist). Before you say "go", confirm:
 
-Once all operator branches are merged, open a PR from
-`<workload-name>-<iteration>` into `main`. Comparison metrics (see root
-`README.md`) are computed from the aggregated artifacts in
-`sessions/<workload-name>/<iteration>/*/artifacts/`.
+- [ ] The **primary-metric extraction recipe** in §2 returned a real number
+  from the captured baseline. Ask the agent to show the recipe applied to the
+  capture if unclear.
+- [ ] The **quality-metric extraction recipe** in §3 returned a real number.
+  Same check.
+- [ ] The **tolerance** in §4 reflects what you actually care about. This is
+  the most common silent mistake — too tight rejects all optimisations; too
+  loose masks regressions.
+- [ ] **Allowed / disallowed** surfaces in §7 / §8 are non-overlapping and
+  together cover everything. The disallowed list is the semantic-surface
+  boundary; a vague one lets operators drift.
+- [ ] The **baseline command** in §6 ran. You do not need to re-run it; the
+  capture is at `sessions/<workload>/<iteration>/baseline_capture.txt`.
+
+If any check fails, tell the agent what to correct. **Do not approve a
+commit with a ticked §11 box that is not actually verified** — that is the
+single biggest cause of a lost session downstream.
+
+---
+
+## 5) After the commit
+
+The agent pushes `<workload>-<iteration>` and reports the branch name.
+Operators follow the root `README.md` from here: they branch off
+`<workload>-<iteration>` into `<workload>-<iteration>-<agent-name>` and run
+their sessions.
+
+Once all sessions have merged back into `<workload>-<iteration>`, open a PR
+from `<workload>-<iteration>` to `main`. Comparison metrics (see root
+`README.md`) are computed from the aggregated artifacts under
+`sessions/<workload>/<iteration>/*/artifacts/`.

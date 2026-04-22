@@ -53,7 +53,11 @@ Trigger-loaded (read when the trigger fires; evict when done):
 - `FINAL_SUMMARY_TEMPLATE.md` — end-of-session template; load during wrap-up.
 
 Not your doc:
-- Root `README.md` — human operator / preparer guide.
+- Root `README.md` — operator guide + dispatcher.
+- `workload-template/` — preparation-time surfaces (template, preparer-agent
+  handoff, human preparer guide). The preparation is already done by the time
+  you run; read the filled card at
+  `sessions/<workload>/<iteration>/WORKLOAD_CARD.md`, not the blank template.
 - `editor-guide/` — meta; read by agents editing the corpus, not by you.
 
 ---

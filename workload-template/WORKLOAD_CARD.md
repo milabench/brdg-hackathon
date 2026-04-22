@@ -5,12 +5,16 @@ generic protocol (`playbook/`) and the human guide (root `README.md`) reference 
 card for everything workload-specific, so those files stay workload-agnostic and
 reusable across sessions.
 
-**Location.** This file in `workload-template/` is the blank template. The **preparer**
-copies it to `sessions/<workload>/<iteration>/WORKLOAD_CARD.md` and fills it before the
-session begins. That filled copy is shared read-only across every `<agent-name>/`
-subfolder in the iteration; individual agents never modify it.
+**Location.** This file in `workload-template/` is the blank template. The
+**preparer-agent** copies it to `sessions/<workload>/<iteration>/WORKLOAD_CARD.md`
+and fills it under the human preparer's supervision before any optimisation
+session begins (see `workload-template/AGENT_HANDOFF.md` for the agent's flow
+and `workload-template/README.md` for the human's). That filled copy is
+shared read-only across every `<agent-name>/` subfolder in the iteration;
+session-running agents never modify it.
 
-Fill this file **before the session begins**. The agent reads it first; the human verifies it.
+Fill this file **before any session begins**. The session-agent reads it first;
+the operator verifies it at session start.
 
 ---
 

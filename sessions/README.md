@@ -35,6 +35,7 @@ Conventions:
   re-prepare the same workload (fixing a bug in the card, revising the tolerance,
   etc.). Each iteration is an independent evaluation.
 
-See `workload-template/README.md` for the preparer's workflow, the root
-`README.md` for the operator's workflow, and `playbook/AGENT_HANDOFF.md` for the
-agent's entry point.
+See `workload-template/README.md` (human preparer) and
+`workload-template/AGENT_HANDOFF.md` (preparer-agent) for the preparation
+workflow, the root `README.md` for the operator's workflow, and
+`playbook/AGENT_HANDOFF.md` for the session-agent's entry point.

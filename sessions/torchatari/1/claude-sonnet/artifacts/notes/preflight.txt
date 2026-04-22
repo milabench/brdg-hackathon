@@ -1,0 +1,64 @@
+=== Preflight environment capture (T+0) ===
+Session: torchatari / iteration 1 / agent claude-sonnet
+Captured: 2026-04-22 15:49:49 UTC
+Captured from: cn-f004.server.mila.quebec (CPU-only login-equivalent job;
+  GPU-specific fields will be captured from the first sbatch job and
+  appended at the bottom of this file).
+
+--- host ---
+hostname: cn-f004.server.mila.quebec
+uname: Linux cn-f004.server.mila.quebec 5.15.0-173-generic #183-Ubuntu SMP Fri Mar 6 13:29:34 UTC 2026 x86_64
+OS: Ubuntu (kernel 5.15.0-173-generic)
+
+--- CPU (current CPU node; the GPU node will have its own CPU layout) ---
+Model: AMD EPYC 7502 32-Core Processor
+Cores (node): 32 physical / 1 thread per core
+This job: SLURM_CPUS_ON_NODE=2, SLURM_CPUS_PER_TASK=2, SLURM_MEM_PER_NODE=10240 MB
+
+--- RAM (node-level) ---
+total: 250 Gi  free: 67 Gi  available: 198 Gi  swap: 0
+
+--- Python / tooling ---
+system python3: 3.10.12  (not used for milabench; uv manages a 3.12 venv)
+uv: 0.8.22
+milabench venv (from uv): .venv (CPython 3.12.11)
+
+--- git state (workload) ---
+remote: git@github.com:mila-iqia/milabench.git
+starting commit: 2e04211  "Update VLLM to use cu130 build (#391)"
+starting branch: master
+session branch: agent_claude-sonnet_torchatari_opt  (created at T+0)
+
+--- git state (brdg-hackathon / playbook+card) ---
+branch: torchatari-1
+commit: f79414c  "Prepare torchatari iteration 1"
+
+--- SLURM ---
+cluster: mila
+current job: 9339065 on partition main-cpu (CPU-only)
+target partition for benchmarks: unkillable  (gpu:l40s:1, 1 parallel job/user)
+  per operator steer: sbatch -c 6 --mem=32G --gres=gpu:l40s:1
+    --partition=unkillable --time=0:15:00
+overflow partition (once scaling): long  (up to 1000 parallel jobs/user)
+
+--- env vars (workload-relevant) ---
+PATH contains /home/mila/b/bouthilx/.local/bin, /cvmfs/config.mila.quebec/bin, /opt/slurm/bin.
+MILABENCH_* env vars present in .env  (MILABENCH_BASE=/tmp/milabench/base/,
+  MILABENCH_GPU_ARCH=cuda, MILABENCH_CONFIG=config/all.yaml,
+  MILABENCH_SELECT_BENCH=dqn [prior session default; this session
+  selects torchatari via --config override]).
+
+--- notes on drift baseline ---
+The workload card (§10) warns baseline was NOT pre-verified on this machine
+(no CLI, no GPU available to the preparer). Preflight therefore anchors to
+"whatever the first successful GPU run reports" for GPU + driver + CUDA +
+framework versions. Those lines will be appended below tagged
+[GPU-PREFLIGHT jobid=...] so a reviewer can reconstruct the state.
+
+--- fields deferred to first GPU job ---
+- nvidia-smi (GPU model, driver, power cap, temp, clocks, persistent mode)
+- nvcc / CUDA runtime version
+- torch version + torch.cuda.is_available + torch.version.cuda
+- envpool importable (WORKLOAD_CARD §10: envpool fallback is invalid baseline;
+  if missing at GPU-job start treat as a [BUG])
+- any co-tenant CUDA process (expect zero on unkillable; log if >0)

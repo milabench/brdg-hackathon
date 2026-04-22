@@ -55,13 +55,15 @@ checks (`§11`).
 
 ## 3) Success criteria
 
-**Primary objective.** Reduce **time-to-result** (TTR, `EXECUTION §4`) at preserved
-quality vs baseline. TTR is the end-goal metric and is expensive to measure, so the
-search is guided by a cheaper **throughput proxy** — the primary metric declared in
-`WORKLOAD_CARD.md §2` (e.g. steps/sec, samples/sec). Tier 1 short runs measure the
-throughput proxy for screening; Tier 2 full runs measure TTR and are the sole source of
-`[WIN]` emissions (`§8`). A throughput improvement that does not translate into a TTR
-improvement is not a win.
+**Primary objective.** Reduce **time-to-result** (TTR, defined in `EXECUTION §3.1`
+and adopted as the Tier-2 reference in `EXECUTION §4`) at preserved quality vs
+baseline. TTR is the end-goal metric and is expensive to measure, so candidate
+screening is guided by a cheaper **throughput proxy** — the primary metric declared
+in `WORKLOAD_CARD.md §2` (e.g. steps/sec, samples/sec). Tier 1 short runs measure the
+throughput proxy for screening; Tier 2 full runs measure TTR and are the sole source
+of `[WIN]` emissions (`§8`). A throughput improvement that does not translate into a
+TTR improvement is not a win. Phase 2's HP search applies this principle inside HP
+selection too: the proxy ranks candidates, but TTR gates the lock (`EXECUTION §3.3`).
 
 (Exception: if `WORKLOAD_CARD §2` already declares a TTR-style primary metric such as
 `time-to-accuracy`, Tier 1 short runs serve as a noisy screening signal on the quality
@@ -88,9 +90,16 @@ The noun *baseline* is overloaded. Disambiguate when citing:
 - **Session baseline** — the Phase-1 end-to-end run of the unmodified workload with
   default settings (`EXECUTION §2`). Tagged once with `[BASELINE]` (`§13.3`).
 - **Tier baseline** — the reference measurement within a tier. Each tier has one:
-  the **short-run baseline** (recorded in `EXECUTION §3` / Phase 2, used by all Tier-1
-  comparisons) and the **full-run baseline** (`EXECUTION §4` / Phase 3's ≥3 full-length
-  runs with locked HPs, used by all Tier-2 comparisons).
+  the **short-run baseline** (recorded in `EXECUTION §3.2` / Phase 2, used by all
+  Tier-1 comparisons) and the **full-run baseline** (≥3 full-length TTR runs at the
+  locked HP configuration, used by all Tier-2 comparisons).
+  The first full-run baseline produced is always the **default-HP TTR baseline**
+  (`EXECUTION §3.1`): it grounds TTR for the session and serves as the comparison
+  reference for Phase 2's backtrack gate (`§3.3`). If a candidate HP set wins the
+  backtrack, its ≥3 full runs (`§3.3`) become the locked-HP TTR baseline; if no
+  candidate passes, the default-HP runs themselves are the locked-HP TTR baseline.
+  Either way, Phase 3 (`EXECUTION §4`) adopts the locked-HP runs as the Tier-2
+  baseline for Phase 4.
 - **Comparison baseline** — the specific `experiment_id` a candidate compares against
   in `results.csv` (`baseline_ref` column). Must be in the same tier as the candidate.
 
@@ -130,10 +139,15 @@ baseline coefficient of variation** (CV = stddev / mean of the primary metric), 
 fixed default. Fixed N wastes time when noise is low and produces false wins when noise
 is high.
 
-Measure CV once per tier from the baseline measurements already produced in
-`EXECUTION §4` (Phase 3, full-run) and from the short-run baseline in `EXECUTION §3` /
-`EXECUTION §5` (Tier 1). Record it in `event_log.md` as a `[NOISE]` entry alongside the
-baseline results. Each tier has its own CV and therefore its own N.
+Measure CV once per tier from the baseline measurements already produced upstream.
+Tier-2 CV comes from the locked-HP TTR runs adopted in `EXECUTION §4` (Phase 3) — i.e.
+the full-length runs captured in `EXECUTION §3.3` (winning candidate) or `EXECUTION §3.1`
+(default fallback). Tier-1 CV comes from the short-run baselines in `EXECUTION §3.2`
+(Phase 2 sweep) and `EXECUTION §5` (Phase 4 loop entry). Phase 2's backtrack gate
+(`EXECUTION §3.3`) uses the default-HP TTR CV from `EXECUTION §3.1` as its Tier-2
+noise reference — that CV may differ from the locked-HP CV adopted in Phase 3. Record
+each in `event_log.md` as a `[NOISE]` entry alongside the baseline results. Each tier
+/ reference has its own CV and therefore its own N.
 
 **Decision table for N per comparison.**
 
@@ -211,18 +225,20 @@ at the reduced window. Results recorded in `artifacts/benchmarks/results.csv` wi
 
 **Tier 2 — Validation (full time-to-result).** Used to accept or reject a candidate as
 a real win. Full benchmark window from `WORKLOAD_CARD.md §5`, evaluated against the
-target TTR from `EXECUTION §4` (Phase 3). Results recorded with `tier=full`. Only
-full-run validation produces a genuine win.
+target quality declared in `EXECUTION §3.1` and the Tier-2 baseline adopted in
+`EXECUTION §4` (Phase 3). Results recorded with `tier=full`. Only full-run validation
+produces a genuine win.
 
 **Metric per tier — throughput proxy vs end-goal TTR.** Each tier uses a tier-native
 metric; do not mix them across a comparison.
 - **Tier 1 — throughput proxy.** The primary metric declared in `WORKLOAD_CARD §2`
   (per-step or per-sample throughput). Cheap, fast, noisy. Used for profiling and
   candidate screening. Δ_min at Tier 1 is in throughput units (`§7`).
-- **Tier 2 — TTR.** Wall-clock time to reach the target quality defined in
-  `EXECUTION §4`. Integrates run-time dynamics, absorbs per-step noise, and is the
-  session's end-goal metric. Δ_min at Tier 2 is in TTR units (seconds or %-reduction).
-  `[WIN]` is Tier-2-only and reports `delta_ttr` (`§14.3`).
+- **Tier 2 — TTR.** Wall-clock time to reach the target quality declared in
+  `EXECUTION §3.1` (adopted as the Tier-2 reference in `§4`). Integrates run-time
+  dynamics, absorbs per-step noise, and is the session's end-goal metric. Δ_min at
+  Tier 2 is in TTR units (seconds or %-reduction). `[WIN]` is Tier-2-only and reports
+  `delta_ttr` (`§14.3`).
 
 If `WORKLOAD_CARD §2` declares a TTR-style primary metric directly, Tier 1 still
 screens on short-run throughput / quality trajectory, but the `[WIN]` delta at Tier 2
@@ -237,8 +253,9 @@ budget on speculative candidates.
 
 **Separation.** Do not compare short-run numbers to full-run numbers. Every
 baseline-vs-candidate comparison must use the same tier. Each tier has its own baseline
-— the short-run baseline measured during HP screening in `EXECUTION §3` (Phase 2), the
-full-run baseline from `EXECUTION §4` (Phase 3).
+— the short-run baseline measured during HP screening in `EXECUTION §3.2` (Phase 2),
+the Tier-2 full-run baseline measured in `EXECUTION §3` (Phase 2) and adopted in
+`EXECUTION §4` (Phase 3) for Phase 4 use.
 
 **What short runs do *not* capture.**
 - JIT / compile / autotune effects that amortise over full runs.
@@ -388,7 +405,7 @@ One table covers every tag. The `Role` column says how the tag is consumed:
 
 | Group | Tag | When emitted (rule) | Role |
 |-------|-----|---------------------|------|
-| Experiment / change-tracking | `BASELINE` | Phase 1 session baseline — first successful end-to-end run (`EXECUTION §2`). Phase-3 tier-2 baseline is marked by its own `[PHASE-EXIT 3]` + `[NOISE]` entry, not re-tagged. | milestone |
+| Experiment / change-tracking | `BASELINE` | Phase 1 session baseline — first successful end-to-end run (`EXECUTION §2`). Tier baselines (Phase 2 short-run, Phase 2 default-HP TTR, and the locked-HP TTR adopted in Phase 3) are marked by their own `[NOISE]` entries, not re-tagged. | milestone |
 |  | `HYPOTHESIS` | Cause-effect claim a candidate tests. | — |
 |  | `CHANGE` | Code / config change committed for measurement. | — |
 |  | `EXPERIMENT` | Measured run recording primary / quality deltas vs baseline. | — |
@@ -517,9 +534,11 @@ Software: driver / CUDA / framework versions / Python
 
 ```
 T+...  [PHASE-EXIT 2]
-Locked HPs: batch_size=128, num_envs=64, rollout_length=32
-Metrics: primary=...; quality=...
-Next: Phase 3 (time-to-result target)
+Locked HPs: batch_size=128, num_envs=64, rollout_length=32 (candidate hp_set_A)
+Default-HP TTR: 1820s median (CV 4.2%, N=3)
+Locked-HP TTR: 1485s median (CV 5.1%, N=3)
+Target quality: 0.87 mean-acc (Option A: default-HP mean end-of-run)
+Next: Phase 3 (adopt Tier-2 baseline)
 ```
 
 ```
@@ -541,8 +560,9 @@ quality_verdict: PASS
   `quality_verdict=PASS`.
 - `[PHASE-EXIT 2]` must follow at least one `[BASELINE]` (Phase 2 needs a baseline to
   screen HPs against).
-- `[WIN]` events only appear after `[PHASE-EXIT 3]` (no wins before the TTR target is
-  defined).
+- `[WIN]` events only appear after `[PHASE-EXIT 3]` (no Phase-4 wins before the
+  Tier-2 baseline is adopted; the TTR target itself is declared earlier, in
+  `EXECUTION §3.1`).
 
 **Sign convention for `delta_ttr`.** TTR is a time; a reduction is an improvement.
 A winning `delta_ttr` is negative (e.g. `-7.2%` = "7.2% faster to target quality"). The

@@ -123,14 +123,49 @@ Phase-1 wrinkle is that there is no prior experiment to revert, so triage collap
 
 ---
 
-## 3) Phase 2 — HP-first pass
+## 3) Phase 2 — HP search with TTR validation
 
 Engineering-knob HPs (batch size, num_envs, rollout length, dataloader workers, compile
 flags, log frequency, etc.) materially affect the primary metric. Optimizing before
 these are settled conflates HP wins with engineering wins. Settle them first, then
 **lock** them.
 
-What to do:
+The throughput proxy alone is not sufficient for HP selection: an HP set that wins on
+the proxy but does not reduce TTR is not a real win. Phase 2 therefore measures TTR at
+both ends — default HPs and the proxy-selected candidates — and backtracks through a
+ranked shortlist until one candidate clears the TTR gate, or falls back to defaults.
+Defaults can already be optimal for a given workload; the fallback path is a valid
+outcome, not a failure.
+
+### 3.1 Default-HP TTR baseline and target quality
+
+Run at least **three** full-length runs at default HPs with the quality metric tracked
+**over time** (not only at end-of-run — time-to-result requires the trajectory).
+Record under a single `experiment_id` with
+`phase=phase_2_hp, candidate=baseline_default, tier=full`. Compute and log a `[NOISE]`
+entry with the default-HP TTR CV per `RULES §6` — this is the noise reference that
+drives N for every candidate validation in §3.3.
+
+The Phase-1 session baseline (one run, sanity-check purpose) does **not** count toward
+this baseline.
+
+Then declare the target quality level that defines TTR. Pick one and record the choice
+and numerical value in `event_log.md`:
+- **Option A** — target = mean end-of-run quality across the default-HP runs above.
+  Candidate-quality gating later applies `WORKLOAD_CARD.md §4` tolerance to this
+  target; the tolerance is not reused to widen the target itself.
+- **Option B** — target = a pre-declared quality threshold stated in
+  `WORKLOAD_CARD.md §10` ("prior art" or explicit target from a previous session).
+
+Record the default-HP TTR (median + range) against this target — wall-clock time at
+which the run first reaches target quality **and** the following-window average of the
+quality metric remains within its CI. These are the session's **first TTR baseline**:
+they serve as the comparison reference for §3.3's backtrack gate, and (if no candidate
+passes) remain the locked-HP TTR baseline that Phase 3 adopts as the Tier-2 reference
+for Phase 4.
+
+### 3.2 Proxy sweep over full HP sets
+
 - Enumerate HPs that plausibly affect the primary metric. Separate them into:
   - **Engineering knobs** — HPs whose value does not change what the algorithm *is*
     (batch size, num_envs, rollout length, dataloader workers, log frequency, compile
@@ -139,74 +174,95 @@ What to do:
     others (learning rate, exploration schedule, target-sync frequency, replay buffer
     size, etc.). Kept at default unless the human explicitly approves tuning them. See
     `REFERENCE.md §2` for the couplings and schedule effects this builds on.
-- Declare the sweep budget up front (e.g. "≤5 HPs × 3 values each on short runs, plus one
-  long-run validation of the chosen setting") and log it in the event log.
+- Sweep HPs as **full configurations**, not one knob at a time. Each candidate is a
+  complete set of engineering-knob values moved together; semantic HPs stay at default.
+- Declare the shortlist cap `k_max` up front (e.g. "≤3 candidate HP sets, plus the
+  default fallback") and log it in the event log. A small shortlist is intentional:
+  use `REFERENCE §2` HP-interaction knowledge to propose a few well-reasoned sets
+  rather than blanket-searching the space.
 - Record a **short-run baseline** (`tier=short, candidate=baseline`) before sweeping;
   this is the tier-1 reference used by `RULES §6` to derive CV/N and by every sweep
-  row's `baseline_ref`. Sweep points compare against it, not against the Phase-1 session
-  baseline (which ran at default, not locked, HPs).
-- Sweep the engineering knobs on short runs (see `EXECUTION §5` for the short-run vs
-  full-run cadence). Record each point in `artifacts/benchmarks/results.csv` using
-  `SCHEMA §1` (`phase=phase_2_hp`, `candidate=hp_sweep_<label>`, optional
-  `hp_values_json`).
-- For each HP, pick the value that maximises the primary metric **while keeping the
-  quality metric within tolerance** (`WORKLOAD_CARD.md §4`). HP settings that regress
-  quality do not count.
-- Validate the chosen configuration once on a full time-to-result run (Phase 3 defines
-  the target).
-- Lock the configuration. Any later change to a locked HP must be logged explicitly and
-  compared against a re-measured baseline using the locked HPs — engineering deltas from
-  Phase 4 onward are measured against locked HPs, not defaults.
+  row's `baseline_ref`. Sweep points compare against it, not against the default-HP
+  TTR baseline from §3.1 (which is `tier=full`).
+- Sweep the candidate HP sets on short runs (see `EXECUTION §5` for the short-run
+  cadence). Record each point in `artifacts/benchmarks/results.csv` using `SCHEMA §1`
+  (`phase=phase_2_hp`, `candidate=hp_sweep_<label>`, `hp_values_json=<...>`).
+- Rank the candidate sets by the proxy metric, discarding any that regress the quality
+  metric outside `WORKLOAD_CARD.md §4` tolerance on short runs. Keep the top ≤ `k_max`
+  that pass.
 
 If the sweep surfaces strong coupling that is hard to reason about cleanly, escalate as
 an `H-STEER` intervention rather than silently expanding scope.
 
+### 3.3 TTR validation with backtrack
+
+Take the ranked candidates in order and validate each on full-length TTR until one
+passes, or the shortlist is exhausted:
+
+1. Run N full-length runs at the candidate HP set, with N chosen per `RULES §6` using
+   the default-HP TTR CV from §3.1. Record under a single `experiment_id` with
+   `phase=phase_2_hp, candidate=hp_candidate_<label>, tier=full,
+   baseline_ref=<default-HP experiment_id>, hp_values_json=<...>`.
+2. Apply the `RULES §7` min-win gate (TTR Δ_min, confidence interval excludes zero)
+   comparing candidate TTR against the default-HP TTR baseline from §3.1.
+3. Apply the `RULES §11` quality gate (`quality_verdict=PASS`, or FAIL /
+   INCONCLUSIVE → reject).
+4. If both gates pass, **lock** this candidate's HP set. Stop.
+5. Otherwise, drop to the next candidate and repeat.
+
+If no candidate passes, lock **default HPs**. Phase 4 then proceeds with the default-HP
+TTR runs from §3.1 as the Tier-2 baseline.
+
+Once locked, any later change to a locked HP must be logged explicitly as an
+`H-STEER` and re-measured against the locked-HP TTR baseline — engineering deltas from
+Phase 4 onward are measured against locked HPs, not defaults.
+
 **Exit criterion:**
-- Selected engineering-knob HPs are measured, validated on a full-run, and locked. Their
-  values and the measured primary / quality metrics are recorded in `event_log.md`.
+- Default-HP TTR baseline recorded (≥3 full runs + `[NOISE]` CV entry).
+- Target quality level declared and recorded in `event_log.md`.
+- Proxy shortlist with declared `k_max` recorded in `event_log.md`.
+- TTR-validation attempts recorded in `results.csv`; rejected candidates carry
+  `win_status=EXPERIMENT` with the quality / magnitude reason in `notes`.
+- Locked configuration recorded in `event_log.md` — either a winning candidate HP set
+  or the default fallback. If a candidate won, its ≥3 full-length runs are captured
+  under its own `experiment_id`.
 - Emit `[PHASE-EXIT 2]`.
 
 ---
 
-## 4) Phase 3 — Time-to-result target
+## 4) Phase 3 — Tier-2 baseline for optimization
 
-The primary objective is **time to result** (TTR): wall-clock time to reach a given
-quality level. Phase 3 defines the target — which quality level counts as "done" — by
-measuring what the locked-HP baseline achieves in practice.
+Phase 2 did the search (default-HP TTR baseline, proxy sweep, candidate TTR
+validation, locking). Phase 3 turns that output into the formal Tier-2 baseline
+Phase 4 compares against, and gates `[WIN]` emissions: no wins may fire before
+`[PHASE-EXIT 3]` (`RULES §14.3` invariant).
 
-Inputs: the locked HP configuration from Phase 2, the full benchmark window from
-`WORKLOAD_CARD.md §5`, the quality metric and tolerance from `WORKLOAD_CARD.md §3–§4`.
+Inputs: the locked HP configuration from `EXECUTION §3.3`, the target quality declared
+in `EXECUTION §3.1`, and the ≥3 full-length TTR runs at the locked config already
+captured in Phase 2 (either the winning candidate's runs from §3.3 or the default-HP
+runs from §3.1, depending on which way the backtrack resolved).
+
+No new full runs are required. Phase 3 consumes Phase 2's measurements.
 
 What to do:
-- Run at least **three** full-length baseline runs with the locked Phase-2 HPs — the
-  minimum `RULES §6` needs to compute tier-2 CV from this baseline. Record them under a
-  **single `experiment_id`** with `phase=phase_3_ttr, tier=full, candidate=baseline`.
-  The Phase-2 validation run stays in its own `experiment_id` with `phase=phase_2_hp`
-  and is **not** counted toward the Phase-3 baseline: it answered a different question
-  (does the locked HP config pass a full-run smoke) than Phase 3 (locate the TTR and
-  measure its variance).
-- Track the quality metric **over time** (not only at the end of the run). This is what
-  makes "time to reach quality X" measurable — a single final scalar is not enough.
-- Define the target result explicitly. Two options; pick one and record the choice and
-  the numerical value in `event_log.md`:
-  - **Option A** — target = the baseline's mean end-of-run quality across the Phase-3
-    baseline runs. Candidate-quality gating later applies `WORKLOAD_CARD.md §4`
-    tolerance to this target; the tolerance is not reused to widen the target itself.
-  - **Option B** — target = a pre-declared quality threshold stated in
-    `WORKLOAD_CARD.md §10` ("prior art" or explicit target from a previous session).
-- Define the baseline **time-to-result**: the wall-clock time at which the baseline
-  first reaches the target quality **and** the following-window average of the quality
-  metric remains within its CI (i.e. the metric does not drop significantly outside
-  mean ± std after the first crossing — our pipelines should not exhibit such drops).
-  Record median and range across the baseline full runs.
-- If variance on time-to-result is large (e.g. CV > 20%), flag it — downstream
-  optimization validation will then need multiple full-length runs, not one. See
-  `RULES §6` for how to choose N.
+- Confirm the target quality level from `EXECUTION §3.1` is recorded in `event_log.md`
+  and that the locked-config full runs tracked the quality metric over time (required
+  at §3.1; if missing, re-run now).
+- **Adopt** the locked-config Phase-2 TTR runs as the Tier-2 baseline. Record the
+  baseline's `experiment_id` in `event_log.md` with its TTR median, range, and CV —
+  this is the single reference Phase 4 Tier-2 comparisons use (`RULES §8`).
+- Compute and log a `[NOISE]` entry for the Tier-2 baseline using the locked-config
+  CV — this is what drives `RULES §6` N for Phase 4 Tier-2 validations, and may
+  differ from the default-HP CV that drove §3.3's backtrack gate.
+- If Tier-2 CV is large (e.g. CV > 20%), flag it — Phase 4 validations will then need
+  multiple full-length runs, not one.
 
 **Exit criterion:**
-- Target quality level declared and recorded in `event_log.md`.
-- Baseline time-to-result (median and range) recorded.
-- Observed variance noted for use in later validation decisions.
+- Target quality level confirmed in `event_log.md` (declared in §3.1).
+- Tier-2 baseline adopted: locked-config TTR median / range / CV recorded, with its
+  `experiment_id` cited for Phase 4 `baseline_ref`.
+- `[NOISE]` entry for the Tier-2 baseline CV logged.
+- Observed variance noted for Phase 4 N decisions.
 - Emit `[PHASE-EXIT 3]`.
 
 ---

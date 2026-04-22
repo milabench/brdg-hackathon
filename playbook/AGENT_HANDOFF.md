@@ -1,10 +1,12 @@
 # Agent handoff — start here
 
 ## Goal (one sentence)
-Reduce **time-to-result** (the end-goal metric, defined in `EXECUTION.md §4`) at
-preserved quality (within the tolerance declared in `WORKLOAD_CARD.md §4`). The
-**primary metric** in `WORKLOAD_CARD.md §2` is the cheap throughput proxy used to
-guide the search; see `RULES.md §3` and `§8` for the relationship.
+Reduce **time-to-result** (the end-goal metric, defined in `EXECUTION.md §3.1` and
+adopted as the Tier-2 reference in `§4`) at preserved quality (within the tolerance
+declared in `WORKLOAD_CARD.md §4`). The **primary metric** in `WORKLOAD_CARD.md §2` is
+the cheap throughput proxy used to screen candidates; it ranks HP sets in Phase 2 and
+Phase 4 optimization hypotheses, but TTR is the sole gate for locking an HP
+configuration (`EXECUTION §3.3`) and for `[WIN]` emission (`RULES §3`, `§8`).
 
 ---
 

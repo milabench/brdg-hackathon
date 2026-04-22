@@ -20,26 +20,31 @@ baseline, ready for operators to run optimisation sessions against.
 
 ## Your first actions, in order
 
-1. Ask the human: "Which milabench pipeline are we preparing, and what is the
-   iteration number?" Wait for the answer before proceeding.
-2. Resolve the pipeline. Your shell cwd is the milabench repo root — read
+1. Ask the human: "Which milabench pipeline are we preparing?" Wait for the
+   answer before proceeding.
+2. Infer the iteration number. List
+   `brdg-hackathon/sessions/<workload>/` — if it does not exist, iteration is
+   `1`; otherwise pick the highest existing integer + 1. Tell the human what
+   you inferred so they can override if they are re-preparing a specific
+   iteration.
+3. Resolve the pipeline. Your shell cwd is the milabench repo root — read
    `config/standard.yaml`, find the pipeline entry, follow it to its code
    under `benchmarks/<pipeline>/`. If milabench is not present at the expected
    path, ask the human where it is (or whether to
    `git clone https://github.com/milabench/milabench`).
-3. Read the pipeline code: main script, dataloader, any per-pipeline config.
+4. Read the pipeline code: main script, dataloader, any per-pipeline config.
    Identify what is trained, what is logged (stdout / files / wandb), typical
    run length, obvious bottleneck candidates.
-4. Read `brdg-hackathon/workload-template/WORKLOAD_CARD.md` — the template you
+5. Read `brdg-hackathon/workload-template/WORKLOAD_CARD.md` — the template you
    will fill.
-5. Read `brdg-hackathon/workload-template/README.md` — the human preparer's
+6. Read `brdg-hackathon/workload-template/README.md` — the human preparer's
    counterpart. It is their verification checklist; knowing what they will
    check helps you fill fields they can actually verify.
-6. Read `brdg-hackathon/playbook/RULES.md §2, §4, §8, §11` and
+7. Read `brdg-hackathon/playbook/RULES.md §2, §4, §8, §11` and
    `brdg-hackathon/playbook/SCHEMA.md §1` — the contracts the card must
    satisfy (metric definitions, tolerance semantics, two-tier split,
    quality-check rules, the CSV columns every session will write).
-7. Begin the interview (§3).
+8. Begin the interview (§3).
 
 ---
 
@@ -96,8 +101,8 @@ Which do you want?
 Per-section guidance:
 
 - **§0 Session identity.** Workload slug from the pipeline name; iteration
-  from step 1; date = today; draft a one-sentence summary from the code, ask
-  the human to approve or rewrite.
+  from step 2 (inferred, human-confirmed); date = today; draft a one-sentence
+  summary from the code, ask the human to approve or rewrite.
 - **§1 Target workload.** Repo URL + current `HEAD` commit; benchmark code
   path from `config/standard.yaml`; entry point from the config; read-only
   reference code = files whose change would alter semantics (dataset loader,
@@ -207,5 +212,4 @@ Report the pushed branch name to the human and point them at root
 
 ## Next
 
-Ask the human: "Which milabench pipeline are we preparing, and what is the
-iteration number?"
+Ask the human: "Which milabench pipeline are we preparing?"

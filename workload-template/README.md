@@ -16,13 +16,13 @@ copy and fill. You do not edit it by hand.
 - **A milabench pipeline name** — the entry in
   [`config/standard.yaml`](https://github.com/milabench/milabench/blob/master/config/standard.yaml)
   that identifies the workload (e.g. `resnet`, `llm-lora-single`).
-- **An iteration number** — `1` if this pipeline has never been evaluated,
-  otherwise the next unused integer.
 - **A rough sense of the goal** — what metric matters, what the quality
   constraint is, which parts of the code are in-scope to modify. You do not
   need to write this up; the agent will ask.
 
-Everything else the agent handles.
+The iteration number is inferred by the agent from `sessions/<workload>/` —
+confirm or override it when the agent reports what it found. Everything else
+the agent handles.
 
 ---
 
@@ -35,7 +35,8 @@ Set the agent's shell cwd to the milabench repo root (that is where
 Point the agent at its entry file:
 `brdg-hackathon/workload-template/AGENT_HANDOFF.md`.
 
-Answer its first question — pipeline name + iteration number.
+Answer its first question — the pipeline name. The agent will report the
+inferred iteration number next; confirm or override.
 
 ---
 

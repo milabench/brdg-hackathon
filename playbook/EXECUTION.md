@@ -185,11 +185,14 @@ for Phase 4.
   row's `baseline_ref`. Sweep points compare against it, not against the default-HP
   TTR baseline from §3.1 (which is `tier=full`).
 - Sweep the candidate HP sets on short runs (see `EXECUTION §5` for the short-run
-  cadence). Record each point in `artifacts/benchmarks/results.csv` using `SCHEMA §1`
+  cadence). **Each candidate HP set is measured with N short runs**, N chosen per
+  `RULES §6` from the short-run baseline CV and matched against the baseline's N —
+  a single short run per candidate is not sufficient and does not defeat Tier-1
+  noise. Record each run in `artifacts/benchmarks/results.csv` using `SCHEMA §1`
   (`phase=phase_2_hp`, `candidate=hp_sweep_<label>`, `hp_values_json=<...>`).
-- Rank the candidate sets by the proxy metric, discarding any that regress the quality
-  metric outside `WORKLOAD_CARD.md §4` tolerance on short runs. Keep the top ≤ `k_max`
-  that pass.
+- Rank the candidate sets by the proxy metric (median across their N runs),
+  discarding any that regress the quality metric outside `WORKLOAD_CARD.md §4`
+  tolerance on short runs. Keep the top ≤ `k_max` that pass.
 
 If the sweep surfaces strong coupling that is hard to reason about cleanly, escalate as
 an `H-STEER` intervention rather than silently expanding scope.

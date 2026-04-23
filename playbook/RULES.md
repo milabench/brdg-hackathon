@@ -605,12 +605,10 @@ and Tier 2 deltas diverging beyond the CI implied by `§6`'s N for the relevant 
    - Pre-existing bug (Phase 1 miss) → treat as a new Phase 1 finding: fix in allowed
      territory, or escalate as `H-DEBUG` / `H-STEER` if the fix would touch semantic
      surfaces (`WORKLOAD_CARD.md §8`).
-3. **Delegate when context cost is high.** If investigation requires many file reads,
-   multiple hypotheses, or unrelated code paths, delegate to a sub-agent so the main
-   agent's context stays focused on optimisation. The sub-agent receives the failing
-   command, the hypothesis to investigate, and the allowed-edit surfaces, and returns a
-   minimal diff + root-cause explanation. The main agent reviews the proposed fix before
-   applying it.
+3. **Delegate when context cost is high.** Apply `§17.1` (context economy) here: hand
+   the sub-agent the failing command, the hypothesis to investigate, and the
+   allowed-edit surfaces; it returns a minimal diff + root-cause explanation, which
+   the main agent reviews before applying.
 4. **Fix in its own commit** and log `[FIX]` with the root cause.
 5. **Re-measure.** A bug fix shifts the baseline. Prior wins measured across the buggy
    code are suspect — re-measure them, or annotate them as `INVALIDATED` in
@@ -625,4 +623,59 @@ semantic impact is uncertain, or if the same bug reappears after a fix.
 **Session-close emission.** At session end, emit `[SESSION-CLOSE]` with body
 `clean close: no unresolved bugs` or `closed with unresolved bugs: <list>`. See `§14.3`
 for the invariant; `EXECUTION §6.1` performs the emission.
+
+---
+
+## 17) Agent execution discipline
+
+Standing rules about how the agent operates its tools during the session. They fire on
+every relevant action from Bootstrap onward, regardless of phase.
+
+### 17.1 Context economy — delegate when the output is large
+
+The main agent's context is finite. Tool calls that return long outputs — full
+benchmark logs, profiler dumps, wide searches, exploratory code reads — push the
+rulebook, the event-log schema, and the current bottleneck stack out of the window,
+and later judgement degrades silently. Delegate any task for which the main agent
+only needs the conclusion, not the raw output.
+
+When delegating, the sub-agent receives: the question asked, the commands / files
+involved, and the expected shape of the return value (e.g. "median / min / max plus
+any crash signature"; "diff + root cause"). The main agent keeps only the returned
+answer, not the raw log. This generalises the bug-investigation delegation in
+`§16` step 3.
+
+**Missing permissions.** If a sub-agent cannot complete its task because it lacks a
+permission, do **not** fall back to running the work in the main agent — that
+reintroduces the context cost this rule exists to avoid. Pause, report the missing
+permission to the human operator (log as `H-OPS` per `§1`), and relaunch the sub-agent
+once the permission is granted.
+
+### 17.2 Job-launch monitoring — wait for main-loop entry, then back off exponentially
+
+A launched job can fail before reaching its main loop (CLI typo, missing env var,
+wrong CUDA device, import error, compile failure, dataloader init, first-batch NaN).
+Once the workload enters steady-state iteration — training or inference — crashes
+are much rarer, but still possible (OOM on a larger batch, numerical blow-up,
+dataloader exhaustion). Cadence is set around this split: the first check gates on
+main-loop entry, subsequent checks thin out as confidence rises.
+
+**First check — main-loop entry.** Wait for the workload to enter its main loop,
+recognised by primary-metric lines (per-step throughput, loss / reward) arriving on
+a regular cadence. Do this check once main-loop entry is expected — not on an
+arbitrary minute-count. If main-loop entry has not happened within roughly the
+expected setup time (compare against the Phase 1 baseline — startup / compile /
+first-batch time is known from it), treat it as a setup failure and triage per
+`§16`.
+
+**Subsequent checks — exponential backoff.** After main-loop entry, crashes are
+sparse and frequent polling burns context for little signal. Back off between
+checks — e.g. 1 min → 2 min → 4 min → 8 min — **capped** so the next check still
+lands before the job's expected completion. A backoff that would push the next
+check past the expected finish is too long: either shorten it, or let the job
+complete and read the final output.
+
+If a check surfaces a crash, do not wait out the remainder — log the failure and
+triage per `§16`. Retry only if the failure is obviously transient (e.g. a slurm
+allocation race).
 

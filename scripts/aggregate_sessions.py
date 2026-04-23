@@ -155,7 +155,7 @@ def aggregate_session(session_dir: Path) -> dict:
         "h_ops": sum(1 for e in events if e.tag == "H-OPS"),
         "t_first_baseline_min": _first_tag_time(events, "BASELINE"),
         "t_first_profile_min": _first_tag_time(events, "PROFILE"),
-        "t_hpo_done_min": _first_tag_time(events, "PHASE-EXIT 2"),
+        "t_baseline_adopted_min": _first_tag_time(events, "PHASE-EXIT 2"),
         "t_first_win_min": _first_tag_time(events, "WIN"),
         "duration_min": max((e.t_minutes for e in events), default=None),
         "final_summary": final_summary_exists,
@@ -168,7 +168,7 @@ MD_COLUMN_ORDER = [
     "session_id", "agent_id", "baseline_primary_median", "best_primary_median",
     "improvement_pct", "best_candidate", "n_wins", "n_experiments", "n_reverts",
     "h_steer", "h_debug", "h_arch", "h_ops",
-    "t_first_baseline_min", "t_first_profile_min", "t_hpo_done_min",
+    "t_first_baseline_min", "t_first_profile_min", "t_baseline_adopted_min",
     "t_first_win_min", "duration_min", "final_summary",
 ]
 

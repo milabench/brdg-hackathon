@@ -24,7 +24,7 @@ entries they are contracting with.
 | § | Title | Trigger (one-line) | Hold |
 |---|-------|--------------------|------|
 | 1 | Hidden-sync-point checklist | code change to hot-path / logging / hooks / callbacks | until scan done + benchmark run |
-| 2 | Hyperparameter interactions | Phase 2 HP sweep (enumeration or tuning) | through Phase 2 |
+| 2 | Hyperparameter interactions | Prep Phase 2 HP sweep, or a session `H-STEER` that unlocks an HP | through prep Phase 2 / through session unlock |
 | 3 | Preflight capture fields | Bootstrap (`EXECUTION §1.3`); also on any `[DRIFT]` re-capture | until preflight.txt written + event-log summary posted |
 | 4 | Profiling tools | Choosing a profiler for a new profiling session | through session after first profile (then on-demand for tool swap) |
 
@@ -34,7 +34,7 @@ entries they are contracting with.
 
 **Trigger.** After any code change that touches hot-path, logging, hooks, or callbacks,
 before benchmarking.
-**Loaded from.** `RULES §15` (logging-overhead reporting), `EXECUTION §5` (Phase 4 loop
+**Loaded from.** `RULES §15` (logging-overhead reporting), `EXECUTION §4` (Phase 3 loop
 step 3).
 **Hold.** until scan done + benchmark run.
 **Evict.** after the benchmark run completes without flagging a sync regression, or
@@ -91,17 +91,23 @@ throughput).
 
 ## 2) Hyperparameter interactions reference
 
-**Trigger.** Phase 2 HP sweep — enumeration (`EXECUTION §3`) or any later attempt to
-tune a locked HP.
+**Trigger.** Two independent situations load this entry:
+- **Preparer-agent**, during Prep Phase 2 HP enumeration
+  (`workload-template/AGENT_HANDOFF.md` Prep Phase 2).
+- **Session-agent**, when an `H-STEER` intervention unlocks one of the HPs
+  pinned in `WORKLOAD_CARD §10.1` and the agent needs to sweep it.
+
 **Loaded from.** `RULES §9` (change-one-thing exceptions: coupled-HP groups),
-`EXECUTION §3` (Phase 2 HP enumeration).
-**Hold.** through Phase 2.
-**Evict.** at `[PHASE-EXIT 2]`. Re-load only if a later change touches a locked HP.
+`workload-template/AGENT_HANDOFF.md` (Prep Phase 2 HP search).
+**Hold.** For the preparer: through Prep Phase 2. For the session-agent: from the
+`H-STEER` unlock through the re-validation against the Tier-2 baseline.
+**Evict.** Preparer: at `[PREP-EXIT 2]`. Session-agent: once the unlocked-HP
+candidate is either committed or dropped.
 
 Hyperparameters do not live in isolation — **coupled HPs** shift each other's effective
 value when tuned in isolation, and **HPs with training-time dynamics** have short-run
-behaviour that under-samples the dynamic regime. Phase 2's HP-first pass must watch for
-both.
+behaviour that under-samples the dynamic regime. The HP-first sweep (preparer or
+session-unlock) must watch for both.
 
 **Common couplings.**
 
@@ -133,8 +139,9 @@ both.
 3. Would changing this HP change the effective value of another (e.g. batch size
    changing effective LR)?
 
-If the answer to (1) or (3) is yes and the pair can't be cleanly separated, escalate as
-`H-STEER` rather than silently sweeping (same rule as Phase 2, `EXECUTION.md §3`).
+If the answer to (1) or (3) is yes and the pair can't be cleanly separated, escalate
+(`H-STEER` for the session-agent; raise with the human preparer for the preparer-agent)
+rather than silently sweeping.
 
 **Common short-run pitfalls.**
 - LR tuned on warmup-only runs: peak choice masks plateau behaviour.
@@ -147,8 +154,8 @@ If the answer to (1) or (3) is yes and the pair can't be cleanly separated, esca
 
 ## 3) Preflight capture fields
 
-**Trigger.** Bootstrap (`EXECUTION §1.3`) — first action of the session. Also on any
-`[DRIFT]` event that requires re-capture.
+**Trigger.** Session-agent Bootstrap (`EXECUTION §1.3`) — first action of the
+session. Also on any `[DRIFT]` event that requires re-capture.
 **Loaded from.** `RULES §5` (preflight directive + drift rule), `EXECUTION §1.3`
 (bootstrap step).
 **Hold.** until `preflight.txt` is written and the event-log summary is posted; on

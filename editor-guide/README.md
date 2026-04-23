@@ -65,8 +65,12 @@ address the session-running optimisation agent.
 - **`RULES.md`** — the always-resident rulebook. Numbered sections `§1..§16`. Cited
   from everywhere else as `RULES §X`. The agent holds this loaded for the whole
   session, so every line it contains is paid for on every turn.
-- **`EXECUTION.md`** — the phase-by-phase procedure (Phase 1 → 2 → 3 → 4 → wrap-up).
-  Cites `RULES §X` repeatedly. Each phase has an explicit exit criterion.
+- **`EXECUTION.md`** — the phase-by-phase procedure (Phase 1 → 2 → 3 → wrap-up).
+  Cites `RULES §X` repeatedly. Each phase has an explicit exit criterion. The
+  preparer-agent has a parallel three-phase procedure in
+  `workload-template/AGENT_HANDOFF.md` (Prep Phase 1 → 2 → 3), which produces
+  the locked HP configuration and tier baselines the session-agent reads from
+  `WORKLOAD_CARD §10`.
 
 ### 2.2 Agent-facing prose (trigger-loaded)
 
@@ -76,18 +80,19 @@ in `playbook/`. The pattern is encoded at the top of the file itself
 pointer). Respect those declarations when editing — do not promote a trigger-loaded
 file into the eagerly-loaded group without reconsidering the whole load pattern.
 
-- **`SCHEMA.md`** — the `results.csv` data contract. Fixed 23-column header and
-  validation rules. Load pattern: **loaded on first `results.csv` write (end of
-  Phase 1 baseline), held through the session** — trigger-loaded but then resident
-  once triggered, because CSV writes repeat on every experiment. Consumed
-  mechanically by scripts (§2.5) and by the post-experiment checklist
+- **`SCHEMA.md`** — the `results.csv` / `prep_results.csv` data contract. Fixed
+  23-column header and validation rules, with separate `phase` / `win_status`
+  enums for the session and prep CSVs (§§1–2). Load pattern: **loaded on first
+  CSV write, held through the session / preparation** — trigger-loaded but then
+  resident once triggered, because CSV writes repeat on every experiment.
+  Consumed mechanically by scripts (§2.5) and by the post-experiment checklist
   (`RULES §14.2`).
 - **`REFERENCE.md`** — lookup tables consulted on demand. Each entry declares its
   own **Trigger / Loaded from / Hold / Evict** (see §5). Content that is only
   relevant in narrow situations lives here instead of in `RULES.md` — this is the
   corpus's main context-economy device.
 - **`FINAL_SUMMARY_TEMPLATE.md`** — the shape of the session's terminal
-  deliverable. Load pattern: **loaded during wrap-up** (`EXECUTION §6.4`) and not
+  deliverable. Load pattern: **loaded during wrap-up** (`EXECUTION §5.4`) and not
   before. Changes here flow into every future session's `FINAL_SUMMARY.md`.
 
 ### 2.3 Preparer surfaces (`workload-template/`)
@@ -156,7 +161,7 @@ those contracts. When the prose changes, the scripts usually must change too —
 vice versa.
 
 - **`validate_artifacts.py`** — enforces `RULES §5` (preflight), `§12` (profiling),
-  `SCHEMA §1` (CSV schema), and `EXECUTION §6.3` (required folder structure).
+  `SCHEMA §§1–2` (CSV schemas), and `EXECUTION §5.3` (required folder structure).
 - **`score_session.py`** — parses `event_log.md` tags (`RULES §13.3` / `§14.3`) and
   `results.csv`, computes timeline and quality metrics, and checks `§14.3`
   invariants.
@@ -171,12 +176,17 @@ vice versa.
 
 | Contract | Prose source of truth | Mirrored in |
 |----------|-----------------------|-------------|
-| 23-column `results.csv` header | `SCHEMA §1` | `REQUIRED_COLUMNS` in `validate_artifacts.py`, `score_session.py`, `plot_results.py`, `aggregate_sessions.py` (all four) |
-| Event-log tag line regex | `RULES §13.2` / `§14.3` tag-line format | `TAG_LINE_RE` in `plot_results.py`, `score_session.py` |
-| `[PHASE-EXIT N]` range `N ∈ {1..4}` | `RULES §13.3` / `§14.3` | `PHASE_EXIT_RE` + `range(1, 5)` loops in `score_session.py` |
-| Tag `Role` column (milestone / overlay / —) | `RULES §13.3` table | `_tag_style` function in `plot_results.py` (distinct marker + label flags per role) |
-| Milestone invariants (counts, ordering) | `RULES §14.3` invariants | `check_invariants` in `score_session.py` |
+| 23-column CSV header (both `results.csv` and `prep_results.csv`) | `SCHEMA §§1–2` | `REQUIRED_COLUMNS` in `validate_artifacts.py`, `score_session.py`, `plot_results.py`, `aggregate_sessions.py` (all four) |
+| Session `phase` enum | `SCHEMA §1` (`phase_1_bugfix`, `phase_2_adopt`, `phase_3_iter`, `phase_3_validation`) | `SESSION_PHASE_VALUES` in `validate_artifacts.py` |
+| Prep `phase` enum | `SCHEMA §2` (`prep_p1_sanity_baseline`, `prep_p2_short_baseline`, `prep_p2_sweep`, `prep_p2_default_ttr`, `prep_p2_validation`) | `PREP_PHASE_VALUES` in `validate_artifacts.py` |
+| Event-log tag line regex | `RULES §13.2` / `§14.3` / `§18.3` tag-line format | `TAG_LINE_RE` in `plot_results.py`, `score_session.py` |
+| Session `[PHASE-EXIT N]` range `N ∈ {1,2,3}` | `RULES §13.3` / `§14.3` | `PHASE_EXIT_RE` + `range(1, 4)` loops in `score_session.py` |
+| Prep `[PREP-EXIT N]` range `N ∈ {1,2,3}` | `RULES §18.2` / `§18.3` | `PREP_EXIT_RE` in `validate_artifacts.py` (prep mode) |
+| Tag `Role` column (milestone / overlay / —) | `RULES §13.3` + `§18.2` tables | `_tag_style` function in `plot_results.py` (distinct marker + label flags per role) |
+| Session milestone invariants (counts, ordering) | `RULES §14.3` invariants | `check_invariants` in `score_session.py` |
+| Prep milestone invariants | `RULES §18.4` invariants | `check_prep_invariants` in `validate_artifacts.py` |
 | `[SESSION-START]` / `[WIN]` / `[PHASE-EXIT N]` / `[SESSION-CLOSE]` body shapes | `RULES §14.3` | parsing logic in `score_session.py`, `aggregate_sessions.py` |
+| `[PREP-START]` / `[PREP-EXIT N]` / `[PREP-CLOSE]` body shapes | `RULES §18.3` | parsing logic in `validate_artifacts.py` (prep mode) |
 | Post-experiment checklist line | `RULES §14.2` | checklist regex in `score_session.py` |
 | Script-printed section labels (e.g. `"Checklist compliance (RULES §14.2)"`) | `RULES §X` numbering | docstrings + `print` / output-building lines in `score_session.py` |
 
@@ -311,7 +321,7 @@ slightly differently, and cross-session comparison breaks down.
 
 The corpus already draws this line well: the post-experiment checklist (`RULES
 §14.2`) is rigidly prescriptive because it is the mechanism that catches omissions;
-but the Phase 4 loop body (`EXECUTION §5`) is described at the level of "profile →
+but the Phase 3 loop body (`EXECUTION §4`) is described at the level of "profile →
 hypothesise → change → measure" and leaves the agent to judge which bottleneck is
 top of stack.
 
@@ -427,28 +437,36 @@ See §2.5 for the full mirrored-constants table. The contracts below are not
 negotiable — every edit touching them updates prose *and* every mirroring script
 in the same change.
 
-- The 23 columns in `SCHEMA §1`, in order, match exactly the `REQUIRED_COLUMNS`
-  lists in all four scripts (`validate_artifacts.py`, `score_session.py`,
-  `plot_results.py`, `aggregate_sessions.py`). Adding, removing, or reordering a
-  column touches all five surfaces and is verified against the validator before
-  merging.
-- The tag set in `RULES §13.3` is the superset of tags that `score_session.py`
-  parses. A tag used in `event_log.md` that is not in `§13.3` is a spec bug; a tag
-  in `§13.3` that the scorer does not understand is a script bug. Both are
-  blockers.
-- The `Role` column in `RULES §13.3` (milestone / overlay / —) matches the branch
-  structure of `_tag_style` in `plot_results.py`. Promoting a tag's role in the
-  table without updating `_tag_style` silently mis-renders the timeline.
+- The 23 columns in `SCHEMA §1` (and mirrored in `§2` for `prep_results.csv`),
+  in order, match exactly the `REQUIRED_COLUMNS` lists in all four scripts
+  (`validate_artifacts.py`, `score_session.py`, `plot_results.py`,
+  `aggregate_sessions.py`). Adding, removing, or reordering a column touches all
+  five surfaces and is verified against the validator before merging.
+- The session `phase` enum (`SCHEMA §1`) and the prep `phase` enum (`SCHEMA §2`)
+  are disjoint by design — session rows never carry a `prep_*` phase and vice
+  versa. `validate_artifacts.py --mode session|prep` picks the right enum.
+- The session tag set in `RULES §13.3` is the superset of tags that
+  `score_session.py` parses for session event logs. The prep tag set in
+  `RULES §18.2` is the superset that `validate_artifacts.py --mode prep` parses.
+  A tag used in `event_log.md` / `prep_event_log.md` that is not in the
+  respective table is a spec bug; a tag in the table that the corresponding
+  script does not understand is a script bug. Both are blockers.
+- The `Role` column in `RULES §13.3` + `§18.2` (milestone / overlay / —) matches
+  the branch structure of `_tag_style` in `plot_results.py`. Promoting a tag's
+  role in the table without updating `_tag_style` silently mis-renders the
+  timeline.
 - The canonical single-line shapes for `[SESSION-START]`, `[WIN]`, `[PHASE-EXIT N]`,
   and `[SESSION-CLOSE]` in `RULES §14.3` are the shapes `score_session.py` parses.
   Do not reword them for prose reasons. The sign convention for `delta_ttr`
   (negative = improvement) is part of the canonical shape, not a prose preference.
   The `[SESSION-START]` body fields — including `Hackathon repo: <branch> @
   <commit>` — are the session's own version record; renaming them drops corpus
-  provenance silently.
-- `PHASE-EXIT N` is fixed at `N ∈ {1..4}`. `PHASE_EXIT_RE` and the `range(1, 5)`
-  loops in `score_session.py` encode this; adding a phase number requires updating
-  both.
+  provenance silently. Parallel shapes for `[PREP-START]`, `[PREP-EXIT N]`,
+  `[PREP-CLOSE]` live in `RULES §18.3`.
+- `PHASE-EXIT N` is fixed at `N ∈ {1,2,3}` (sessions) and `PREP-EXIT N` at
+  `N ∈ {1,2,3}` (prep). Encoded in `PHASE_EXIT_RE` + `range(1, 4)` in
+  `score_session.py` and in `PREP_EXIT_RE` in `validate_artifacts.py` (prep
+  mode); adding or removing a phase number requires updating all of them.
 - The post-experiment checklist line in `RULES §14.2` is parsed by
   `score_session.py`. The six boxes, their order, and their names are fixed.
 - Script-printed section labels (e.g. `"Milestone timeline (RULES §14.3)"`) cite
@@ -464,20 +482,30 @@ in the same change.
 - Deleting a section deletes or rewrites every inbound citation in the same
   change.
 
-### 4.3 Structural invariants encoded in `§14.3`
+### 4.3 Structural invariants encoded in `§14.3` and `§18.4`
 
+Session (enforced by `score_session.py`):
 - Exactly one `[SESSION-START]` per session, at `T+0`, with a
   `Hackathon repo: <branch> @ <commit>` line in its body.
-- Exactly one `[PHASE-EXIT N]` per `N ∈ {1,2,3,4}` per session.
+- Exactly one `[PHASE-EXIT N]` per `N ∈ {1,2,3}` per session.
 - Exactly one `[SESSION-CLOSE]` per session.
-- `[WIN]` events appear only after `[PHASE-EXIT 3]`.
+- `[WIN]` events appear only after `[PHASE-EXIT 2]`.
 - `[PHASE-EXIT 2]` follows at least one `[BASELINE]`.
 - Every `[WIN]` has a matching `results.csv` row with `tier=full`,
   `win_status=WIN`, `quality_verdict=PASS`.
 
-These are enforced by `score_session.py`. Any edit that introduces a new milestone
-tag or a new phase must either fit into these invariants or update `§14.3` and the
-scorer together.
+Prep (enforced by `validate_artifacts.py --mode prep`):
+- Exactly one `[PREP-START]` per iteration, at `T+0`, with a
+  `Hackathon repo: <branch> @ <commit>` line.
+- Exactly one `[PREP-EXIT N]` per `N ∈ {1,2,3}` per iteration.
+- Exactly one `[PREP-CLOSE]` per iteration.
+- `[PREP-EXIT 2]` follows at least one `[BASELINE]` and at least one `[NOISE]`.
+- `WORKLOAD_CARD §10.1`'s `hp_values_json` matches the winning `experiment_id`'s
+  `hp_values_json` in `prep_results.csv`.
+
+Any edit that introduces a new milestone tag or a new phase must either fit into
+these invariants or update the corresponding `§` and the scorer/validator
+together.
 
 ### 4.4 Metric-per-tier contract
 
@@ -487,9 +515,11 @@ collapsed.
 - **Tier 1 (short runs)** measures the **throughput proxy** declared in
   `WORKLOAD_CARD §2` (per-step or per-sample throughput). Cheap, fast, noisy.
   Used for profiling and candidate screening.
-- **Tier 2 (full runs)** measures **time-to-result (TTR)** as defined in
-  `EXECUTION §4` — wall-clock time to reach the target quality. Expensive,
-  integrates run dynamics, and is the session's end-goal metric.
+- **Tier 2 (full runs)** measures **time-to-result (TTR)** — wall-clock time
+  to reach the target quality declared in `WORKLOAD_CARD §10.2`. The locked-HP
+  Tier-2 baseline comes from prep (`WORKLOAD_CARD §10.3`) and is adopted at
+  session Phase 2 entry (`EXECUTION §3`). Expensive, integrates run dynamics,
+  and is the session's end-goal metric.
 - `[WIN]` is Tier-2-only (`RULES §8` promotion rule, `§14.3` invariant) and
   reports `delta_ttr` in its body, not throughput (`RULES §14.3`). A throughput
   improvement that does not translate to a TTR win is not a win.
@@ -508,18 +538,32 @@ around. Reject them and rework the edit.
 
 ### 4.5 Phase structure
 
-- Phases run 1 → 2 → 3 → 4 → wrap-up, in order.
-- Each phase has an explicit exit criterion stated at the end of its section in
-  `EXECUTION.md`.
+Session (`playbook/EXECUTION.md`):
+- Phases run 1 → 2 → 3 → wrap-up, in order.
+- Phase 1: bug-first pass at locked HPs. Phase 2: adopt Tier-2 baseline from
+  `WORKLOAD_CARD §10`, re-measure Tier-1 on session host. Phase 3: optimization
+  loop.
+
+Preparation (`workload-template/AGENT_HANDOFF.md`):
+- Prep Phase 1 (card draft + sanity baseline) → Prep Phase 2 (HP search + lock)
+  → Prep Phase 3 (publish).
+
+Both sets:
+- Each phase has an explicit exit criterion stated at the end of its section.
 - The standing bug-handling procedure (`RULES §16`) can fire from any phase.
 
 **Phase ↔ milestone coupling.** Phase numbers and milestone tag numbers are not
 independent. Adding or removing a phase cascades into:
-- the `[PHASE-EXIT N]` range in `RULES §13.3` / `§14.3` and its invariants;
+- the `[PHASE-EXIT N]` / `[PREP-EXIT N]` range in `RULES §13.3` / `§14.3` /
+  `§18.2` / `§18.3` and their invariants;
 - `PHASE_EXIT_RE` + `range(…)` loops in `score_session.py`;
-- the `phase` enum values in `SCHEMA §1`;
-- the `phase` values written by `EXECUTION §3` / `§4` / `§5` into rows;
-- every `[PHASE-EXIT N]`, `[SESSION-START]`, or `[SESSION-CLOSE]` mention in prose.
+- `PREP_EXIT_RE` in `validate_artifacts.py` (prep mode);
+- the session `phase` enum in `SCHEMA §1` and the prep `phase` enum in
+  `SCHEMA §2`;
+- the `phase` values written by `EXECUTION §2` / `§3` / `§4` (session) and
+  `workload-template/AGENT_HANDOFF.md` §3 / §4 (prep) into rows;
+- every `[PHASE-EXIT N]`, `[SESSION-START]`, `[SESSION-CLOSE]`, `[PREP-EXIT N]`,
+  `[PREP-START]`, or `[PREP-CLOSE]` mention in prose.
 
 A previous drift had `[PHASE-EXIT 5]` overloaded as a session-close marker for a
 non-sequential phase, plus a `phase_5_bug` enum value with no consumer — that is
@@ -532,39 +576,54 @@ Two human roles and two agent roles, paired:
 - **Preparer (human) ↔ preparer-agent.** The preparer-agent interviews the
   human, drafts `WORKLOAD_CARD.md`, creates the workload-repo prep branch
   `hackathon-<workload>-<iteration>` (with `brdg-hackathon/` gitignored and
-  any approved prep-time fixups), runs the baseline on that branch, pushes
-  both the workload-repo prep branch and the brdg-hackathon iteration
-  branch. The human specifies the pipeline, answers judgment questions
-  (metric, tolerance, scope), and verifies the filled card — including the
-  pinned prep-branch commit — before approving the commit. Neither side
-  fills the card alone. The prep branch carrying environment / ignore /
-  known-upstream-bug changes is the preparer's surface, not the operator's
-  or the session-agent's; edits that have the operator mutating the workload
-  repo's tree (e.g. appending to `.gitignore`) or the session-agent doing
-  so outside its declared optimisation branch are redesigns of the role
-  split, not clarifications.
+  any approved prep-time fixups), **runs the HP search** (Prep Phase 2:
+  short-run baseline, default-HP TTR baseline, proxy sweep, TTR validation,
+  lock), fills `WORKLOAD_CARD §10` with the locked HPs and tier baselines,
+  and pushes both the workload-repo prep branch and the brdg-hackathon
+  iteration branch. The human specifies the pipeline, answers judgment
+  questions (metric, tolerance, scope, target quality, engineering-knob
+  shortlist, semantic-HP unlock approval), and verifies the filled card —
+  including the pinned prep-branch commit and the §10 HP-lock numbers —
+  before approving the commit. Neither side fills the card alone. The prep
+  branch carrying environment / ignore / known-upstream-bug changes is the
+  preparer's surface, not the operator's or the session-agent's; edits that
+  have the operator mutating the workload repo's tree (e.g. appending to
+  `.gitignore`) or the session-agent doing so outside its declared
+  optimisation branch are redesigns of the role split, not clarifications.
 - **Operator (human) ↔ session-agent.** The session-agent is the primary
-  scribe (maintains `event_log.md`, `results.csv`, profiles, `FINAL_SUMMARY.md`).
-  The operator is the verifier. Neither collapses into the other.
+  scribe of the session tree (maintains `event_log.md`, `results.csv`,
+  profiles, `FINAL_SUMMARY.md`). The operator is the verifier. Neither
+  collapses into the other.
 
 Other invariants:
 
 - `WORKLOAD_CARD.md` is filled during preparation (preparer + preparer-agent),
   not during the session. The session-agent and operator read it read-only.
+  Likewise the `prep/` tree — preparer-agent writes, everyone else reads.
+- **HP search belongs to preparation, not the session.** The session-agent
+  optimises at the locked HPs from `WORKLOAD_CARD §10.1`; any change to a
+  locked HP requires an `H-STEER` intervention, not an opportunistic sweep.
+  An edit that has the session-agent running a Phase-2-style HP sweep is a
+  regression into the pre-move design.
 - `playbook/AGENT_HANDOFF.md` / `playbook/RULES.md` / `playbook/EXECUTION.md`
   address the session-agent. `workload-template/AGENT_HANDOFF.md` addresses
   the preparer-agent. Root `README.md` addresses the operator.
   `workload-template/README.md` addresses the preparer.
+- `playbook/RULES.md` has a "Readers" header listing which sections each
+  agent loads. Universal measurement rules (`§§6, 7, 8, 11`) apply to both
+  agents; session-only (`§5, §14.3, §15`) and prep-only (`§18`) are called
+  out explicitly.
 
 Edits that have the session-agent editing `WORKLOAD_CARD.md` during the
-session, that have the operator maintaining `event_log.md`, that have the
-preparer editing the card by hand without an agent, or that have the
-preparer-agent committing without explicit human approval, are redesigns of
-the protocol, not clarifications. Flag them as such.
+session, that have the session-agent re-running HP search as part of Phase 2,
+that have the operator maintaining `event_log.md`, that have the preparer
+editing the card by hand without an agent, or that have the preparer-agent
+committing without explicit human approval, are redesigns of the protocol, not
+clarifications. Flag them as such.
 
 ### 4.7 Append-only data log
 
-`SCHEMA §2` states rows in `results.csv` are never deleted — only appended, or
+`SCHEMA §3` states rows in `results.csv` / `prep_results.csv` are never deleted — only appended, or
 retroactively updated on two narrow columns (`win_status → INVALIDATED` and
 `notes`). Edits that introduce a mutable column, or that relax the append-only
 policy, break cross-session aggregation and are not permitted.
@@ -612,7 +671,7 @@ Decision order:
    - Good: "on every `[DRIFT]` event" (tag emission).
    - Good: "first `results.csv` write" (specific file operation).
    - Bad: "consult when relevant" (useless).
-   - Bad: "during optimization" (too broad — covers most of Phase 4).
+   - Bad: "during optimization" (too broad — covers most of Phase 3).
    - Bad: "when the agent is stuck" (subjective).
    - Bad: "if needed" (no observable precondition).
 6. **Is it human workflow?** → the relevant human-facing README. Preparer
@@ -765,11 +824,14 @@ re-grep confirms they still describe the current content.
 
 **If no real artifact tree is available, build a synthetic fixture.** It takes
 ~10 minutes: a minimal `event_log.md` covering every tag your edit touches
-(plus `[BASELINE]`, `[PHASE-EXIT 1..4]`, `[SESSION-CLOSE]`, `[WIN]` so the
+(plus `[BASELINE]`, `[PHASE-EXIT 1..3]`, `[SESSION-CLOSE]`, `[WIN]` so the
 invariants have something to check), and a minimal `results.csv` with at least
 one baseline `experiment_id` and one non-baseline `experiment_id` referencing
-it. Synthetic fixtures are the only way to validate tag renames, new milestone
-tags, or new `SCHEMA` columns before a real session runs.
+it. For prep-side edits, add a parallel `prep/prep_event_log.md` covering
+`[PREP-START]`, `[PREP-EXIT 1..3]`, `[PREP-CLOSE]` plus `[BASELINE]` and
+`[NOISE]`, and a minimal `prep/prep_results.csv`. Synthetic fixtures are the
+only way to validate tag renames, new milestone tags, or new `SCHEMA` columns
+before a real session runs.
 
 ### 7.5 Self-review against this guide
 

@@ -164,20 +164,78 @@ stronger quality checks (see `RULES.md` §11, correctness / quality checks):
 
 ---
 
-## 10) Known caveats and prior art
+## 10) HP lock (filled by preparer-agent in Prep Phase 2)
+
+The preparer-agent runs the HP search once during preparation (`workload-template/AGENT_HANDOFF.md`
+Prep Phase 2) and pins its outputs here. The session-agent reads this section at
+Phase 2 entry (`playbook/EXECUTION.md §3`) and uses it as the Tier-1 / Tier-2
+reference for the optimization loop. Re-measurement on the session host happens
+at session Phase 2 entry; large drift escalates as `H-OPS`.
+
+### 10.1 Locked HP configuration
+
+- Winner candidate label (or `default` if no candidate cleared the backtrack gate):
+- `hp_values_json` (one line, machine-parseable; copied into every `phase=phase_3_*`
+  row's `hp_values_json` column):
+
+```json
+{}
+```
+
+- Rationale (which HPs were swept, which were held at default, why this candidate
+  won — cite the prep `experiment_id` of the winning candidate):
+
+### 10.2 Target quality level
+
+TTR is measured against this level. Declared in Prep Phase 2 per `RULES §4` (tier
+baselines) and reused session-side.
+
+- [ ] **Option A** — mean end-of-run quality across the default-HP full runs (value: ___).
+- [ ] **Option B** — pre-declared threshold from prior art (value: ___; source: ___).
+
+### 10.3 Tier-2 baseline (locked-HP TTR)
+
+The locked-HP full-length TTR runs produced during Prep Phase 2. Session-agent
+adopts these as the Tier-2 reference at Phase 2 entry (`RULES §6`, `§8`).
+
+- Prep `experiment_id` (for session-agent's `baseline_ref` column):
+- N (number of full-length runs):
+- TTR median (seconds):
+- TTR range [min, max] (seconds):
+- TTR CV (%):
+- Quality at target: mean ___, std ___
+
+### 10.4 Tier-1 baseline (short-run throughput proxy)
+
+The short-run baseline the prep HP sweep ranked candidates against. Session-agent
+**re-measures** this on the session host at Phase 2 entry (cheap check) and
+confirms within CI before entering Phase 3.
+
+- Short-run protocol (wall-clock duration, N primary-metric observations per run,
+  warmup, any workload-specific adjustment per `RULES §8`):
+- N (number of short runs):
+- Primary-metric median (unit from §2):
+- Primary-metric CV (%):
+
+### 10.5 Prep-branch head commit (Tier-2 baseline provenance)
+
+The short-SHA in `§1` is the commit Tier-2 numbers above were measured at. Session
+Tier-2 comparisons are only valid against that commit; session-agent branches off
+it at Phase 1 entry.
+
+---
+
+## 11) Known caveats and prior art
 
 - Optimizations already applied upstream (so the agent does not re-attempt them):
 - Known bugs or quirks:
 - Variance notes from prior sessions (baseline CV, typical noise floor), if any:
-- Prior baseline numbers for reference (optional):
-  - Primary metric: median ___, range [___, ___]
-  - Quality metric: mean ___, std ___
-- Pre-declared minimum-win threshold Δ_min (optional, for cross-agent comparability; see
-  `RULES.md` §7, minimum-win gate): ___
+- Pre-declared minimum-win threshold Δ_min (optional, for cross-agent comparability;
+  see `RULES.md` §7, minimum-win gate): ___
 
 ---
 
-## 11) Verification checklist (human fills before session start)
+## 12) Verification checklist (human fills before session start)
 
 - [ ] All sections above filled; no `___` placeholders remain.
 - [ ] Exactly one tolerance option chosen in §4.
@@ -186,3 +244,7 @@ stronger quality checks (see `RULES.md` §11, correctness / quality checks):
 - [ ] Primary metric (§2) and quality metric (§3) are mechanically extractable from the
   baseline output using the recipe given.
 - [ ] Allowed / disallowed edits (§7, §8) are explicit and non-overlapping.
+- [ ] §10 HP-lock section filled: `hp_values_json`, target quality, Tier-2 baseline
+  (median / range / CV / N), Tier-1 baseline (median / CV / N / protocol). The
+  winning prep `experiment_id` points at a row in `prep/prep_results.csv`.
+- [ ] §10.5 prep-branch head commit matches the `Prepared-branch head commit` in §1.

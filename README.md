@@ -40,9 +40,12 @@ folder.
 
 You are running a session as operator, paired with a coding agent. The preparer
 has already branched `<workload-name>-<iteration>` and committed the filled
-`sessions/<workload-name>/<iteration>/WORKLOAD_CARD.md` along with the
-pre-filled `SESSION_START_PROMPT.md` alongside it. Your job is to branch
-off that, start the agent, and verify what it logs.
+`sessions/<workload-name>/<iteration>/WORKLOAD_CARD.md` (with §10 carrying the
+locked HPs and the Tier-1 / Tier-2 baselines) along with the pre-filled
+`SESSION_START_PROMPT.md` and the `prep/` artifact tree alongside it. Your
+job is to branch off that, start the agent, and verify what it logs. The
+session-agent skips HP search — it inherits the locked configuration from the
+card and goes straight to bug triage → baseline adoption → optimization.
 
 ## 1) Prerequisites
 
@@ -152,9 +155,15 @@ software info (`playbook/EXECUTION.md §1.2`).
 
 **Confirm the agent wrote these in its event log after `[SESSION-START]`:**
 - baseline command (matches `WORKLOAD_CARD.md §6` exactly),
+- locked HPs adopted from `WORKLOAD_CARD.md §10.1` (applied at Phase 1 baseline),
 - primary metric definition,
 - quality metric and tolerance,
-- benchmark window (fixed steps or fixed time).
+- benchmark window (fixed steps or fixed time),
+- target quality from `§10.2` (Phase 2 adoption),
+- Tier-2 baseline adopted from `§10.3` (prep `experiment_id`, TTR median/CV/N —
+  logged as `[NOISE]` at Phase 2 entry),
+- Tier-1 re-measurement on the session host (N short runs + `[NOISE]`), with the
+  drift check confirming the session median falls within the card's CI.
 
 **Confirm every claimed improvement includes:**
 - repeated benchmark runs (median / min / max; N follows `playbook/RULES.md §6`),

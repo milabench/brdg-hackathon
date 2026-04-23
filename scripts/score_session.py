@@ -14,9 +14,9 @@ Metrics reported:
   - `playbook/RULES.md` §14.2 checklist compliance (log completeness, per-box miss
     counts)
   - `playbook/RULES.md` §14.3 milestone timeline (time-to-first-baseline / profile /
-    HPO-done / first-win, per-phase exit times, total duration)
+    baseline-adopted / first-win, per-phase exit times, total duration)
   - `playbook/RULES.md` §14.3 invariant checks (SESSION-START present, exits unique,
-    wins match results, PE2-after-BASELINE, WIN-after-PE3). Exits non-zero if any
+    wins match results, PE2-after-BASELINE, WIN-after-PE2). Exits non-zero if any
     invariant FAILs.
 
 Usage
@@ -176,7 +176,7 @@ def compute_metrics(results: pd.DataFrame, events: list[Event]) -> dict:
     }
 
     phase_exits = {N: _first_tag_time(events, f"PHASE-EXIT {N}")
-                   for N in range(1, 5)}
+                   for N in range(1, 4)}
     session_close = _first_tag_time(events, "SESSION-CLOSE")
 
     all_times = [e.t_minutes for e in events if e.t_minutes is not None]
@@ -193,7 +193,7 @@ def compute_metrics(results: pd.DataFrame, events: list[Event]) -> dict:
         "total_interventions": sum(interventions.values()),
         "t_first_baseline_min": _first_tag_time(events, "BASELINE"),
         "t_first_profile_min": _first_tag_time(events, "PROFILE"),
-        "t_hpo_done_min": phase_exits[2],
+        "t_baseline_adopted_min": phase_exits[2],
         "t_first_win_min": _first_tag_time(events, "WIN"),
         "phase_exits_min": phase_exits,
         "t_session_close_min": session_close,
@@ -227,7 +227,7 @@ def check_invariants(results: pd.DataFrame,
         checks.append(("session_start_unique", "FAIL",
                        f"{len(ss_events)} [SESSION-START] entries (expected 1)"))
 
-    for N in range(1, 5):
+    for N in range(1, 4):
         count = sum(1 for e in events if e.tag == f"PHASE-EXIT {N}")
         name = f"phase_exit_{N}_unique"
         if count == 1:
@@ -283,24 +283,24 @@ def check_invariants(results: pd.DataFrame,
                        f"[PHASE-EXIT 2] (T+{first_pe2:.1f}m) precedes "
                        f"[BASELINE] (T+{first_baseline:.1f}m)"))
 
-    first_pe3 = _first_tag_time(events, "PHASE-EXIT 3")
+    first_pe2 = _first_tag_time(events, "PHASE-EXIT 2")
     win_times = [e.t_minutes for e in events
                  if e.tag == "WIN" and e.t_minutes is not None]
     if not win_times:
-        checks.append(("wins_after_pe3", "PASS", "no [WIN] events"))
-    elif first_pe3 is None:
-        checks.append(("wins_after_pe3", "FAIL",
-                       f"{len(win_times)} [WIN] event(s) with no [PHASE-EXIT 3]"))
+        checks.append(("wins_after_pe2", "PASS", "no [WIN] events"))
+    elif first_pe2 is None:
+        checks.append(("wins_after_pe2", "FAIL",
+                       f"{len(win_times)} [WIN] event(s) with no [PHASE-EXIT 2]"))
     else:
-        early = [t for t in win_times if t < first_pe3]
+        early = [t for t in win_times if t < first_pe2]
         if not early:
-            checks.append(("wins_after_pe3", "PASS",
+            checks.append(("wins_after_pe2", "PASS",
                            f"all {len(win_times)} [WIN] event(s) after "
-                           f"[PHASE-EXIT 3] T+{first_pe3:.1f}m"))
+                           f"[PHASE-EXIT 2] T+{first_pe2:.1f}m"))
         else:
-            checks.append(("wins_after_pe3", "FAIL",
-                           f"{len(early)} [WIN] event(s) before [PHASE-EXIT 3] "
-                           f"(T+{first_pe3:.1f}m)"))
+            checks.append(("wins_after_pe2", "FAIL",
+                           f"{len(early)} [WIN] event(s) before [PHASE-EXIT 2] "
+                           f"(T+{first_pe2:.1f}m)"))
     return checks
 
 
@@ -347,9 +347,9 @@ def render_markdown(session_id: str, metrics: dict,
     lines += ["## Milestone timeline (RULES §14.3)", "",
               f"- time-to-first-baseline: {_fmt_min(metrics['t_first_baseline_min'])}",
               f"- time-to-first-profile: {_fmt_min(metrics['t_first_profile_min'])}",
-              f"- time-to-HPO-done (PHASE-EXIT 2): {_fmt_min(metrics['t_hpo_done_min'])}",
+              f"- time-to-baseline-adopted (PHASE-EXIT 2): {_fmt_min(metrics['t_baseline_adopted_min'])}",
               f"- time-to-first-win: {_fmt_min(metrics['t_first_win_min'])}"]
-    for N in range(1, 5):
+    for N in range(1, 4):
         lines.append(f"- PHASE-EXIT {N}: {_fmt_min(metrics['phase_exits_min'][N])}")
     lines.append(f"- SESSION-CLOSE: {_fmt_min(metrics['t_session_close_min'])}")
     lines.append(f"- session_duration: {_fmt_min(metrics['session_duration_min'])}")

@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "/home/mila/r/rygaards/proj/milabench/milabench/base/venv/torch/bin/milabench", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/milabench/cli/__init__.py", line 165, in main
+    sys.exit(run_cli(Main, argv=argv))
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/.venv/lib/python3.12/site-packages/coleo/cli.py", line 615, in run_cli
+    return call(opts=opts, args=args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/.venv/lib/python3.12/site-packages/coleo/cli.py", line 574, in thunk
+    result = fn(*args)
+             ^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/milabench/cli/__init__.py", line 52, in run
+    return cli_run()
+       ^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/milabench/cli/run.py", line 236, in cli_run
+    mp = get_multipack(run_name=args.run_name)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/milabench/common.py", line 114, in get_multipack
+    return _get_multipack(
+           ^^^^^^^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/milabench/common.py", line 323, in _get_multipack
+    packs = {name: get_pack(defn) for name, defn in selected_config.items()}
+                   ^^^^^^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/milabench/common.py", line 29, in get_pack
+    pack_glb = runpy.run_path(str(pack / "benchfile.py"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 286, in run_path
+  File "<frozen runpy>", line 254, in _get_code_from_file
+FileNotFoundError: [Errno 2] No such file or directory: '/home/mila/r/rygaards/proj/milabench/brdg-hackathon/sessions/torchatari/1/codex/artifacts/tmp/benchfile.py'

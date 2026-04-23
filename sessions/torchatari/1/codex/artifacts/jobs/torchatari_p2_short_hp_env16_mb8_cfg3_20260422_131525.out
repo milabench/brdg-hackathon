@@ -1,0 +1,43 @@
+Metric Collection
+=================
+  torchatari
+  ----------
+    * 1 x no training rate retrieved (D0)
+    
+  
+Errors
+======
+  torchatari
+  ----------
+    ValueError: too many values to unpack (expected 4)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      * 1 x torchatari.D0
+            | Traceback (most recent call last):
+            |   File "/home/mila/r/rygaards/proj/milabench/milabench/base/venv/torch/bin/voir", line 6, in <module>
+            |     sys.exit(main())
+            |              ^^^^^^
+            |   File "/home/mila/r/rygaards/proj/milabench/.venv/lib/python3.12/site-packages/voir/cli.py", line 128, in main
+            |     ov(sys.argv[1:] if argv is None else argv)
+            |   File "/home/mila/r/rygaards/proj/milabench/.venv/lib/python3.12/site-packages/voir/phase.py", line 331, in __call__
+            |     self._run(*args, **kwargs)
+            |   File "/home/mila/r/rygaards/proj/milabench/.venv/lib/python3.12/site-packages/voir/overseer.py", line 242, in _run
+            |     set_value(func())
+            |               ^^^^^^
+            |   File "/home/mila/r/rygaards/proj/milabench/.venv/lib/python3.12/site-packages/voir/scriptutils.py", line 37, in <lambda>
+            |     return lambda: exec(mainsection, glb, glb)
+            |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            |   File "/home/mila/r/rygaards/proj/milabench/benchmarks/retired/torchatari/main.py", line 356, in <module>
+            |     main()
+            |   File "/home/mila/r/rygaards/proj/milabench/benchmarks/retired/torchatari/main.py", line 245, in main
+            |     next_obs, reward, next_done, info = envs.step(action.cpu().numpy())
+            |                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            |   File "/home/mila/r/rygaards/proj/milabench/benchmarks/retired/torchatari/main.py", line 117, in step
+            |     observations, rewards, done, infos = super().step(action)
+            |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            | ValueError: too many values to unpack (expected 4)
+      
+    
+  
+
+
+[DONE] Reports directory: /home/mila/r/rygaards/proj/milabench/milabench/base/runs/torchatari_p2_short_hp_env16_mb8_cfg3_20260422_131525

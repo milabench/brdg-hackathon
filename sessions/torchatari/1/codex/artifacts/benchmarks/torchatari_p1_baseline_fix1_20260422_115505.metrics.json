@@ -1,0 +1,10 @@
+{
+  "run_dir": "/home/mila/r/rygaards/proj/milabench/milabench/base/runs/torchatari_p1_baseline_fix1_20260422_115505",
+  "rate_series_count": 22,
+  "rate_post_warmup_count": 17,
+  "primary_metric_rate_median": 2207.359093374811,
+  "peak_gpu_mem_mib": 1185.5625,
+  "gpu_util_avg": 5.48,
+  "quality_metric_avg_episodic_return_final": 2.0,
+  "tb_run_dir": "/home/mila/r/rygaards/proj/milabench/benchmarks/retired/torchatari/runs/Breakout-v5__main__1__1776873339"
+}

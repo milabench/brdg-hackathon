@@ -92,10 +92,33 @@ validation.
 
 ---
 
-## 6) Entry command(s)
+## 6) Setup and entry command(s)
 
 Baseline command — the exact command the agent runs (both baseline and comparisons). This is
-copied verbatim into `artifacts/notes/event_log.md` at session start.
+copied verbatim into `artifacts/notes/event_log.md` at session start. The install subsection
+below documents how to reach the state where that command runs; the preparer-agent captures
+the exact commands it ran during preparation, so operators and session-agents reproduce the
+same environment.
+
+### Install / environment setup
+
+The commands needed to go from a freshly-cloned workload repo on the prepared branch
+(`hackathon-<workload>-<iteration>`) to a machine where the baseline command below runs
+end-to-end. The preparer-agent fills this from what it actually executed during preparation;
+operators run it once on their host before their first session.
+
+```bash
+# e.g.
+# python -m venv .venv && source .venv/bin/activate
+# pip install -e .
+# milabench install --config <config path>        # if milabench-based
+# any one-time dataset / checkpoint download
+```
+
+System-level prerequisites (driver / CUDA / Python versions, OS) that the install commands
+above assume:
+
+- (e.g. NVIDIA driver ≥ 535, CUDA 12.x, Python 3.11)
 
 ### Direct invocation
 ```bash

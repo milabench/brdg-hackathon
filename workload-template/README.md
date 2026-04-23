@@ -6,8 +6,8 @@ work (branching, copying the template, drafting the card, running the
 baseline, committing). Your job is to specify the pipeline, answer judgment
 questions, and verify what the agent produces before it commits.
 
-The blank `WORKLOAD_CARD.md` in this folder is the template the agent will
-copy and fill. You do not edit it by hand.
+The blank `WORKLOAD_CARD.md` and `SESSION_START_PROMPT.md` in this folder
+are the templates the agent copies and fills. You do not edit them by hand.
 
 ---
 
@@ -23,6 +23,13 @@ copy and fill. You do not edit it by hand.
   and brdg-hackathon. The agent pushes a prepared branch to each:
   `hackathon-<workload>-<iteration>` on the workload repo, and
   `<workload>-<iteration>` on brdg-hackathon.
+- **A GPU slot for baseline verification.** The preparer-agent runs one
+  end-to-end baseline during preparation, so it needs GPU access matching
+  the workload's hardware requirements. On the Mila cluster, allocate one
+  with `salloc --partition=unkillable -c 6 --gres=gpu:l40s:1`
+  (docs: [docs.mila.quebec](https://docs.mila.quebec)); on other
+  infrastructures, whatever satisfies what you would put in
+  `WORKLOAD_CARD §9`.
 
 The iteration number is inferred by the agent from `sessions/<workload>/` —
 confirm or override it when the agent reports what it found. Everything else
@@ -89,6 +96,10 @@ checklist). Before you say "go", confirm:
 - [ ] The **baseline command** in §6 ran on the prepared workload-repo
   branch. You do not need to re-run it; the capture is at
   `sessions/<workload>/<iteration>/baseline_capture.txt`.
+- [ ] The **session-start prompt** at
+  `sessions/<workload>/<iteration>/SESSION_START_PROMPT.md` has `<workload>`
+  and `<iteration>` substituted throughout; `<agent-name>` remains the only
+  placeholder (operators fill it at session start).
 
 If any check fails, tell the agent what to correct. **Do not approve a
 commit with a ticked §11 box that is not actually verified** — that is the
@@ -104,7 +115,9 @@ The agent pushes two branches and reports both names:
   `.gitignore` entry and any approved prep-time fixups; operators check it
   out when starting a session),
 - `<workload>-<iteration>` on brdg-hackathon (carries the filled
-  `WORKLOAD_CARD.md`, pinning the workload-repo prep-branch head commit).
+  `WORKLOAD_CARD.md` pinning the workload-repo prep-branch head commit, and
+  the pre-filled `SESSION_START_PROMPT.md` operators paste into the agent
+  at session start).
 
 Operators follow the root `README.md` from here: they check out
 `hackathon-<workload>-<iteration>` on the workload repo, branch off

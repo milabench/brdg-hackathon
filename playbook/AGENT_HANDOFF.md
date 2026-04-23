@@ -10,17 +10,30 @@ configuration (`EXECUTION §3.3`) and for `[WIN]` emission (`RULES §3`, `§8`).
 
 ---
 
+Paths in this file use `<workload>`, `<iteration>`, and `<agent-name>`
+placeholders. The concrete values were supplied to you by the
+`sessions/<workload>/<iteration>/SESSION_START_PROMPT.md` the operator
+pointed you at (and `<agent-name>` by the operator's starting message).
+Use those when resolving the paths below.
+
 ## Your first actions, in order
 
 1. Read the filled workload card at
    `brdg-hackathon/sessions/<workload>/<iteration>/WORKLOAD_CARD.md` —
    workload-specific definitions (entry command, metric definitions, quality
    tolerance, allowed / disallowed edits).
-2. Read `RULES.md` (sibling of this file in `playbook/`) — the measurement, logging,
+2. Ensure the workload is installed in this environment. If the
+   `WORKLOAD_CARD.md §6` Install / environment setup commands have not been
+   run on this host (e.g. the baseline command is not executable, required
+   modules not importable), run them now — verbatim as recorded in the card.
+   The preparer-agent already verified those commands produce a working
+   baseline; do not invent alternatives. Skip this step on subsequent
+   sessions on the same host.
+3. Read `RULES.md` (sibling of this file in `playbook/`) — the measurement, logging,
    and bug-handling protocol you hold throughout the session.
-3. Run `EXECUTION.md §1` (Bootstrap: session folder, `[SESSION-START]` event,
+4. Run `EXECUTION.md §1` (Bootstrap: session folder, `[SESSION-START]` event,
    preflight capture) **before** Phase 1.
-4. Then begin Phase 1 (`EXECUTION.md §2`).
+5. Then begin Phase 1 (`EXECUTION.md §2`).
 
 ## Working model — three locations
 
@@ -60,7 +73,7 @@ Trigger-loaded (read when the trigger fires; evict when done):
   until the artifact commit is staged.
 
 Not your doc:
-- Root `README.md` — operator guide + dispatcher. Exception: `§6` cites the
+- Root `README.md` — operator guide + dispatcher. Exception: `§5` cites the
   commit policy you also load above; read from `sessions/README.md` directly.
 - `workload-template/` — preparation-time surfaces (template, preparer-agent
   handoff, human preparer guide). The preparation is already done by the time

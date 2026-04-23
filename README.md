@@ -20,7 +20,7 @@ that keeps results comparable across sessions.
 
 ```
 playbook/            session-agent protocol (read-only; not copied per session)
-workload-template/   WORKLOAD_CARD.md template + preparer-agent handoff + human preparer guide
+workload-template/   WORKLOAD_CARD.md + SESSION_START_PROMPT.md templates + preparer-agent handoff + human preparer guide
 sessions/            per-session artifacts, grouped by workload/iteration/agent
 editor-guide/        for agents editing the instruction corpus
 scripts/             validation, scoring, plotting, aggregation
@@ -40,7 +40,8 @@ folder.
 
 You are running a session as operator, paired with a coding agent. The preparer
 has already branched `<workload-name>-<iteration>` and committed the filled
-`sessions/<workload-name>/<iteration>/WORKLOAD_CARD.md`. Your job is to branch
+`sessions/<workload-name>/<iteration>/WORKLOAD_CARD.md` along with the
+pre-filled `SESSION_START_PROMPT.md` alongside it. Your job is to branch
 off that, start the agent, and verify what it logs.
 
 ## 1) Prerequisites
@@ -56,7 +57,28 @@ and the baseline verified end-to-end. You check that branch out — you do not
 edit the workload repo's `.gitignore` yourself. The branch name and head commit
 are pinned in `WORKLOAD_CARD.md §1`.
 
-First time on this machine:
+### Compute jobs (slurm clusters)
+
+The agent process and the workload run in **separate** jobs. The agent itself
+only shells out commands and reads files — it does not need a GPU — so it
+sits in a small long-lived CPU-only job, and each benchmark command requests
+GPU time on its own. On the Mila cluster, defaults:
+
+- **Agent host (CPU-only, long-lived):**
+  `salloc -c 2 --mem=10G --partition=main-cpu`
+- **GPU for the workload:** `--partition=unkillable -c 6 --gres=gpu:l40s:1`
+  — already wrapped into the baseline command in `WORKLOAD_CARD.md §6` by
+  the preparer-agent, so you do not start it separately; the session-agent
+  inherits it when it runs the command.
+
+See [docs.mila.quebec](https://docs.mila.quebec) for Mila-specific docs. On a
+different cluster, substitute partition names accordingly; the split between
+agent-host and workload jobs stays the same.
+
+### Clone the repos
+
+First time on this machine (run inside the CPU-only job above, so the install
+the agent does later lives where the agent lives):
 
 ```bash
 # 1) Check out the prepared workload-repo branch.
@@ -69,6 +91,15 @@ git checkout hackathon-<workload-name>-<iteration>
 #    tree stays clean — no local edits required.
 git clone <brdg-hackathon-remote> brdg-hackathon
 ```
+
+### Install the workload
+
+You do not install the workload by hand. Once you start the agent (§3), it
+reads the filled `WORKLOAD_CARD.md` — including the `WORKLOAD_CARD.md §6`
+Install / environment setup sub-section — and runs the install commands the
+preparer-agent recorded there as one of its first actions, before Bootstrap
+and Phase 1. Install responsibility for the operator ends at the two clones
+above and the CPU-only job that hosts the agent.
 
 The two repos commit independently from now on. You will create a branch in each
 during the session — one in the workload repo for the optimisation (the agent
@@ -90,47 +121,27 @@ git checkout -b <workload-name>-<iteration>-<agent-name>
 `<agent-name>` uniquely identifies your session (e.g., `alice`, `agent-A`). Keep
 it short and filesystem-safe.
 
-## 3) Create your session artifact folder
+## 3) Start the agent
 
-```bash
-# still inside brdg-hackathon/
-mkdir -p sessions/<workload-name>/<iteration>/<agent-name>
+Inside the CPU-only job from §1, start the agent at the workload repo root
+(or set its shell cwd there). Benchmark commands run from there. Send the
+agent a one-line starting message, substituting `<workload-name>`,
+`<iteration>` (from §2), and `<agent-name>`:
+
+```text
+Read file brdg-hackathon/sessions/<workload-name>/<iteration>/SESSION_START_PROMPT.md. Your agent name is <agent-name>.
 ```
 
-Layout (paths shown from workload repo root):
+The agent reads that file and follows `playbook/AGENT_HANDOFF.md` from
+there: runs `WORKLOAD_CARD.md §6` install if the workload is not yet set
+up on this host, sets up its artifact root and event log, creates its
+workload-repo optimisation branch
+`hackathon-<workload-name>-<iteration>-<agent-name>` (off the preparer's
+`hackathon-<workload-name>-<iteration>`, per `playbook/EXECUTION.md §1.2`),
+and begins Phase 1. The filled `WORKLOAD_CARD.md` is shared read-only
+across every operator on this iteration.
 
-```
-<workload-repo>/
-  (workload source)
-  brdg-hackathon/
-    playbook/                                       ← read-only protocol
-    sessions/<workload-name>/<iteration>/
-      WORKLOAD_CARD.md                              ← shared, read-only (filled)
-      <agent-name>/                                 ← your session artifact root
-        artifacts/                                  ← produced by the agent
-```
-
-You will only write inside `<agent-name>/`. The filled `WORKLOAD_CARD.md` one
-level up is shared with other operators — do not modify it.
-
-## 4) Start the agent
-
-Set the agent's **shell cwd to the workload repo root** (e.g. milabench root) —
-this is where benchmark commands run. Point it at the protocol entry point
-`brdg-hackathon/playbook/AGENT_HANDOFF.md` as its starting read.
-
-The agent:
-- reads the protocol from `brdg-hackathon/playbook/`,
-- reads the filled workload card from
-  `brdg-hackathon/sessions/<workload-name>/<iteration>/WORKLOAD_CARD.md`,
-- writes artifacts to
-  `brdg-hackathon/sessions/<workload-name>/<iteration>/<agent-name>/artifacts/`,
-- creates its own optimisation branch in the **workload repo** (named
-  `hackathon-<workload-name>-<iteration>-<agent-name>`, branched off the
-  preparer's `hackathon-<workload-name>-<iteration>`, per
-  `playbook/EXECUTION.md §1.2`).
-
-## 5) Verify during the session (your primary role)
+## 4) Verify during the session (your primary role)
 
 You are the **verifier**, not the scribe. The agent writes the logs; your job is
 to confirm they are correct and to prompt the agent when it misses something.
@@ -158,7 +169,7 @@ software info (`playbook/EXECUTION.md §1.2`).
 
 If unsure whether something counts as an intervention, log it anyway.
 
-## 6) Close the session
+## 5) Close the session
 
 At session end the agent emits `[SESSION-CLOSE]` and produces
 `<agent-name>/artifacts/FINAL_SUMMARY.md`. Review it for:

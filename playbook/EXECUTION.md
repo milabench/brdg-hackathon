@@ -17,7 +17,10 @@ the current phase until resolved.
 
 Your shell cwd is the workload repo root (e.g. milabench). `brdg-hackathon/` is cloned
 inside it. The protocol files live in `brdg-hackathon/playbook/` (read-only); your
-session artifacts go under `brdg-hackathon/sessions/<workload>/<iteration>/<agent-name>/`:
+session artifacts go under `brdg-hackathon/sessions/<workload>/<iteration>/<agent-name>/`.
+The iteration folder and filled `WORKLOAD_CARD.md` already exist (the preparer and the
+operator set them up); **create your `<agent-name>/` subfolder yourself** — it is your
+session artifact root and everything you write lands inside it:
 
 ```
 <workload-repo>/                                      ← your shell cwd

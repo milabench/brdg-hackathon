@@ -37,8 +37,9 @@ Layout (repo root):
 
 ```
 playbook/                      session-agent corpus (eagerly + trigger-loaded)
-workload-template/             per-iteration template + preparer surfaces
+workload-template/             per-iteration templates + preparer surfaces
   WORKLOAD_CARD.md             (template, copied to sessions/ per iteration)
+  SESSION_START_PROMPT.md      (template, copied to sessions/ per iteration)
   AGENT_HANDOFF.md             (preparer-agent entry point)
   README.md                    (human preparer workflow)
 sessions/                      <workload>/<iteration>/<agent-name>/ artifacts
@@ -92,7 +93,7 @@ file into the eagerly-loaded group without reconsidering the whole load pattern.
 ### 2.3 Preparer surfaces (`workload-template/`)
 
 The `workload-template/` directory is where a new `<workload>-<iteration>` is
-prepared. It holds one template and two preparer-facing docs:
+prepared. It holds two templates and two preparer-facing docs:
 
 - **`workload-template/WORKLOAD_CARD.md`** — the blank template the
   preparer-agent copies to `sessions/<workload>/<iteration>/WORKLOAD_CARD.md`
@@ -100,6 +101,16 @@ prepared. It holds one template and two preparer-facing docs:
   across every `<agent-name>/` in the iteration. The only place where
   workload-specific values (metric names, tolerances, commands) are allowed
   to live.
+- **`workload-template/SESSION_START_PROMPT.md`** — the blank template for
+  a short file addressed to the session-agent. The preparer-agent copies it
+  to `sessions/<workload>/<iteration>/SESSION_START_PROMPT.md` and
+  substitutes `<workload>` / `<iteration>` during the mechanical pipeline;
+  `<agent-name>` stays as a placeholder the agent itself resolves from its
+  starting message. The operator's starting message is just "Read file
+  `sessions/<workload>/<iteration>/SESSION_START_PROMPT.md`. Your agent
+  name is `<agent-name>`." (root `README.md §3`), so the bulky per-session
+  framing (paths, reminders, `[SESSION-START]` expectations) lives in the
+  file, not in the operator's input.
 - **`workload-template/AGENT_HANDOFF.md`** — the preparer-agent's entry
   pointer. Distinct audience from `playbook/AGENT_HANDOFF.md` (which is for
   the session-running optimisation agent). The preparer-agent reads it once
@@ -131,7 +142,7 @@ prepared. It holds one template and two preparer-facing docs:
 - **`sessions/README.md`** — per-session artifact tree reference **and** the
   commit policy (what lands in git, what is excluded by `sessions/.gitignore`,
   what needs an external link). Dual audience: the human operator reads it at
-  session close (cited from root `README.md §6`), and the session-agent
+  session close (cited from root `README.md §5`), and the session-agent
   trigger-loads it (listed in `playbook/AGENT_HANDOFF.md` file set, cited from
   `playbook/RULES.md §12` and `playbook/EXECUTION.md §6.5`). Cross-file
   citations use `sessions/README.md §Commit policy` — rename the heading

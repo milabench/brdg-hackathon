@@ -7,6 +7,7 @@ sessions/
   <workload>/
     <iteration>/
       WORKLOAD_CARD.md                 (filled; shared across agents in this iteration)
+      SESSION_START_PROMPT.md          (pre-filled; operators paste into agent at session start)
       <agent-name>/
         artifacts/
           benchmarks/
@@ -38,7 +39,7 @@ Conventions:
 ## Commit policy — what goes into `<agent-name>/` in git
 
 The wholesale `git add sessions/<workload>/<iteration>/<agent-name>/` at
-session close (root `README.md §6`) is filtered by `sessions/.gitignore`, but
+session close (root `README.md §5`) is filtered by `sessions/.gitignore`, but
 the size + contents question is a policy, not a machine rule. Apply this
 split when deciding what to keep under `artifacts/`:
 

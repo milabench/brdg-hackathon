@@ -72,6 +72,9 @@ branch) — ready for operators to run optimisation sessions against.
 
 Eagerly loaded (read before acting):
 - `workload-template/WORKLOAD_CARD.md` — the template to fill.
+- `workload-template/SESSION_START_PROMPT.md` — template for the operator's
+  session-start prompt; you copy it into the iteration folder and substitute
+  `<workload>` / `<iteration>` (see §Mechanical pipeline).
 - `workload-template/README.md` — the human's verification checklist.
 - `playbook/RULES.md` (§2, §4, §8, §11), `playbook/SCHEMA.md §1` — card
   contracts.
@@ -131,10 +134,22 @@ Per-section guidance:
 - **§5 Benchmark window.** Estimate per-step wall time from log cadence or a
   short dry run. Propose `(a) fixed N steps ≈ M minutes on target hardware`
   (cite M) or `(b) fixed T seconds ≈ N steps`. Capture the rationale verbatim.
-- **§6 Entry command(s).** Draft the exact `milabench` / direct-invocation
-  command from `config/standard.yaml`; include env vars and working directory.
-  Run it end-to-end (§Baseline verification); the command that actually ran
-  is what goes in the card.
+- **§6 Setup and entry command(s).** Two sub-parts. **Install / environment
+  setup**: capture the exact commands that bring a freshly-cloned workload
+  repo (on the prepared branch) to a runnable state — what you installed
+  yourself, or what the workload's README / CI encodes. These are what the
+  operator will run once before their first session; the preparer-agent's
+  baseline verification is the acid test that the listed commands actually
+  produce a working environment. Also record system-level prerequisites
+  (driver / CUDA / Python versions, OS) that those commands assume.
+  **Direct / wrapper invocation**: draft the exact `milabench` /
+  direct-invocation command from `config/standard.yaml`; include env vars and
+  working directory. On a slurm cluster, wrap the baseline in `srun` (or
+  equivalent) with resources matching §9 hardware (e.g. Mila:
+  `srun --partition=unkillable -c 6 --gres=gpu:l40s:1 <command>`) so the
+  operator's session-agent inherits the right GPU placement. Run the command
+  end-to-end (§Baseline verification); the commands that actually ran are
+  what go in the card.
 - **§7, §8 Allowed / disallowed.** Propose a split based on the code:
   disallowed first (eval, dataset / environment internals, reward / loss);
   allowed second (training loop, data pipeline, model forward, config). Must
@@ -217,6 +232,13 @@ cp workload-template/WORKLOAD_CARD.md \
    sessions/<workload>/<iteration>/WORKLOAD_CARD.md
 # fill the copy (never the blank template in workload-template/), including
 # the prepared-branch head commit captured above
+
+cp workload-template/SESSION_START_PROMPT.md \
+   sessions/<workload>/<iteration>/SESSION_START_PROMPT.md
+# in the copy, replace every `<workload>` with the actual workload slug and
+# every `<iteration>` with the actual iteration id. Leave `<agent-name>` as
+# a placeholder — the operator fills it at session start.
+
 # place baseline_capture.txt alongside WORKLOAD_CARD.md
 ```
 

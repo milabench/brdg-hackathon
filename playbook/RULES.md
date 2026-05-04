@@ -205,6 +205,72 @@ own N.
 by altering synchronization behavior), recompute CV and re-derive N for subsequent
 comparisons. Log a follow-up `[NOISE]` entry.
 
+### 6.1 Single-run shortcut when baseline CV is very low
+
+In deeply low-noise regimes the N=3 default wastes Tier-1 budget — three
+measurements of the same near-deterministic quantity add little information.
+When the observed baseline CV is well below the N=3 threshold, a single
+candidate run can be compared against the pinned multi-run baseline, borrowing
+the baseline's variance estimate as the candidate's assumed σ. The shortcut
+trades strict per-candidate noise control for throughput through the
+bottleneck stack, and is valid only while that borrowed-variance assumption
+holds.
+
+**Gate** (all four must be true):
+1. The comparison is at **Tier 1** (`phase_3_iter`, or `prep_p2_sweep` on
+   the preparer side). Tier 2 always uses multi-seed N per the §6 table —
+   the end-goal TTR metric is too expensive to misread.
+2. The relevant **baseline CV is < 3%**.
+3. A `[NOISE]` entry has been logged declaring the shortcut active (body:
+   `shortcut: single-run Tier-1 screening, baseline CV=<value>%, drift-check
+   every K=<value> candidates`). The default `K = 5`.
+4. The candidate's code path has not changed synchronisation behaviour (see
+   "Watch for CV drift" above) — if a candidate plausibly alters variance, log
+   a follow-up `[NOISE]` recomputing CV with the candidate's own runs before
+   relying on the shortcut for it.
+
+**How to compute the CI.** Let `μ_b, σ_b, N_b` describe the pinned baseline
+(median, stddev = `baseline_CV × μ_b`, N from the §6 table). Let `x_c` be the
+single-run candidate. Treat `x_c` as a sample from a distribution with mean
+`μ_c` (unknown) and stddev `σ_b × x_c / μ_b` (the borrowed variance scaled to
+the candidate's magnitude — relative variance assumed stable). The Welch CI
+for `Δ = μ_c - μ_b` at confidence `1 - α` is
+
+  `Δ̂ = x_c - μ_b`,  `SE = sqrt((σ_c'^2) + (σ_b^2 / N_b))`,
+  `CI = Δ̂ ± t_{α/2} · SE`,
+
+where `σ_c' = σ_b · x_c / μ_b`. Bootstrap with resampling from the baseline
+runs (candidate stays at its single value) is equivalent.
+
+**Min-win gate still applies.** The candidate must still pass `§7` — Δ ≥ Δ_min
+in tier-native units *and* the CI above excludes zero. A wider SE under
+single-run screening naturally rejects marginal candidates, which is the
+intended conservatism.
+
+**Promotion.** A shortcut-screened Tier-1 winner is promoted to Tier 2 per
+`§8` and validated at multi-seed N. The shortcut never decides a `[WIN]`;
+Tier 2 always does.
+
+**Drift re-check every K candidates.** Every K candidates (K declared in the
+activating `[NOISE]` entry, default 5), re-measure the baseline at its §6 N
+and compare the new median against the pinned one:
+
+- If the new median falls within the pinned CI, log a `[NOISE]` entry
+  confirming the shortcut remains active.
+- If it falls outside, the variance or the baseline itself has drifted.
+  Deactivate the shortcut with a `[NOISE]` entry (body: `shortcut:
+  deactivated, baseline drift`), re-derive N per §6 from the new CV, and run
+  the remainder of the phase under standard multi-run cadence. Prior
+  shortcut-screened candidates that promoted to Tier 2 keep their Tier-2
+  validation; prior shortcut-screened candidates still sitting in Tier 1
+  are re-measured at the new N before any further decision on them.
+
+**Recording in `results.csv`.** Shortcut-era candidate rows carry
+`tier=short, phase=phase_3_iter` (or `prep_p2_sweep` for prep) with a single
+`run_index=0` row per candidate. No warmup row is recorded for shortcut
+runs — the pinned baseline's warmup suffices. The `[NOISE]` entry anchored
+at the candidate's `event_log_anchor` declares the shortcut is in effect.
+
 ---
 
 ## 7) Minimum-win gate
@@ -255,13 +321,17 @@ eliminating dead ends. Budget: run until **both** thresholds are met — ≥2 mi
 wall-clock **and** ≥60 primary-metric observations (adjust for the workload if clearly
 inappropriate and record the adjustment). Same warmup + repeats protocol as `§10` but
 at the reduced window. Results recorded in `artifacts/benchmarks/results.csv` with
-`tier=short`. Decisions from this tier are **provisional**.
+`tier=short`. Decisions from this tier are **provisional**. In deeply low-noise
+regimes (baseline CV < 3%), the Tier-1 single-run shortcut in `§6.1` may replace
+the N=3 default; Tier 2 is never shortcut.
 
 **Tier 2 — Validation (full time-to-result).** Used to accept or reject a candidate as
 a real win. Full benchmark window from `WORKLOAD_CARD §5`, evaluated against the
 target quality declared in `WORKLOAD_CARD §10.2` and the Tier-2 baseline pinned in
 `WORKLOAD_CARD §10.3` (adopted session-side at Phase 2 entry, `EXECUTION §3`).
-Results recorded with `tier=full`. Only full-run validation produces a genuine win.
+Results recorded with `tier=full`, using multi-seed N per the `§6` table — the
+`§6.1` single-run shortcut does not apply here. Only full-run validation produces
+a genuine win.
 
 **Metric per tier — throughput proxy vs end-goal TTR.** Each tier uses a tier-native
 metric; do not mix them across a comparison.
@@ -533,7 +603,7 @@ Each box must resolve before moving to the next experiment.
 |-------------|---------|
 | `ran`       | The run completed end-to-end (for both sides of the comparison). If not, downgrade the entry to `[BLOCKED]`. |
 | `logged`    | This event-log entry is complete with the `§13.2` template (Action, Hypothesis, Result, Evidence, Next). |
-| `csv`       | Row(s) appended to `artifacts/benchmarks/results.csv` using `SCHEMA §1`, including `tier`, matched N, `env_snapshot_id`. |
+| `csv`       | Row(s) appended to `artifacts/benchmarks/results.csv` using `SCHEMA §1`, including `tier`, matched N, `env_snapshot_id`. Under the `§6.1` single-run shortcut (Tier 1 only), `N=1` is accepted when a `[NOISE]` entry declaring the shortcut active precedes the row. |
 | `quality`   | `§11` correctness / quality verdict reached — PASS / FAIL / INCONCLUSIVE — and recorded in `results.csv`. |
 | `one-thing` | `§9` verified — the change is a single variable (or a declared coupled-HP group). If no, split and redo. |
 | `h-check`   | Agent actively reviewed the experiment window for human interventions and logged any as `H-STEER` / `H-DEBUG` / `H-ARCH` / `H-OPS`. "No interventions observed" still counts as a tick — the point is that the check was done. |

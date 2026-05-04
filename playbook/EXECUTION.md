@@ -218,7 +218,10 @@ Repeat until time budget is exhausted or no further wins are expected:
    benchmarking.
 4. Measure on Tier 1 (short run). Record rows with
    `phase=phase_3_iter, tier=short`, N per `RULES §6`, `baseline_ref` pointing at
-   the Phase-2 Tier-1 re-measurement.
+   the Phase-2 Tier-1 re-measurement. If the Phase-2 re-measurement's CV is
+   below 3%, `RULES §6.1`'s single-run shortcut is available — activate it with
+   a `[NOISE]` entry before the first shortcut candidate, and re-check
+   baseline drift every K=5 candidates.
 5. If the candidate passes the promotion rule (`RULES §8`), validate on Tier 2
    (full run) with `phase=phase_3_validation, tier=full`, `baseline_ref` pointing
    at the Tier-2 prep `experiment_id` from `WORKLOAD_CARD §10.3`.

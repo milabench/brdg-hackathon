@@ -358,7 +358,9 @@ Sweep the candidate HP sets on short runs.
 - Each candidate is measured with N short runs, N chosen per `RULES §6` from
   the short-run baseline CV (§4.1) and matched against the baseline's N — a
   single short run per candidate is not sufficient and does not defeat Tier-1
-  noise.
+  noise. If the §4.1 baseline CV is < 3%, `RULES §6.1`'s single-run shortcut
+  is available here too (Tier-1 only); activate it with a `[NOISE]` entry in
+  `prep_event_log.md` before the first shortcut candidate.
 - Record each run in `prep_results.csv` using `SCHEMA §2`:
   `phase=prep_p2_sweep, tier=short, candidate=hp_sweep_<label>,
   baseline_ref=<§4.1 experiment_id>, hp_values_json=<...>`.

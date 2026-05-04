@@ -1,0 +1,120 @@
+=== [GPU-PREFLIGHT jobid=9339313 host=cn-l087.server.mila.quebec] ===
+Wed Apr 22 04:04:01 PM UTC 2026
+--- nvidia-smi ---
+Wed Apr 22 12:04:01 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA L40S                    On  |   00000000:61:00.0 Off |                    0 |
+| N/A   27C    P8             36W /  325W |       0MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+--- nvcc ---
+/var/spool/slurmd/job9339313/slurm_script: line 27: nvcc: command not found
+(nvcc not on PATH)
+--- modulepath-listing (if any) ---
+
+-------------------------------- Global Aliases --------------------------------
+   cuda/10.0           -> cudatoolkit/10.0
+   cuda/10.1           -> cudatoolkit/10.1
+   cuda/10.2           -> cudatoolkit/10.2
+   cuda/11.0           -> cudatoolkit/11.0
+   cuda/11.1           -> cudatoolkit/11.1
+   cuda/11.2           -> cudatoolkit/11.2
+   cuda/11.3           -> cudatoolkit/11.3
+   cuda/11.6           -> cudatoolkit/11.6
+   cuda/11.7           -> cudatoolkit/11.7
+   cuda/11.8           -> cudatoolkit/11.8
+   cuda/12.0           -> cudatoolkit/12.0
+   cuda/12.0.1         -> cudatoolkit/12.0.1
+   cuda/12.1.1         -> cudatoolkit/12.1.1
+   cuda/12.2.2         -> cudatoolkit/12.2.2
+   cuda/12.3.2         -> cudatoolkit/12.3.2
+   cuda/12.4.0         -> cudatoolkit/12.4.0
+   cuda/12.4.1         -> cudatoolkit/12.4.1
+   cuda/12.5.0         -> cudatoolkit/12.5.0
+
+=== [INSTALL-PROBE host=cn-l087.server.mila.quebec] ===
+venv-torch: 2.10.0+cu130 cuda: 13.0
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'envpool'
+envpool missing from venv — install needed
+=== [GPU-PREFLIGHT jobid=9339348 host=cn-l033.server.mila.quebec] ===
+Wed Apr 22 04:08:50 PM UTC 2026
+--- nvidia-smi ---
+Wed Apr 22 12:08:50 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA L40S                    On  |   00000000:4A:00.0 Off |                    0 |
+| N/A   27C    P8             35W /  325W |       0MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+--- nvcc ---
+/var/spool/slurmd/job9339348/slurm_script: line 27: nvcc: command not found
+(nvcc not on PATH)
+--- modulepath-listing (if any) ---
+
+-------------------------------- Global Aliases --------------------------------
+   cuda/10.0           -> cudatoolkit/10.0
+   cuda/10.1           -> cudatoolkit/10.1
+   cuda/10.2           -> cudatoolkit/10.2
+   cuda/11.0           -> cudatoolkit/11.0
+   cuda/11.1           -> cudatoolkit/11.1
+   cuda/11.2           -> cudatoolkit/11.2
+   cuda/11.3           -> cudatoolkit/11.3
+   cuda/11.6           -> cudatoolkit/11.6
+   cuda/11.7           -> cudatoolkit/11.7
+   cuda/11.8           -> cudatoolkit/11.8
+   cuda/12.0           -> cudatoolkit/12.0
+   cuda/12.0.1         -> cudatoolkit/12.0.1
+   cuda/12.1.1         -> cudatoolkit/12.1.1
+   cuda/12.2.2         -> cudatoolkit/12.2.2
+   cuda/12.3.2         -> cudatoolkit/12.3.2
+   cuda/12.4.0         -> cudatoolkit/12.4.0
+   cuda/12.4.1         -> cudatoolkit/12.4.1
+   cuda/12.5.0         -> cudatoolkit/12.5.0
+
+=== [INSTALL-PROBE host=cn-l033.server.mila.quebec] ===
+venv-torch: 2.10.0+cu130 cuda: 13.0
+venv-envpool: 1.2.0
+
+=== [GPU-PREFLIGHT jobid=9339348 host=cn-l033.server.mila.quebec] ===
+Wed Apr 22 ~12:09:38 EDT 2026  (inferred from log timestamp)
+GPU: NVIDIA L40S
+Driver: 580.95.05
+CUDA: 13.0  (via nvidia-smi; torch.version.cuda = 13.0)
+torch: 2.10.0+cu130  (from venv probe at job 9339313)
+envpool: 1.2.0
+L40S  46 068 MiB VRAM, Persistence-M: On, TDP: 325W
+Peak observed GPU memory during Phase-1 smoke: 1174 MiB
+Peak observed GPU power: ~124 W  (from gpudata in phase1_baseline.log)
+GPU util during training: ~8% avg  (strong indicator of CPU bottleneck at num_envs=8)
+CUDA_VISIBLE_DEVICES: 0 (set by milabench per_gpu plan)
+No co-tenant CUDA processes observed (exclusive GPU from unkillable partition)
+env_snapshot_id for this job: E1-cn-l033-9339348

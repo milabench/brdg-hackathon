@@ -1,0 +1,1139 @@
+=== [e256_s128_m4_u4 jobid=9464144 host=cn-l034.server.mila.quebec T=2026-05-05T10:12:14-04:00] ===
+| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.0     |
+|   0  NVIDIA L40S                    On  |   00000000:CA:00.0 Off |                    0 |
+| N/A   27C    P8             35W /  325W |       0MiB /  46068MiB |      0%      Default |
+
+warning: No `requires-python` value found in the workspace. Defaulting to `>=3.12`.
+Bench torchatari should have exactly one monitor tag. Found set()
+Bench torchatari should have exactly one monitor tag. Found set()
+torchatari.D0 [config.run_name] prep2_sweep_e256_s128_m4_u4_9464144
+torchatari.D0 [config.group] torchatari
+torchatari.D0 [config.install_group] torch
+torchatari.D0 [config.install_variant] unpinned
+torchatari.D0 [config.enabled] True
+torchatari.D0 [config.capabilities.nodes] 1
+torchatari.D0 [config.dirs.venv] /network/scratch/b/bouthilx/milabench/results/venv/torch
+torchatari.D0 [config.dirs.data] /network/scratch/b/bouthilx/milabench/results/data
+torchatari.D0 [config.dirs.runs] /network/scratch/b/bouthilx/milabench/results/runs
+torchatari.D0 [config.dirs.extra] /network/scratch/b/bouthilx/milabench/results/extra/torchatari
+torchatari.D0 [config.dirs.cache] /network/scratch/b/bouthilx/milabench/results/cache
+torchatari.D0 [config.max_duration] 600
+torchatari.D0 [config.definition] /network/scratch/b/bouthilx/milabench/milabench/benchmarks/retired/torchatari
+torchatari.D0 [config.plan.method] per_gpu
+torchatari.D0 [config.voir.options.stop] 200
+torchatari.D0 [config.voir.options.interval] 1s
+torchatari.D0 [config.voir.options.skip] 5
+torchatari.D0 [config.argv.--num-minibatches] 4
+torchatari.D0 [config.argv.--update-epochs] 4
+torchatari.D0 [config.argv.--num-steps] 128
+torchatari.D0 [config.argv.--num-envs] 256
+torchatari.D0 [config.argv.--total-timesteps] 500000000
+torchatari.D0 [config.argv.--env-id] Breakout-v5
+torchatari.D0 [config.argv.--seed] 1
+torchatari.D0 [config.config_base] /network/scratch/b/bouthilx/milabench/milabench/benchmarks/retired/torchatari
+torchatari.D0 [config.config_file] /network/scratch/b/bouthilx/milabench/milabench/benchmarks/retired/torchatari/prep2_sweep_e256_s128_m4_u4.yaml
+torchatari.D0 [config.tags] []
+torchatari.D0 [config.name] torchatari
+torchatari.D0 [config.tag] ['torchatari', 'D0']
+torchatari.D0 [config.device] 0
+torchatari.D0 [config.devices] [0]
+torchatari.D0 [config.env.CUDA_VISIBLE_DEVICES] 0
+torchatari.D0 [start] /network/scratch/b/bouthilx/milabench/results/venv/torch/bin/voir --config /network/scratch/b/bouthilx/milabench/results/extra/torchatari/voirconf-torchatari.D0-62d68086c2609d9dc9f007817b0f19c3.json /network/scratch/b/bouthilx/milabench/milabench/benchmarks/retired/torchatari/main.py --num-minibatches 4 --update-epochs 4 --num-steps 128 --num-envs 256 --total-timesteps 500000000 --env-id Breakout-v5 --seed 1 [at 2026-05-05 10:12:28.442490]
+torchatari.D0 [stderr] /network/scratch/b/bouthilx/milabench/results/venv/torch/lib/python3.12/site-packages/voir/cli.py:104: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+torchatari.D0 [stderr]   import pkg_resources
+torchatari.D0 [stderr] Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+torchatari.D0 [stderr] Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+torchatari.D0 [stderr] Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+torchatari.D0 [stderr] See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+torchatari.D0 [stderr] /network/scratch/b/bouthilx/milabench/results/venv/torch/lib/python3.12/site-packages/codefind/registry.py:46: FutureWarning: `torch.distributed.reduce_op` is deprecated, please use `torch.distributed.ReduceOp` instead
+torchatari.D0 [stderr]   if isinstance(obj, types.FunctionType):
+torchatari.D0 [stderr] /network/scratch/b/bouthilx/milabench/results/venv/torch/lib/python3.12/site-packages/tyro/_parsers.py:353: UserWarning: The field `wandb-entity` is annotated with type `<class 'str'>`, but the default value `None` has type `<class 'NoneType'>`. We'll try to handle this gracefully, but it may cause unexpected behavior.
+torchatari.D0 [stderr]   warnings.warn(message)
+torchatari.D0 [stderr] /network/scratch/b/bouthilx/milabench/results/venv/torch/lib/python3.12/site-packages/tyro/_parsers.py:353: UserWarning: The field `target-kl` is annotated with type `<class 'float'>`, but the default value `None` has type `<class 'NoneType'>`. We'll try to handle this gracefully, but it may cause unexpected behavior.
+torchatari.D0 [stderr]   warnings.warn(message)
+torchatari.D0 [data] {'task': 'main', 'time': 1777990358.008466, 'gpudata': {'0': {'memory': [361.8125, 46068.0], 'load': 0.0, 'temperature': 27.0, 'power': 35.963}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990359.0091844, 'gpudata': {'0': {'memory': [361.8125, 46068.0], 'load': 0.0, 'temperature': 27.0, 'power': 35.974}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990358.0086076, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 423974307.0, 'write_bytes': 4808.0, 'read_chars': 32262553.0, 'write_chars': 2774.0, 'memory': [666210304.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990362.730984, 'gpudata': {'0': {'memory': [361.8125, 46068.0], 'load': 0.0, 'temperature': 27.0, 'power': 35.94}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990363.7320857, 'gpudata': {'0': {'memory': [361.8125, 46068.0], 'load': 0.0, 'temperature': 27.0, 'power': 35.831}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990362.7309048, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 485060572.0, 'write_bytes': 4808.0, 'read_chars': 43021009.0, 'write_chars': 2774.0, 'memory': [1072095232.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990364.7385736, 'gpudata': {'0': {'memory': [361.8125, 46068.0], 'load': 0.0, 'temperature': 27.0, 'power': 35.841}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990365.738778, 'gpudata': {'0': {'memory': [361.8125, 46068.0], 'load': 0.0, 'temperature': 27.0, 'power': 35.961}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990364.745033, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 499949532.0, 'write_bytes': 4808.0, 'read_chars': 43258338.0, 'write_chars': 2774.0, 'memory': [1099431936.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990366.7391243, 'gpudata': {'0': {'memory': [361.8125, 46068.0], 'load': 0.0, 'temperature': 27.0, 'power': 35.961}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990367.7393317, 'gpudata': {'0': {'memory': [813.5625, 46068.0], 'load': 0.0, 'temperature': 29.0, 'power': 58.451}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990366.7577164, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 499949532.0, 'write_bytes': 4808.0, 'read_chars': 43412718.0, 'write_chars': 2774.0, 'memory': [1099935744.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990368.8288946, 'gpudata': {'0': {'memory': [813.5625, 46068.0], 'load': 0.0, 'temperature': 30.0, 'power': 105.575}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990369.8409574, 'gpudata': {'0': {'memory': [813.5625, 46068.0], 'load': 0.0, 'temperature': 30.0, 'power': 107.956}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990368.8356476, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 577925576.0, 'write_bytes': 4808.0, 'read_chars': 61849956.0, 'write_chars': 2860.0, 'memory': [1307807744.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990370.8411493, 'gpudata': {'0': {'memory': [813.5625, 46068.0], 'load': 0.0, 'temperature': 30.0, 'power': 108.118}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990371.841272, 'gpudata': {'0': {'memory': [813.5625, 46068.0], 'load': 0.0, 'temperature': 31.0, 'power': 108.41}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990370.877557, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 579575883.0, 'write_bytes': 4808.0, 'read_chars': 63654619.0, 'write_chars': 2860.0, 'memory': [1313284096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990372.8424428, 'gpudata': {'0': {'memory': [813.5625, 46068.0], 'load': 0.0, 'temperature': 31.0, 'power': 108.53}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990373.8463485, 'gpudata': {'0': {'memory': [813.5625, 46068.0], 'load': 0.0, 'temperature': 31.0, 'power': 108.446}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990372.888373, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 579575883.0, 'write_bytes': 4808.0, 'read_chars': 63808981.0, 'write_chars': 2860.0, 'memory': [1313685504.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990374.8465123, 'gpudata': {'0': {'memory': [4341.5625, 46068.0], 'load': 0.48, 'temperature': 31.0, 'power': 109.998}}}
+torchatari.D0 [stdout] SPS: 6705
+torchatari.D0 [data] {'task': 'main', 'time': 1777990375.84678, 'gpudata': {'0': {'memory': [4493.5625, 46068.0], 'load': 0.0, 'temperature': 31.0, 'power': 110.044}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990374.903956, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 583655678.0, 'write_bytes': 4808.0, 'read_chars': 68043178.0, 'write_chars': 2860.0, 'memory': [5030166528.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990376.8473947, 'gpudata': {'0': {'memory': [4507.5625, 46068.0], 'load': 0.09, 'temperature': 32.0, 'power': 112.699}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990377.84767, 'gpudata': {'0': {'memory': [4507.5625, 46068.0], 'load': 0.08, 'temperature': 32.0, 'power': 112.727}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990376.916655, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 679214734.0, 'write_bytes': 4808.0, 'read_chars': 68201028.0, 'write_chars': 6780.0, 'memory': [2046472192.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990378.8479424, 'gpudata': {'0': {'memory': [4507.5625, 46068.0], 'load': 0.1, 'temperature': 32.0, 'power': 110.639}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990379.8481982, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 37.0, 'power': 204.676}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990378.9308207, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 679214734.0, 'write_bytes': 21338.0, 'read_chars': 68355390.0, 'write_chars': 23310.0, 'memory': [2105417728.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 7417
+torchatari.D0 [data] {'task': 'main', 'time': 1777990380.8484633, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 33.0, 'power': 140.293}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990381.8543715, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 33.0, 'power': 111.16}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990380.943833, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 28693.0, 'read_chars': 68509740.0, 'write_chars': 32178.0, 'memory': [2438483968.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990382.8546352, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 33.0, 'power': 112.837}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990383.8549268, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 38.0, 'power': 214.782}}}
+torchatari.D0 [stdout] SPS: 7694
+torchatari.D0 [data] {'task': 'main', 'time': 1777990382.9570196, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 49849.0, 'read_chars': 68664119.0, 'write_chars': 53334.0, 'memory': [2439184384.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990384.8551822, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 34.0, 'power': 141.261}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990385.864361, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.05, 'temperature': 34.0, 'power': 113.554}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990384.9746506, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 68538.0, 'read_chars': 68818488.0, 'write_chars': 72915.0, 'memory': [2494369792.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990386.8646326, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 34.0, 'power': 113.18}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990387.864936, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 39.0, 'power': 241.364}}}
+torchatari.D0 [stdout] SPS: 7827
+torchatari.D0 [data] {'task': 'main', 'time': 1777990386.9895155, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 89058.0, 'read_chars': 68972851.0, 'write_chars': 93435.0, 'memory': [2494406656.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990388.8652396, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 34.0, 'power': 130.599}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990389.8655114, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 34.0, 'power': 111.784}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990389.0041194, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 103063.0, 'read_chars': 69127194.0, 'write_chars': 108571.0, 'memory': [2523488256.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990390.8657928, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 34.0, 'power': 113.366}}}
+torchatari.D0 [stdout] SPS: 7901
+torchatari.D0 [data] {'task': 'main', 'time': 1777990391.866168, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 40.0, 'power': 232.659}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990391.0193076, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 124913.0, 'read_chars': 69281577.0, 'write_chars': 130421.0, 'memory': [2523725824.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990392.86638, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 35.0, 'power': 126.761}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990393.8666494, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 35.0, 'power': 113.358}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990393.0322633, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 140438.0, 'read_chars': 69435984.0, 'write_chars': 146933.0, 'memory': [2524008448.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990394.8669846, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 35.0, 'power': 113.507}}}
+torchatari.D0 [stdout] SPS: 7949
+torchatari.D0 [data] {'task': 'main', 'time': 1777990395.8672621, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 39.0, 'power': 235.605}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990395.0468812, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 161528.0, 'read_chars': 69590387.0, 'write_chars': 168023.0, 'memory': [2524008448.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990396.8674977, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 36.0, 'power': 131.764}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990397.8677568, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 35.0, 'power': 113.999}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990397.0680363, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 177243.0, 'read_chars': 69744794.0, 'write_chars': 184873.0, 'memory': [2437898240.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990398.8681765, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 35.0, 'power': 113.39}}}
+torchatari.D0 [stdout] SPS: 8003
+torchatari.D0 [data] {'task': 'main', 'time': 1777990399.8684447, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 40.0, 'power': 233.374}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990399.0816772, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 200043.0, 'read_chars': 69898993.0, 'write_chars': 207673.0, 'memory': [2437898240.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990400.8743703, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 36.0, 'power': 129.887}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990401.8746338, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 36.0, 'power': 113.773}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990401.0951703, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 213098.0, 'read_chars': 70053203.0, 'write_chars': 221865.0, 'memory': [2444263424.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990402.874897, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 36.0, 'power': 113.071}}}
+torchatari.D0 [stdout] SPS: 8034
+torchatari.D0 [data] {'task': 'main', 'time': 1777990403.875166, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 38.0, 'power': 237.669}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990403.1109889, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 234948.0, 'read_chars': 70207405.0, 'write_chars': 243715.0, 'memory': [2444263424.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990404.875424, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 37.0, 'power': 113.578}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990405.8756812, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 36.0, 'power': 112.796}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990405.1258943, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 250853.0, 'read_chars': 70361597.0, 'write_chars': 260756.0, 'memory': [2444427264.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990406.8759315, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 36.0, 'power': 112.108}}}
+torchatari.D0 [stdout] SPS: 8061
+torchatari.D0 [data] {'task': 'main', 'time': 1777990407.8761933, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 38.0, 'power': 235.721}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990407.1410391, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 271183.0, 'read_chars': 70515771.0, 'write_chars': 281086.0, 'memory': [2444853248.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990408.8764615, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 37.0, 'power': 115.732}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990409.8767483, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 37.0, 'power': 114.188}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990409.153699, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 288988.0, 'read_chars': 70669947.0, 'write_chars': 300028.0, 'memory': [2445025280.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990410.8770142, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 37.0, 'power': 114.596}}}
+torchatari.D0 [stdout] SPS: 8072
+torchatari.D0 [data] {'task': 'main', 'time': 1777990411.8772898, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.94, 'temperature': 38.0, 'power': 239.223}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990411.1688862, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 307038.0, 'read_chars': 70824148.0, 'write_chars': 318078.0, 'memory': [2445029376.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990412.8775508, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 37.0, 'power': 114.93}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990413.8779006, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 37.0, 'power': 113.387}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990413.1832454, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 323323.0, 'read_chars': 70978327.0, 'write_chars': 335501.0, 'memory': [2433069056.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990414.878171, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 37.0, 'power': 113.315}}}
+torchatari.D0 [stdout] SPS: 8084
+torchatari.D0 [data] {'task': 'main', 'time': 1777990415.8784332, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 39.0, 'power': 252.989}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990415.195707, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 343463.0, 'read_chars': 71132519.0, 'write_chars': 355641.0, 'memory': [2433118208.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990416.878713, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.06, 'temperature': 38.0, 'power': 114.223}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990417.8789704, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 38.0, 'power': 113.255}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990417.2090082, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 359178.0, 'read_chars': 71286710.0, 'write_chars': 372494.0, 'memory': [2433351680.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990418.8792312, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 38.0, 'power': 114.015}}}
+torchatari.D0 [stdout] SPS: 8092
+torchatari.D0 [data] {'task': 'main', 'time': 1777990419.8795016, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 39.0, 'power': 243.614}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990419.2227092, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 379888.0, 'read_chars': 71440851.0, 'write_chars': 393204.0, 'memory': [2433437696.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990420.8797615, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 38.0, 'power': 114.996}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990421.8800387, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 38.0, 'power': 115.065}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990421.2367604, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 395413.0, 'read_chars': 71595058.0, 'write_chars': 409866.0, 'memory': [2433744896.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990422.8803093, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.06, 'temperature': 38.0, 'power': 115.315}}}
+torchatari.D0 [stdout] SPS: 8102
+torchatari.D0 [data] {'task': 'main', 'time': 1777990423.8805678, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 40.0, 'power': 251.201}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990423.258546, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 414793.0, 'read_chars': 71749262.0, 'write_chars': 429246.0, 'memory': [2432524288.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990424.8808215, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 38.0, 'power': 114.468}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990425.8810687, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 38.0, 'power': 115.009}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990425.2721298, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 431458.0, 'read_chars': 71903477.0, 'write_chars': 447049.0, 'memory': [2430464000.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990426.8813946, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 38.0, 'power': 116.062}}}
+torchatari.D0 [stdout] SPS: 8112
+torchatari.D0 [data] {'task': 'main', 'time': 1777990427.8816566, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.86, 'temperature': 40.0, 'power': 235.077}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990427.2849436, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 448748.0, 'read_chars': 72057693.0, 'write_chars': 464339.0, 'memory': [2431229952.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990428.8819108, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 39.0, 'power': 118.967}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990429.882368, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 39.0, 'power': 114.248}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990429.2993886, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 463389.0, 'read_chars': 72211892.0, 'write_chars': 480118.0, 'memory': [2432118784.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990430.8826318, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 39.0, 'power': 117.364}}}
+torchatari.D0 [stdout] SPS: 8126
+torchatari.D0 [data] {'task': 'main', 'time': 1777990431.8829062, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 242.721}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990431.313897, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 482893.0, 'read_chars': 72366084.0, 'write_chars': 499622.0, 'memory': [2432630784.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990432.8834262, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 39.0, 'power': 114.807}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990433.883737, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 39.0, 'power': 115.365}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990433.32938, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 499178.0, 'read_chars': 72519923.0, 'write_chars': 517046.0, 'memory': [2433159168.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990434.884013, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 39.0, 'power': 114.04}}}
+torchatari.D0 [stdout] SPS: 8137
+torchatari.D0 [data] {'task': 'main', 'time': 1777990435.884309, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 248.574}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990435.3429163, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 517418.0, 'read_chars': 72673755.0, 'write_chars': 535286.0, 'memory': [2433163264.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990436.8845904, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 39.0, 'power': 114.226}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990437.8848522, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 39.0, 'power': 114.581}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990437.3570607, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 534083.0, 'read_chars': 72827588.0, 'write_chars': 553084.0, 'memory': [2433163264.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990438.8851259, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 39.0, 'power': 112.871}}}
+torchatari.D0 [stdout] SPS: 8150
+torchatari.D0 [data] {'task': 'main', 'time': 1777990439.8854058, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 40.0, 'power': 226.801}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990439.3721495, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 551183.0, 'read_chars': 72982330.0, 'write_chars': 570184.0, 'memory': [2433200128.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990440.8856537, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 40.0, 'power': 116.293}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990441.8859637, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 40.0, 'power': 115.564}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990441.3877525, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 569748.0, 'read_chars': 73136187.0, 'write_chars': 589888.0, 'memory': [2440224768.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990442.8862367, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.69, 'temperature': 41.0, 'power': 137.736}}}
+torchatari.D0 [stdout] SPS: 8161
+torchatari.D0 [data] {'task': 'main', 'time': 1777990443.8864994, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 41.0, 'power': 230.292}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990443.402097, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 581528.0, 'read_chars': 73290035.0, 'write_chars': 601668.0, 'memory': [2440228864.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990444.8867533, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 40.0, 'power': 114.305}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990445.8870275, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 40.0, 'power': 112.84}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990445.417905, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 601233.0, 'read_chars': 73443862.0, 'write_chars': 622513.0, 'memory': [2440228864.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990446.8873127, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 43.0, 'power': 144.507}}}
+torchatari.D0 [stdout] SPS: 8170
+torchatari.D0 [data] {'task': 'main', 'time': 1777990447.8875566, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 41.0, 'power': 214.141}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990447.4448407, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 614098.0, 'read_chars': 73597700.0, 'write_chars': 636514.0, 'memory': [2440228864.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990448.8878093, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 40.0, 'power': 114.632}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990449.8880866, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 40.0, 'power': 116.555}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990449.4602165, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 634238.0, 'read_chars': 73751499.0, 'write_chars': 656654.0, 'memory': [2440232960.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990450.8884704, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 45.0, 'power': 167.692}}}
+torchatari.D0 [stdout] SPS: 8175
+torchatari.D0 [data] {'task': 'main', 'time': 1777990451.8887103, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 209.703}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990451.4902303, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 647103.0, 'read_chars': 73905360.0, 'write_chars': 670658.0, 'memory': [2431234048.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990452.888991, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 40.0, 'power': 116.447}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990453.88928, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 40.0, 'power': 118.124}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990453.5124774, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 665913.0, 'read_chars': 74059200.0, 'write_chars': 689468.0, 'memory': [2429571072.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990454.8895373, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 45.0, 'power': 173.88}}}
+torchatari.D0 [stdout] SPS: 8185
+torchatari.D0 [data] {'task': 'main', 'time': 1777990455.889744, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 195.976}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990455.5269313, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 679348.0, 'read_chars': 74213040.0, 'write_chars': 704039.0, 'memory': [2429923328.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990456.890015, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 40.0, 'power': 117.202}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990457.8903499, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 40.0, 'power': 116.145}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990457.541272, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 698538.0, 'read_chars': 74366889.0, 'write_chars': 723229.0, 'memory': [2435129344.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990458.890621, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.95, 'temperature': 45.0, 'power': 185.681}}}
+torchatari.D0 [stdout] SPS: 8198
+torchatari.D0 [data] {'task': 'main', 'time': 1777990459.8908632, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 184.91}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990459.5539236, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 711213.0, 'read_chars': 74520715.0, 'write_chars': 737040.0, 'memory': [2435518464.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990460.891126, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 40.0, 'power': 116.488}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990461.891385, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 40.0, 'power': 114.827}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990461.5700402, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 729263.0, 'read_chars': 74674557.0, 'write_chars': 755090.0, 'memory': [2435563520.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990462.891662, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 46.0, 'power': 200.096}}}
+torchatari.D0 [stdout] SPS: 8204
+torchatari.D0 [data] {'task': 'main', 'time': 1777990463.891875, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 168.837}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990463.582373, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 742256.0, 'read_chars': 74828397.0, 'write_chars': 769218.0, 'memory': [2459582464.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990464.8921828, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 115.691}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990465.892468, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 114.915}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990465.6063728, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 762648.0, 'read_chars': 74982245.0, 'write_chars': 789610.0, 'memory': [2461044736.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990466.8928068, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 46.0, 'power': 223.276}}}
+torchatari.D0 [stdout] SPS: 8214
+torchatari.D0 [data] {'task': 'main', 'time': 1777990467.8930597, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 41.0, 'power': 147.631}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990467.6219327, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 774563.0, 'read_chars': 75136065.0, 'write_chars': 802662.0, 'memory': [2461048832.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990468.893331, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 117.335}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990469.893665, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 117.108}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990469.6463745, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 793373.0, 'read_chars': 75290085.0, 'write_chars': 821472.0, 'memory': [2461048832.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8221
+torchatari.D0 [data] {'task': 'main', 'time': 1777990470.8939304, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 47.0, 'power': 238.663}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990471.8941805, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 134.749}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990471.6590106, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 806618.0, 'read_chars': 75444149.0, 'write_chars': 835704.0, 'memory': [2431471616.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990472.894457, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 116.198}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990473.8947275, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 41.0, 'power': 116.068}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990473.6740203, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 826188.0, 'read_chars': 75598182.0, 'write_chars': 855274.0, 'memory': [2431483904.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8228
+torchatari.D0 [data] {'task': 'main', 'time': 1777990474.9031026, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.72, 'temperature': 43.0, 'power': 242.442}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990475.9033635, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 117.838}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990475.6862907, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 839813.0, 'read_chars': 75752195.0, 'write_chars': 870038.0, 'memory': [2431873024.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990476.903629, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 41.0, 'power': 115.878}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990477.90392, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 115.473}}}
+torchatari.D0 [stdout] SPS: 8234
+torchatari.D0 [data] {'task': 'main', 'time': 1777990477.6997585, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 856723.0, 'read_chars': 75906206.0, 'write_chars': 886948.0, 'memory': [2431909888.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990478.9042897, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 242.21}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990479.904562, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 41.0, 'power': 116.788}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990479.7123256, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 868828.0, 'read_chars': 76060213.0, 'write_chars': 899947.0, 'memory': [2431913984.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990480.9048784, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.06, 'temperature': 41.0, 'power': 116.504}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990481.9051628, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 116.477}}}
+torchatari.D0 [stdout] SPS: 8242
+torchatari.D0 [data] {'task': 'main', 'time': 1777990481.7357683, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 890678.0, 'read_chars': 76214269.0, 'write_chars': 921797.0, 'memory': [2431938560.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990482.9054527, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 241.124}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990483.9057133, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 42.0, 'power': 116.869}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990483.7559352, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 901643.0, 'read_chars': 76368307.0, 'write_chars': 933899.0, 'memory': [2431938560.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990484.9059858, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 41.0, 'power': 116.604}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990485.9062574, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.87, 'temperature': 45.0, 'power': 132.214}}}
+torchatari.D0 [stdout] SPS: 8247
+torchatari.D0 [data] {'task': 'main', 'time': 1777990485.7703128, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 920453.0, 'read_chars': 76522325.0, 'write_chars': 952709.0, 'memory': [2431938560.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990486.9065413, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 223.138}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990487.9068162, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 117.178}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990487.7835624, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 933698.0, 'read_chars': 76676340.0, 'write_chars': 967093.0, 'memory': [2431938560.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990488.9071288, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 115.212}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990489.907418, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 46.0, 'power': 147.152}}}
+torchatari.D0 [stdout] SPS: 8254
+torchatari.D0 [data] {'task': 'main', 'time': 1777990489.7972662, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 950798.0, 'read_chars': 76830349.0, 'write_chars': 984193.0, 'memory': [2431942656.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990490.9076667, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 42.0, 'power': 213.463}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990491.9079485, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 117.273}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990491.8107736, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 964993.0, 'read_chars': 76985900.0, 'write_chars': 999527.0, 'memory': [2429145088.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990492.908208, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 116.504}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990493.908467, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 47.0, 'power': 180.356}}}
+torchatari.D0 [stdout] SPS: 8258
+torchatari.D0 [data] {'task': 'main', 'time': 1777990493.8261356, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 980383.0, 'read_chars': 77141406.0, 'write_chars': 1014917.0, 'memory': [2429145088.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990494.9086926, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 190.471}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990495.9089513, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 116.053}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990495.8414414, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 996858.0, 'read_chars': 77296906.0, 'write_chars': 1032529.0, 'memory': [2429542400.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990496.9092083, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 116.193}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990497.9094706, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 47.0, 'power': 195.67}}}
+torchatari.D0 [stdout] SPS: 8263
+torchatari.D0 [data] {'task': 'main', 'time': 1777990497.85585, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 1010918.0, 'read_chars': 77452414.0, 'write_chars': 1046589.0, 'memory': [2429677568.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990498.909694, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 171.322}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990499.9099474, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 116.393}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990499.8766248, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 1028343.0, 'read_chars': 77607926.0, 'write_chars': 1065153.0, 'memory': [2429677568.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990500.9102118, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 118.118}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990501.9104638, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 47.0, 'power': 208.523}}}
+torchatari.D0 [stdout] SPS: 8270
+torchatari.D0 [data] {'task': 'main', 'time': 1777990501.8907256, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 1038793.0, 'read_chars': 77763470.0, 'write_chars': 1075603.0, 'memory': [2429681664.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990502.910679, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 144.508}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990503.9109097, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 117.965}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990504.9111738, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 42.0, 'power': 116.217}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990503.904268, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 1056788.0, 'read_chars': 77919013.0, 'write_chars': 1094738.0, 'memory': [2429681664.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8276
+torchatari.D0 [data] {'task': 'main', 'time': 1777990505.9114854, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.91, 'temperature': 47.0, 'power': 240.252}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990506.911794, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 121.452}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990505.9201148, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 1069083.0, 'read_chars': 78074543.0, 'write_chars': 1108024.0, 'memory': [2429681664.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990507.9120567, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 116.856}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990508.912316, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 115.87}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990507.9353251, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 1086373.0, 'read_chars': 78230256.0, 'write_chars': 1125314.0, 'memory': [2437734400.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8279
+torchatari.D0 [data] {'task': 'main', 'time': 1777990509.9125829, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 227.019}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990510.9128356, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 118.581}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990509.9503798, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 1099808.0, 'read_chars': 78386175.0, 'write_chars': 1139890.0, 'memory': [2437734400.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990511.9131076, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 115.911}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990512.9133835, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 117.727}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990511.967464, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 1117478.0, 'read_chars': 78541907.0, 'write_chars': 1157560.0, 'memory': [2432389120.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8285
+torchatari.D0 [stdout] 
+torchatari.D0 [data] {'task': 'main', 'time': 1777990513.9136572, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 238.945}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990514.913923, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 116.619}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990513.9802043, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 1127493.0, 'read_chars': 78697628.0, 'write_chars': 1168718.0, 'memory': [2432712704.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990515.914197, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 115.943}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990516.914462, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 46.0, 'power': 151.187}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990515.9934351, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 1145163.0, 'read_chars': 78853372.0, 'write_chars': 1186388.0, 'memory': [2432712704.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8291
+torchatari.D0 [data] {'task': 'main', 'time': 1777990517.9147146, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 224.15}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990518.9149857, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 117.726}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990518.0059419, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 1154988.0, 'read_chars': 79008948.0, 'write_chars': 1197353.0, 'memory': [2432905216.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990519.9152515, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 119.233}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990520.9155178, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 174.616}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990520.0187871, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 1174368.0, 'read_chars': 79164509.0, 'write_chars': 1216733.0, 'memory': [2432905216.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8297
+torchatari.D0 [data] {'task': 'main', 'time': 1777990521.9158115, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 194.075}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990522.9161296, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 43.0, 'power': 117.526}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990522.0320246, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 1181153.0, 'read_chars': 79320037.0, 'write_chars': 1224661.0, 'memory': [2433003520.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990523.9248624, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 116.703}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990524.925141, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 47.0, 'power': 196.946}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990524.0454543, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 1199583.0, 'read_chars': 79475559.0, 'write_chars': 1243091.0, 'memory': [2433024000.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8303
+torchatari.D0 [data] {'task': 'main', 'time': 1777990525.9253886, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 183.031}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990526.9256527, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 43.0, 'power': 118.552}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990526.0594428, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 1209978.0, 'read_chars': 79631091.0, 'write_chars': 1254627.0, 'memory': [2433024000.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990527.9259136, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 117.302}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990528.9261844, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 218.468}}}
+torchatari.D0 [stdout] SPS: 8311
+torchatari.D0 [data] {'task': 'main', 'time': 1777990528.0737782, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 1225938.0, 'read_chars': 79786683.0, 'write_chars': 1270587.0, 'memory': [2433040384.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990529.9303718, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 146.631}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990530.930641, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 117.394}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990530.0864823, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 1236143.0, 'read_chars': 79942288.0, 'write_chars': 1281691.0, 'memory': [2433044480.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990531.9309115, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 42.0, 'power': 117.977}}}
+torchatari.D0 [stdout] SPS: 8318
+torchatari.D0 [data] {'task': 'main', 'time': 1777990532.931165, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.48, 'temperature': 44.0, 'power': 231.245}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990532.113209, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 1250203.0, 'read_chars': 80098071.0, 'write_chars': 1295751.0, 'memory': [2433044480.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990533.9314163, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 119.577}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990534.9316697, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 43.0, 'power': 118.854}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990534.128894, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 1259648.0, 'read_chars': 80253862.0, 'write_chars': 1306188.0, 'memory': [2433044480.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990535.931936, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 119.946}}}
+torchatari.D0 [stdout] SPS: 8322
+torchatari.D0 [data] {'task': 'main', 'time': 1777990536.9321878, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 234.885}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990536.1444347, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 1271808.0, 'read_chars': 80409652.0, 'write_chars': 1318348.0, 'memory': [2431012864.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990537.932499, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 118.213}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990538.932782, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 117.739}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990538.1595507, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 1283343.0, 'read_chars': 80565657.0, 'write_chars': 1331021.0, 'memory': [2431889408.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990539.9330573, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 47.0, 'power': 150.581}}}
+torchatari.D0 [stdout] SPS: 8328
+torchatari.D0 [data] {'task': 'main', 'time': 1777990540.9333043, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 225.001}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990540.1737742, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 1295123.0, 'read_chars': 80721440.0, 'write_chars': 1342801.0, 'memory': [2431889408.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990541.938374, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 118.393}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990542.938636, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 117.546}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990542.1865032, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 1306848.0, 'read_chars': 80877215.0, 'write_chars': 1355667.0, 'memory': [2431889408.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990543.9389236, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 48.0, 'power': 169.804}}}
+torchatari.D0 [stdout] SPS: 8334
+torchatari.D0 [data] {'task': 'main', 'time': 1777990544.939268, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 189.742}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990544.2019773, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 1316538.0, 'read_chars': 81033029.0, 'write_chars': 1365357.0, 'memory': [2432073728.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990545.9395406, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 118.476}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990546.9398072, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 118.007}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990546.228347, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 1330543.0, 'read_chars': 81188820.0, 'write_chars': 1380504.0, 'memory': [2432073728.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990547.9400795, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 203.429}}}
+torchatari.D0 [stdout] SPS: 8340
+torchatari.D0 [data] {'task': 'main', 'time': 1777990548.9403088, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 43.0, 'power': 159.835}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990548.243983, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 1338468.0, 'read_chars': 81344641.0, 'write_chars': 1389571.0, 'memory': [2432073728.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990549.9405608, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 117.123}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990550.9408286, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 119.095}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990550.2581239, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 1351958.0, 'read_chars': 81500457.0, 'write_chars': 1403061.0, 'memory': [2432073728.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8348
+torchatari.D0 [data] {'task': 'main', 'time': 1777990551.9412692, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 230.005}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990552.9415035, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 130.227}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990552.27089, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 1362353.0, 'read_chars': 81656288.0, 'write_chars': 1414449.0, 'memory': [2432073728.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990553.9419272, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 118.49}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990554.9421933, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 119.386}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990554.2939234, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 1373753.0, 'read_chars': 81812110.0, 'write_chars': 1425849.0, 'memory': [2432073728.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8353
+torchatari.D0 [data] {'task': 'main', 'time': 1777990555.9424498, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 241.315}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990556.9427195, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 117.613}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990556.308011, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 1383578.0, 'read_chars': 81967941.0, 'write_chars': 1436813.0, 'memory': [2432073728.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990557.943041, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 116.934}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990558.9433045, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 47.0, 'power': 151.945}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990558.3429003, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 1396564.0, 'read_chars': 82124333.0, 'write_chars': 1449799.0, 'memory': [2432077824.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8361
+torchatari.D0 [data] {'task': 'main', 'time': 1777990559.943556, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 223.258}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990560.943862, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 119.794}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990560.3556106, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 1404613.0, 'read_chars': 82280914.0, 'write_chars': 1458990.0, 'memory': [2432077824.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990561.9441278, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 118.92}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990562.9443986, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 48.0, 'power': 178.992}}}
+torchatari.D0 [stdout] SPS: 8365
+torchatari.D0 [data] {'task': 'main', 'time': 1777990562.370747, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 1416203.0, 'read_chars': 82436770.0, 'write_chars': 1470580.0, 'memory': [2432077824.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990563.944664, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 181.998}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990564.9449313, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 118.113}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990564.3897355, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 1424128.0, 'read_chars': 82592590.0, 'write_chars': 1479402.0, 'memory': [2432077824.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990565.9452145, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 116.647}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990566.9454868, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 220.509}}}
+torchatari.D0 [stdout] SPS: 8371
+torchatari.D0 [data] {'task': 'main', 'time': 1777990566.4049368, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 1437428.0, 'read_chars': 82748385.0, 'write_chars': 1492702.0, 'memory': [2430271488.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990567.9457536, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 148.146}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990568.9460235, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 43.0, 'power': 119.351}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990568.4211435, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 1446303.0, 'read_chars': 82904256.0, 'write_chars': 1502719.0, 'memory': [2430365696.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990569.947067, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 118.449}}}
+torchatari.D0 [stdout] SPS: 8377
+torchatari.D0 [data] {'task': 'main', 'time': 1777990570.947327, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.65, 'temperature': 45.0, 'power': 239.929}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990570.4357173, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 1455613.0, 'read_chars': 83060131.0, 'write_chars': 1512029.0, 'memory': [2430599168.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990571.9475749, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 43.0, 'power': 118.802}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990572.947828, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 117.739}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990572.4497237, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 1465438.0, 'read_chars': 83215968.0, 'write_chars': 1522845.0, 'memory': [2430599168.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990573.948091, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 45.0, 'power': 130.538}}}
+torchatari.D0 [stdout] SPS: 8383
+torchatari.D0 [data] {'task': 'main', 'time': 1777990574.9484026, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 227.73}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990574.462675, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 1475508.0, 'read_chars': 83371791.0, 'write_chars': 1532915.0, 'memory': [2430599168.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990575.9486847, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 119.161}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990576.948993, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 43.0, 'power': 118.136}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990576.4768174, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 1486853.0, 'read_chars': 83527638.0, 'write_chars': 1545400.0, 'memory': [2430599168.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990577.9492629, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 47.0, 'power': 180.671}}}
+torchatari.D0 [stdout] SPS: 8389
+torchatari.D0 [data] {'task': 'main', 'time': 1777990578.9495177, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 200.99}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990578.4909275, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 1494588.0, 'read_chars': 83683675.0, 'write_chars': 1554275.0, 'memory': [2430599168.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990579.9497848, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 119.091}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990580.9500947, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 118.276}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990580.5153863, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 1506748.0, 'read_chars': 83839526.0, 'write_chars': 1566435.0, 'memory': [2430599168.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990581.950361, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 219.8}}}
+torchatari.D0 [stdout] SPS: 8396
+torchatari.D0 [data] {'task': 'main', 'time': 1777990582.9506025, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 151.839}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990582.5298162, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 1513913.0, 'read_chars': 83995379.0, 'write_chars': 1574739.0, 'memory': [2430603264.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990583.9508655, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 117.766}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990584.9511328, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 117.469}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990584.5432634, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 1526643.0, 'read_chars': 84151258.0, 'write_chars': 1587469.0, 'memory': [2438074368.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8401
+torchatari.D0 [data] {'task': 'main', 'time': 1777990585.95139, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.16, 'temperature': 46.0, 'power': 251.07}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990586.9517806, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.491}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990586.5559409, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 1534378.0, 'read_chars': 84307124.0, 'write_chars': 1596198.0, 'memory': [2438078464.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990587.9520411, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 119.273}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990588.952523, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 43.0, 'power': 119.19}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990588.5707254, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 1547108.0, 'read_chars': 84462973.0, 'write_chars': 1608928.0, 'memory': [2438078464.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8408
+torchatari.D0 [data] {'task': 'main', 'time': 1777990589.9527774, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 230.873}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990590.9531097, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.65}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990590.5837035, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 1555033.0, 'read_chars': 84618818.0, 'write_chars': 1617992.0, 'memory': [2438340608.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990591.953369, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.065}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990592.9536405, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 161.356}}}
+torchatari.D0 [stdout] SPS: 8413
+torchatari.D0 [data] {'task': 'main', 'time': 1777990592.6015525, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 1566243.0, 'read_chars': 84774678.0, 'write_chars': 1629202.0, 'memory': [2438340608.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990593.95389, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 210.982}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990594.9541419, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 117.904}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990594.615161, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 1573978.0, 'read_chars': 84930543.0, 'write_chars': 1637834.0, 'memory': [2438340608.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990595.954374, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.617}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990596.9546716, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 202.984}}}
+torchatari.D0 [stdout] SPS: 8418
+torchatari.D0 [data] {'task': 'main', 'time': 1777990596.6288707, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 1583858.0, 'read_chars': 85086399.0, 'write_chars': 1647714.0, 'memory': [2438340608.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990597.9622273, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 167.789}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990598.9624913, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.372}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990598.6436677, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 1593493.0, 'read_chars': 85242712.0, 'write_chars': 1658489.0, 'memory': [2431991808.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990599.9627712, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 43.0, 'power': 117.384}}}
+torchatari.D0 [stdout] SPS: 8425
+torchatari.D0 [data] {'task': 'main', 'time': 1777990600.963037, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 50.0, 'power': 252.565}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990600.6611786, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 1602993.0, 'read_chars': 85398614.0, 'write_chars': 1667989.0, 'memory': [2431991808.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990601.9633296, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 136.091}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990602.9636188, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.214}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990602.6743786, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 1612058.0, 'read_chars': 85554496.0, 'write_chars': 1678047.0, 'memory': [2432679936.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990603.9638596, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 121.914}}}
+torchatari.D0 [stdout] SPS: 8431
+torchatari.D0 [data] {'task': 'main', 'time': 1777990604.9641078, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 229.467}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990604.6903718, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 1619479.0, 'read_chars': 85710365.0, 'write_chars': 1686611.0, 'memory': [2432847872.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990605.9644065, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.764}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990606.964649, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.562}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990606.7057564, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 1630623.0, 'read_chars': 85866234.0, 'write_chars': 1697755.0, 'memory': [2432847872.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990607.964906, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 163.521}}}
+torchatari.D0 [stdout] SPS: 8435
+torchatari.D0 [data] {'task': 'main', 'time': 1777990608.965141, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 198.163}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990608.7223706, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 1638106.0, 'read_chars': 86022100.0, 'write_chars': 1706380.0, 'memory': [2432847872.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990609.9654074, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.125}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990610.9657812, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.347}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990610.735457, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 1650328.0, 'read_chars': 86177975.0, 'write_chars': 1718602.0, 'memory': [2432884736.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990611.966056, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 210.547}}}
+torchatari.D0 [stdout] SPS: 8442
+torchatari.D0 [data] {'task': 'main', 'time': 1777990612.9662647, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 158.156}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990612.7482703, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 1656923.0, 'read_chars': 86333859.0, 'write_chars': 1726338.0, 'memory': [2432884736.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990613.9665453, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 117.054}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990614.967637, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 117.329}}}
+torchatari.D0 [stdout] SPS: 8447
+torchatari.D0 [data] {'task': 'main', 'time': 1777990614.7631578, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 1666803.0, 'read_chars': 86489744.0, 'write_chars': 1736218.0, 'memory': [2432884736.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990615.9679077, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 45.0, 'power': 245.205}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990616.9681673, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 120.057}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990616.776883, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 1674348.0, 'read_chars': 86645588.0, 'write_chars': 1744511.0, 'memory': [2432884736.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990617.9710288, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.88}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990618.9712925, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 47.0, 'power': 137.775}}}
+torchatari.D0 [stdout] SPS: 8452
+torchatari.D0 [data] {'task': 'main', 'time': 1777990618.7903805, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 1684228.0, 'read_chars': 86801433.0, 'write_chars': 1754391.0, 'memory': [2432901120.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990619.9715335, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 226.364}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990620.9718528, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.904}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990620.8062372, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 1691963.0, 'read_chars': 86957296.0, 'write_chars': 1763265.0, 'memory': [2432901120.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990621.982375, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.147}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990622.9826283, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 190.368}}}
+torchatari.D0 [stdout] SPS: 8458
+torchatari.D0 [data] {'task': 'main', 'time': 1777990622.8192298, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 1701273.0, 'read_chars': 87113204.0, 'write_chars': 1772575.0, 'memory': [2432933888.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990623.9954858, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 163.791}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990624.995735, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 118.533}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990624.833298, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 1710868.0, 'read_chars': 87269063.0, 'write_chars': 1783312.0, 'memory': [2432933888.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990625.9960084, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.97}}}
+torchatari.D0 [stdout] SPS: 8460
+torchatari.D0 [data] {'task': 'main', 'time': 1777990627.0023704, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.76, 'temperature': 46.0, 'power': 239.891}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990626.8462822, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 1717430.0, 'read_chars': 87424914.0, 'write_chars': 1789874.0, 'memory': [2432933888.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990628.0026028, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 121.469}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990629.002878, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.341}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990628.8593624, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 1727411.0, 'read_chars': 87580762.0, 'write_chars': 1800845.0, 'memory': [2432970752.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990630.0033293, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 116.984}}}
+torchatari.D0 [stdout] SPS: 8465
+torchatari.D0 [data] {'task': 'main', 'time': 1777990631.003581, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 249.157}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990630.8735492, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 1731988.0, 'read_chars': 87736628.0, 'write_chars': 1806563.0, 'memory': [2439913472.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990632.0038319, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.916}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990633.0041645, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 119.253}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990632.8882923, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 1742410.0, 'read_chars': 87892497.0, 'write_chars': 1816985.0, 'memory': [2439913472.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990634.0044603, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 49.0, 'power': 170.568}}}
+torchatari.D0 [stdout] SPS: 8470
+torchatari.D0 [data] {'task': 'main', 'time': 1777990635.0047102, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.06, 'temperature': 44.0, 'power': 212.364}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990634.9022183, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 1750075.0, 'read_chars': 88048381.0, 'write_chars': 1825793.0, 'memory': [2438942720.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990636.0049672, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.494}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990637.010375, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 120.717}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990636.9255798, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 1760304.0, 'read_chars': 88204252.0, 'write_chars': 1836022.0, 'memory': [2439065600.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990638.0106485, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 212.322}}}
+torchatari.D0 [stdout] SPS: 8475
+torchatari.D0 [data] {'task': 'main', 'time': 1777990639.010954, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 159.836}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990638.9401362, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 1765653.0, 'read_chars': 88360125.0, 'write_chars': 1842513.0, 'memory': [2439065600.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990640.011238, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.74}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990641.0116563, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.226}}}
+torchatari.D0 [stdout] SPS: 8480
+torchatari.D0 [data] {'task': 'main', 'time': 1777990640.963947, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 1776847.0, 'read_chars': 88516000.0, 'write_chars': 1853707.0, 'memory': [2439065600.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990642.0119216, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.46, 'temperature': 45.0, 'power': 234.088}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990643.0121806, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 120.403}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990642.9785337, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 1782968.0, 'read_chars': 88671891.0, 'write_chars': 1860574.0, 'memory': [2439069696.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990644.0124736, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 119.305}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990645.0131276, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 47.0, 'power': 118.944}}}
+torchatari.D0 [stdout] SPS: 8487
+torchatari.D0 [data] {'task': 'main', 'time': 1777990644.9967475, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 1792618.0, 'read_chars': 88827585.0, 'write_chars': 1870224.0, 'memory': [2439069696.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990646.0133543, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 240.788}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990647.0136178, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.379}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990648.0138636, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.074}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990647.0106006, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 1798353.0, 'read_chars': 88983255.0, 'write_chars': 1877101.0, 'memory': [2439069696.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990649.0141234, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 50.0, 'power': 208.234}}}
+torchatari.D0 [stdout] SPS: 8493
+torchatari.D0 [data] {'task': 'main', 'time': 1777990650.0144315, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 162.814}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990649.0263324, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 1804529.0, 'read_chars': 89138938.0, 'write_chars': 1883277.0, 'memory': [2439069696.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990651.0147133, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 117.609}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990652.014975, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 117.421}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990651.0405333, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 1814317.0, 'read_chars': 89294622.0, 'write_chars': 1894208.0, 'memory': [2439069696.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8498
+torchatari.D0 [data] {'task': 'main', 'time': 1777990653.0152333, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 50.0, 'power': 237.581}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990654.0155003, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.581}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990653.0562508, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 1821596.0, 'read_chars': 89450302.0, 'write_chars': 1902478.0, 'memory': [2439069696.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990655.0158477, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.665}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990656.0164502, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 46.0, 'power': 137.182}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990655.0694456, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 1832211.0, 'read_chars': 89605980.0, 'write_chars': 1913093.0, 'memory': [2439069696.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8503
+torchatari.D0 [data] {'task': 'main', 'time': 1777990657.0166876, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 229.621}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990658.0170262, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 120.558}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990657.0824902, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 1838911.0, 'read_chars': 89761669.0, 'write_chars': 1920936.0, 'memory': [2439069696.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990659.0173137, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 117.828}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990660.0176125, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 199.402}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990659.096027, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 1846438.0, 'read_chars': 89917342.0, 'write_chars': 1928463.0, 'memory': [2439069696.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8509
+torchatari.D0 [data] {'task': 'main', 'time': 1777990661.0179021, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 178.524}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990662.018175, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.307}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990661.1089473, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 1851980.0, 'read_chars': 90073020.0, 'write_chars': 1935144.0, 'memory': [2439073792.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990663.01848, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.007}}}
+torchatari.D0 [stdout] SPS: 8514
+torchatari.D0 [data] {'task': 'main', 'time': 1777990664.018751, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 249.405}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990663.1251988, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 1861890.0, 'read_chars': 90227787.0, 'write_chars': 1945054.0, 'memory': [2439073792.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990665.0190191, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 132.024}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990666.0192826, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 117.646}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990665.1382349, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 1867751.0, 'read_chars': 90382539.0, 'write_chars': 1951661.0, 'memory': [2439073792.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990667.019551, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 132.692}}}
+torchatari.D0 [stdout] SPS: 8519
+torchatari.D0 [data] {'task': 'main', 'time': 1777990668.019797, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 219.704}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990667.152622, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 1876243.0, 'read_chars': 90537296.0, 'write_chars': 1960153.0, 'memory': [2439073792.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990669.0200913, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.507}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990670.0351112, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 119.093}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990669.1672103, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 1883136.0, 'read_chars': 90692029.0, 'write_chars': 1968188.0, 'memory': [2439073792.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990671.0353932, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 181.206}}}
+torchatari.D0 [stdout] SPS: 8524
+torchatari.D0 [data] {'task': 'main', 'time': 1777990672.0356574, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 187.743}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990671.1818068, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 1889119.0, 'read_chars': 90846767.0, 'write_chars': 1974171.0, 'memory': [2439073792.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990673.0359123, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.56}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990674.0362706, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 117.879}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990673.196567, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 1897556.0, 'read_chars': 91001530.0, 'write_chars': 1983748.0, 'memory': [2439073792.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8530
+torchatari.D0 [data] {'task': 'main', 'time': 1777990675.0365427, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 250.834}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990676.0367882, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 133.563}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990675.2092104, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 1904256.0, 'read_chars': 91156280.0, 'write_chars': 1991437.0, 'memory': [2437324800.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990677.0370834, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 117.875}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990678.0373566, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.12, 'temperature': 46.0, 'power': 142.425}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990677.2263906, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 1912941.0, 'read_chars': 91311041.0, 'write_chars': 2000122.0, 'memory': [2437332992.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8535
+torchatari.D0 [data] {'task': 'main', 'time': 1777990679.037598, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 225.25}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990680.0378625, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.438}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990679.2403378, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 1917904.0, 'read_chars': 91466293.0, 'write_chars': 2006227.0, 'memory': [2444931072.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990681.0381176, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 117.394}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990682.0383935, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 47.0, 'power': 197.715}}}
+torchatari.D0 [stdout] SPS: 8540
+torchatari.D0 [data] {'task': 'main', 'time': 1777990681.2540665, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 1927168.0, 'read_chars': 91620674.0, 'write_chars': 2015491.0, 'memory': [2444931072.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990683.0386217, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 183.946}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990684.0388813, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.08}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990683.267013, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 1933675.0, 'read_chars': 91775062.0, 'write_chars': 2022895.0, 'memory': [2444931072.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990685.039149, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.426}}}
+torchatari.D0 [stdout] SPS: 8546
+torchatari.D0 [data] {'task': 'main', 'time': 1777990686.0394163, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.73, 'temperature': 46.0, 'power': 246.066}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990685.2830935, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 1942167.0, 'read_chars': 91929471.0, 'write_chars': 2031387.0, 'memory': [2444931072.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990687.039684, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 120.372}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990688.0399516, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 117.717}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990687.2982986, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 1948288.0, 'read_chars': 92083840.0, 'write_chars': 2038498.0, 'memory': [2445529088.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990689.0402148, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 153.412}}}
+torchatari.D0 [stdout] SPS: 8551
+torchatari.D0 [data] {'task': 'main', 'time': 1777990690.04046, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 226.632}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990689.312206, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 1953692.0, 'read_chars': 92238202.0, 'write_chars': 2043902.0, 'memory': [2445529088.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990691.0407212, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.08}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990692.0409946, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 119.734}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990691.3343792, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 1961164.0, 'read_chars': 92392568.0, 'write_chars': 2052517.0, 'memory': [2445529088.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990693.041295, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 49.0, 'power': 202.964}}}
+torchatari.D0 [stdout] SPS: 8556
+torchatari.D0 [data] {'task': 'main', 'time': 1777990694.0415394, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 167.928}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990693.34826, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 1968636.0, 'read_chars': 92546934.0, 'write_chars': 2061128.0, 'memory': [2445529088.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990695.041804, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.431}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990696.0421245, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.581}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990695.3610077, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 1975777.0, 'read_chars': 92701309.0, 'write_chars': 2068269.0, 'memory': [2445586432.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8562
+torchatari.D0 [data] {'task': 'main', 'time': 1777990697.0423763, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 240.237}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990698.0428991, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 120.135}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990697.3739169, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 1981898.0, 'read_chars': 92855694.0, 'write_chars': 2075381.0, 'memory': [2445586432.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990699.0432217, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.69}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990700.0434992, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 179.977}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990699.38666, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 1989748.0, 'read_chars': 93010247.0, 'write_chars': 2083231.0, 'memory': [2445586432.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8566
+torchatari.D0 [data] {'task': 'main', 'time': 1777990701.0437963, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 209.104}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990702.0440683, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.287}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990701.3992336, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 1995739.0, 'read_chars': 93164787.0, 'write_chars': 2090361.0, 'memory': [2445590528.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990703.0443408, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.818}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990704.0446367, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 221.316}}}
+torchatari.D0 [stdout] SPS: 8570
+torchatari.D0 [data] {'task': 'main', 'time': 1777990703.412092, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 2003266.0, 'read_chars': 93319328.0, 'write_chars': 2097888.0, 'memory': [2445590528.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990705.0448802, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 153.999}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990706.0451658, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.46}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990705.4259558, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 2009580.0, 'read_chars': 93473874.0, 'write_chars': 2105101.0, 'memory': [2445590528.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990707.0454314, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 117.399}}}
+torchatari.D0 [stdout] SPS: 8575
+torchatari.D0 [data] {'task': 'main', 'time': 1777990708.0456889, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 246.544}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990707.453799, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 2015949.0, 'read_chars': 93628427.0, 'write_chars': 2111470.0, 'memory': [2445590528.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990709.066373, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.836}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990710.0666416, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.087}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990709.4681182, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 2022649.0, 'read_chars': 93782970.0, 'write_chars': 2119162.0, 'memory': [2445590528.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990711.0669487, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 164.537}}}
+torchatari.D0 [stdout] SPS: 8579
+torchatari.D0 [data] {'task': 'main', 'time': 1777990712.0671954, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 198.356}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990711.4858298, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 2028384.0, 'read_chars': 93937509.0, 'write_chars': 2126038.0, 'memory': [2445590528.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990713.0674725, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.949}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990714.067718, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.515}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990713.4988303, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 2036104.0, 'read_chars': 94092048.0, 'write_chars': 2133758.0, 'memory': [2445590528.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8583
+torchatari.D0 [data] {'task': 'main', 'time': 1777990715.0679822, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 230.092}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990716.068221, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 154.363}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990715.511696, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 2042997.0, 'read_chars': 94246602.0, 'write_chars': 2141643.0, 'memory': [2445590528.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990717.0684683, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 118.892}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990718.068796, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.51, 'temperature': 44.0, 'power': 133.887}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990717.525684, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 2052068.0, 'read_chars': 94401156.0, 'write_chars': 2150714.0, 'memory': [2445594624.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8587
+torchatari.D0 [data] {'task': 'main', 'time': 1777990719.0690365, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 238.716}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990720.07037, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 117.794}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990719.5381498, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 2057031.0, 'read_chars': 94555691.0, 'write_chars': 2156816.0, 'memory': [2445594624.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990721.0706334, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.388}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990722.0708978, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 196.072}}}
+torchatari.D0 [stdout] SPS: 8591
+torchatari.D0 [data] {'task': 'main', 'time': 1777990721.5657861, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 2064944.0, 'read_chars': 94710232.0, 'write_chars': 2164729.0, 'memory': [2438914048.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990723.0711365, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 176.917}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990724.0714135, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 119.972}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990723.5790837, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 2070293.0, 'read_chars': 94864804.0, 'write_chars': 2170975.0, 'memory': [2439680000.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990725.0716894, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.391}}}
+torchatari.D0 [stdout] SPS: 8596
+torchatari.D0 [data] {'task': 'main', 'time': 1777990726.0743737, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.8, 'temperature': 48.0, 'power': 241.14}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990725.593797, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 2077241.0, 'read_chars': 95019388.0, 'write_chars': 2177923.0, 'memory': [2439680000.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990727.0746403, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 123.144}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990728.0749133, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 119.03}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990727.6099274, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 2084134.0, 'read_chars': 95173960.0, 'write_chars': 2185809.0, 'memory': [2439680000.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990729.075207, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 48.0, 'power': 149.708}}}
+torchatari.D0 [stdout] SPS: 8600
+torchatari.D0 [data] {'task': 'main', 'time': 1777990730.0754776, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 225.597}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990729.624011, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 2089078.0, 'read_chars': 95328497.0, 'write_chars': 2191892.0, 'memory': [2439680000.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990731.0758536, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.615}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990732.0761259, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 120.167}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990731.6398416, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 2096238.0, 'read_chars': 95483049.0, 'write_chars': 2199052.0, 'memory': [2439729152.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990733.0764058, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 201.951}}}
+torchatari.D0 [stdout] SPS: 8604
+torchatari.D0 [data] {'task': 'main', 'time': 1777990734.082375, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 163.787}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990733.6543434, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 2101394.0, 'read_chars': 95637602.0, 'write_chars': 2205349.0, 'memory': [2439729152.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990735.0826387, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.004}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990736.082908, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 118.866}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990735.6687324, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 2109693.0, 'read_chars': 95792160.0, 'write_chars': 2213648.0, 'memory': [2439729152.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8608
+torchatari.D0 [data] {'task': 'main', 'time': 1777990737.083175, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 46.0, 'power': 246.359}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990738.0834532, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.971}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990737.6824503, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 2115814.0, 'read_chars': 95946702.0, 'write_chars': 2220759.0, 'memory': [2439729152.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990739.0838168, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.934}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990740.084126, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 48.0, 'power': 167.949}}}
+torchatari.D0 [stdout] SPS: 8612
+torchatari.D0 [data] {'task': 'main', 'time': 1777990739.6957526, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 2124306.0, 'read_chars': 96101252.0, 'write_chars': 2229251.0, 'memory': [2439733248.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990741.0843542, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 209.338}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990742.0846171, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.195}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990741.7217712, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 2129655.0, 'read_chars': 96255797.0, 'write_chars': 2235497.0, 'memory': [2439733248.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990743.0848765, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.239}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990744.0851436, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 220.654}}}
+torchatari.D0 [stdout] SPS: 8616
+torchatari.D0 [data] {'task': 'main', 'time': 1777990743.7401502, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 2135252.0, 'read_chars': 96410335.0, 'write_chars': 2241094.0, 'memory': [2439733248.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990745.0854056, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 151.505}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990746.0867846, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.03}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990745.754342, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 2140601.0, 'read_chars': 96564888.0, 'write_chars': 2247585.0, 'memory': [2440003584.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990747.0870972, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.899}}}
+torchatari.D0 [stdout] SPS: 8620
+torchatari.D0 [data] {'task': 'main', 'time': 1777990748.0873792, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 231.075}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990747.7670543, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 2144580.0, 'read_chars': 96719446.0, 'write_chars': 2252555.0, 'memory': [2440003584.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990749.0876575, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 118.195}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990750.087994, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.686}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990749.7817733, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 2153477.0, 'read_chars': 96874019.0, 'write_chars': 2261452.0, 'memory': [2440003584.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990751.08829, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 165.72}}}
+torchatari.D0 [stdout] SPS: 8623
+torchatari.D0 [stdout] 
+torchatari.D0 [data] {'task': 'main', 'time': 1777990752.0885487, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 199.398}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990751.7944791, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 2159791.0, 'read_chars': 97028580.0, 'write_chars': 2268905.0, 'memory': [2440003584.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990753.0888216, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.942}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990754.1481493, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 116.632}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990753.8073373, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 2165967.0, 'read_chars': 97183122.0, 'write_chars': 2275081.0, 'memory': [2440003584.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8628
+torchatari.D0 [data] {'task': 'main', 'time': 1777990755.148409, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 46.0, 'power': 239.806}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990756.1486666, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 121.998}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990755.8196995, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 2171316.0, 'read_chars': 97337708.0, 'write_chars': 2281422.0, 'memory': [2440003584.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990757.1489227, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.731}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990758.149188, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.49, 'temperature': 48.0, 'power': 149.848}}}
+torchatari.D0 [stdout] SPS: 8632
+torchatari.D0 [data] {'task': 'main', 'time': 1777990757.833951, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 2178071.0, 'read_chars': 97492274.0, 'write_chars': 2288177.0, 'memory': [2440003584.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990759.149458, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 219.683}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990760.1497164, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.983}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990759.8543756, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 2183227.0, 'read_chars': 97646841.0, 'write_chars': 2294232.0, 'memory': [2440007680.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990761.1499865, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 120.392}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990762.1652079, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 213.511}}}
+torchatari.D0 [stdout] SPS: 8635
+torchatari.D0 [data] {'task': 'main', 'time': 1777990761.867552, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 2189017.0, 'read_chars': 97801386.0, 'write_chars': 2300022.0, 'memory': [2440007680.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990763.174371, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 168.449}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990764.1746411, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 120.414}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990763.8816857, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 2195138.0, 'read_chars': 97955933.0, 'write_chars': 2307285.0, 'memory': [2440007680.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990765.1748924, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.68}}}
+torchatari.D0 [stdout] SPS: 8639
+torchatari.D0 [data] {'task': 'main', 'time': 1777990766.1783712, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.55, 'temperature': 45.0, 'power': 236.299}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990765.8965585, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 2199384.0, 'read_chars': 98110494.0, 'write_chars': 2311531.0, 'memory': [2440007680.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990767.1786427, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.364}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990768.1789098, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 119.157}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990767.9094644, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 2207049.0, 'read_chars': 98265043.0, 'write_chars': 2320187.0, 'memory': [2440007680.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990769.1791732, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.95, 'temperature': 49.0, 'power': 174.592}}}
+torchatari.D0 [stdout] SPS: 8643
+torchatari.D0 [data] {'task': 'main', 'time': 1777990770.186404, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 194.273}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990769.9225004, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 2211047.0, 'read_chars': 98419606.0, 'write_chars': 2325330.0, 'memory': [2440007680.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990771.1866624, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.189}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990772.1869743, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 117.975}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990771.935563, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 2218767.0, 'read_chars': 98574177.0, 'write_chars': 2333050.0, 'memory': [2440007680.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8646
+torchatari.D0 [data] {'task': 'main', 'time': 1777990773.1872709, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 49.0, 'power': 235.526}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990774.1875043, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 138.634}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990773.9488893, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 2225274.0, 'read_chars': 98728742.0, 'write_chars': 2340549.0, 'memory': [2437890048.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990775.187835, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 117.905}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990776.1880977, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 47.0, 'power': 129.876}}}
+torchatari.D0 [stdout] SPS: 8650
+torchatari.D0 [data] {'task': 'main', 'time': 1777990775.9648843, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 2232222.0, 'read_chars': 98883154.0, 'write_chars': 2347497.0, 'memory': [2437890048.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990777.1883466, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 234.267}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990778.1886945, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.865}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990777.9782271, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 2236799.0, 'read_chars': 99037725.0, 'write_chars': 2352973.0, 'memory': [2438492160.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990779.1889622, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.54}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990780.1892552, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 184.92}}}
+torchatari.D0 [stdout] SPS: 8654
+torchatari.D0 [data] {'task': 'main', 'time': 1777990779.9927888, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 2242975.0, 'read_chars': 99192110.0, 'write_chars': 2359149.0, 'memory': [2438496256.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990781.1894913, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 186.044}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990782.189761, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 118.857}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990782.0067546, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 2249675.0, 'read_chars': 99346482.0, 'write_chars': 2366989.0, 'memory': [2444238848.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990783.190034, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 118.932}}}
+torchatari.D0 [stdout] SPS: 8657
+torchatari.D0 [data] {'task': 'main', 'time': 1777990784.190302, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 46.0, 'power': 244.078}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990784.021459, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 2251605.0, 'read_chars': 99500842.0, 'write_chars': 2368919.0, 'memory': [2444238848.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990785.190566, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 120.551}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990786.1908875, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 120.292}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990786.036565, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 2258884.0, 'read_chars': 99655232.0, 'write_chars': 2377187.0, 'memory': [2444238848.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990787.1911592, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.42, 'temperature': 48.0, 'power': 148.967}}}
+torchatari.D0 [stdout] SPS: 8659
+torchatari.D0 [data] {'task': 'main', 'time': 1777990788.191405, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 227.85}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990788.0506704, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 2265005.0, 'read_chars': 99809606.0, 'write_chars': 2384448.0, 'memory': [2444247040.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990789.1916564, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.146}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990790.191909, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 121.172}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990790.0637636, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 2272146.0, 'read_chars': 99963996.0, 'write_chars': 2391589.0, 'memory': [2444320768.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990791.1921895, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 203.782}}}
+torchatari.D0 [stdout] SPS: 8663
+torchatari.D0 [stdout] 
+torchatari.D0 [data] {'task': 'main', 'time': 1777990792.1924286, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 155.995}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990792.0775619, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 2276723.0, 'read_chars': 100118372.0, 'write_chars': 2397307.0, 'memory': [2444320768.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990793.1927311, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 117.211}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990794.1929975, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 116.82}}}
+torchatari.D0 [stdout] SPS: 8666
+torchatari.D0 [data] {'task': 'main', 'time': 1777990794.1038706, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 2285215.0, 'read_chars': 100272752.0, 'write_chars': 2405799.0, 'memory': [2444320768.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990795.193266, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 239.957}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990796.1935608, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.238}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990796.1240933, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 2289213.0, 'read_chars': 100427156.0, 'write_chars': 2410547.0, 'memory': [2444320768.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990797.1939058, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.041}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990798.1941895, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 49.0, 'power': 190.99}}}
+torchatari.D0 [stdout] SPS: 8670
+torchatari.D0 [stdout] 
+torchatari.D0 [data] {'task': 'main', 'time': 1777990798.1389003, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 2295196.0, 'read_chars': 100582094.0, 'write_chars': 2416530.0, 'memory': [2444320768.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990799.194568, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 181.559}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990800.1948247, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.006}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990800.1583745, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 2299194.0, 'read_chars': 100736428.0, 'write_chars': 2421669.0, 'memory': [2444324864.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990801.1950896, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 118.642}}}
+torchatari.D0 [stdout] SPS: 8673
+torchatari.D0 [data] {'task': 'main', 'time': 1777990802.1953597, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 242.864}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990802.1710863, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 2304157.0, 'read_chars': 100890796.0, 'write_chars': 2427626.0, 'memory': [2444324864.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990803.1956375, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.07, 'temperature': 44.0, 'power': 122.164}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990804.1959076, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.034}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990805.1961799, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.26, 'temperature': 47.0, 'power': 150.217}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990804.1852741, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 2311684.0, 'read_chars': 101045174.0, 'write_chars': 2435153.0, 'memory': [2444324864.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8676
+torchatari.D0 [data] {'task': 'main', 'time': 1777990806.1964455, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 234.118}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990806.1980221, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 2317033.0, 'read_chars': 101199539.0, 'write_chars': 2441647.0, 'memory': [2444324864.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990807.2731738, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.939}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990808.273433, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 121.123}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990808.2132514, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 2323981.0, 'read_chars': 101354110.0, 'write_chars': 2448595.0, 'memory': [2444324864.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990809.2737036, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 50.0, 'power': 205.424}}}
+torchatari.D0 [stdout] SPS: 8679
+torchatari.D0 [data] {'task': 'main', 'time': 1777990810.273943, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 160.623}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990810.226356, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 2329523.0, 'read_chars': 101508507.0, 'write_chars': 2455279.0, 'memory': [2444324864.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990811.2742474, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.776}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990812.2745242, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 119.103}}}
+torchatari.D0 [stdout] SPS: 8683
+torchatari.D0 [data] {'task': 'main', 'time': 1777990812.2526577, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 2336664.0, 'read_chars': 101662898.0, 'write_chars': 2462420.0, 'memory': [2444324864.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990813.2748132, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.66, 'temperature': 46.0, 'power': 240.99}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990814.2751575, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 119.611}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990814.2655606, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 2339311.0, 'read_chars': 101817267.0, 'write_chars': 2465817.0, 'memory': [2444505088.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990815.2965171, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 118.337}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990816.2968025, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 166.613}}}
+torchatari.D0 [stdout] SPS: 8686
+torchatari.D0 [data] {'task': 'main', 'time': 1777990817.2970445, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 202.637}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990816.2806046, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 2344136.0, 'read_chars': 101971835.0, 'write_chars': 2470642.0, 'memory': [2444505088.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990818.297295, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 118.721}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990819.2975445, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.74}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990818.3083568, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 2351415.0, 'read_chars': 102126412.0, 'write_chars': 2479065.0, 'memory': [2444505088.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8689
+torchatari.D0 [data] {'task': 'main', 'time': 1777990820.2977974, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 239.969}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990821.2980378, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 140.302}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990820.3220346, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 2355606.0, 'read_chars': 102280981.0, 'write_chars': 2484250.0, 'memory': [2444505088.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990822.3063798, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.211}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990823.3066292, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 156.101}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990822.3347352, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 2361396.0, 'read_chars': 102435562.0, 'write_chars': 2490040.0, 'memory': [2444664832.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8691
+torchatari.D0 [data] {'task': 'main', 'time': 1777990824.306873, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 212.459}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990825.314374, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.919}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990824.3476436, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 2366552.0, 'read_chars': 102590151.0, 'write_chars': 2496343.0, 'memory': [2444664832.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990826.3146284, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 119.335}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990827.3149154, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 212.896}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990826.371121, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 2374079.0, 'read_chars': 102744552.0, 'write_chars': 2503870.0, 'memory': [2444664832.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8695
+torchatari.D0 [data] {'task': 'main', 'time': 1777990828.3152547, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 162.15}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990829.315513, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 120.211}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990828.3836708, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 2379042.0, 'read_chars': 102898951.0, 'write_chars': 2509977.0, 'memory': [2444668928.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990830.3159554, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.909}}}
+torchatari.D0 [stdout] SPS: 8698
+torchatari.D0 [data] {'task': 'main', 'time': 1777990831.3162956, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 254.512}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990830.397884, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 2384446.0, 'read_chars': 103053332.0, 'write_chars': 2515381.0, 'memory': [2438754304.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990832.324169, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 120.873}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990833.324439, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.699}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990832.4198582, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 2389216.0, 'read_chars': 103207734.0, 'write_chars': 2520899.0, 'memory': [2438963200.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990834.3247685, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 182.772}}}
+torchatari.D0 [stdout] SPS: 8701
+torchatari.D0 [data] {'task': 'main', 'time': 1777990835.3250432, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 191.453}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990834.434704, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 2393848.0, 'read_chars': 103362146.0, 'write_chars': 2525531.0, 'memory': [2439168000.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990836.3253527, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.84}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990837.334017, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.111}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990836.448932, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 2399969.0, 'read_chars': 103516554.0, 'write_chars': 2532795.0, 'memory': [2439168000.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8705
+torchatari.D0 [data] {'task': 'main', 'time': 1777990838.3342838, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 47.0, 'power': 253.337}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990839.3345664, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 138.759}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990838.462166, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 2403195.0, 'read_chars': 103671147.0, 'write_chars': 2537012.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990840.334888, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 120.817}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990841.3351567, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 151.58}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990840.4761195, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 2408599.0, 'read_chars': 103825579.0, 'write_chars': 2542416.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8708
+torchatari.D0 [data] {'task': 'main', 'time': 1777990842.3353977, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 230.912}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990843.3356647, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 118.929}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990842.4888172, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 2414334.0, 'read_chars': 103979810.0, 'write_chars': 2549295.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990844.3359337, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 120.325}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990845.3361979, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 51.0, 'power': 219.769}}}
+torchatari.D0 [stdout] SPS: 8710
+torchatari.D0 [data] {'task': 'main', 'time': 1777990844.5034196, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 2420317.0, 'read_chars': 104134047.0, 'write_chars': 2555278.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990846.3364222, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 170.706}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990847.342372, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 119.486}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990846.5166192, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 2424894.0, 'read_chars': 104288300.0, 'write_chars': 2560756.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990848.342641, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.205}}}
+torchatari.D0 [stdout] SPS: 8713
+torchatari.D0 [data] {'task': 'main', 'time': 1777990849.3429081, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 250.266}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990848.532032, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 2430105.0, 'read_chars': 104442540.0, 'write_chars': 2565967.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990850.343174, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 120.906}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990851.3434348, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 120.916}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990850.5543773, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 2435840.0, 'read_chars': 104596786.0, 'write_chars': 2572697.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990852.3437588, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 49.0, 'power': 173.436}}}
+torchatari.D0 [stdout] SPS: 8716
+torchatari.D0 [data] {'task': 'main', 'time': 1777990853.3439965, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 193.245}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990852.571337, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 2440472.0, 'read_chars': 104751033.0, 'write_chars': 2577329.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990854.3443115, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.371}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990855.3445652, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 119.474}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990854.5943735, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 2445628.0, 'read_chars': 104905283.0, 'write_chars': 2583630.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8719
+torchatari.D0 [data] {'task': 'main', 'time': 1777990856.3448124, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 47.0, 'power': 255.924}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990857.3450718, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 136.967}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990856.6071084, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 2449626.0, 'read_chars': 105059518.0, 'write_chars': 2588623.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990858.3453326, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 120.471}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990859.3455944, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 48.0, 'power': 133.622}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990858.6225653, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 2454837.0, 'read_chars': 105213765.0, 'write_chars': 2593834.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8722
+torchatari.D0 [data] {'task': 'main', 'time': 1777990860.3689923, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 225.653}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990861.3692672, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 119.502}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990860.6350052, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 2459993.0, 'read_chars': 105368176.0, 'write_chars': 2600135.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990862.3695984, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 120.214}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990863.3698878, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 50.0, 'power': 221.934}}}
+torchatari.D0 [stdout] SPS: 8725
+torchatari.D0 [data] {'task': 'main', 'time': 1777990862.6484845, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 2465204.0, 'read_chars': 105522584.0, 'write_chars': 2605346.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990864.370143, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 148.072}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990865.3704414, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 120.06}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990864.6701665, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 2470167.0, 'read_chars': 105676982.0, 'write_chars': 2611210.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990866.3707054, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.56, 'temperature': 44.0, 'power': 136.222}}}
+torchatari.D0 [stdout] SPS: 8728
+torchatari.D0 [data] {'task': 'main', 'time': 1777990867.3709574, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 46.0, 'power': 239.233}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990866.6832945, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 2474992.0, 'read_chars': 105831400.0, 'write_chars': 2616035.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990868.3925135, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 118.603}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990869.3927946, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 117.589}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990868.7023764, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 2481306.0, 'read_chars': 105985861.0, 'write_chars': 2623343.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990870.393077, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 50.0, 'power': 207.387}}}
+torchatari.D0 [stdout] SPS: 8730
+torchatari.D0 [data] {'task': 'main', 'time': 1777990871.393322, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 174.261}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990870.7183714, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 2485111.0, 'read_chars': 106140306.0, 'write_chars': 2628291.0, 'memory': [2439172096.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990872.3936427, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 119.675}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990873.3939378, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.307}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990872.7326279, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 2492252.0, 'read_chars': 106294724.0, 'write_chars': 2635432.0, 'memory': [2445332480.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8733
+torchatari.D0 [data] {'task': 'main', 'time': 1777990874.3942347, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.24, 'temperature': 47.0, 'power': 250.724}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990875.3945537, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 121.135}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990874.7449856, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 2497215.0, 'read_chars': 106449128.0, 'write_chars': 2641390.0, 'memory': [2445332480.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990876.3948321, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 120.465}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990877.395111, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 49.0, 'power': 175.368}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990876.758355, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 2501461.0, 'read_chars': 106603541.0, 'write_chars': 2645636.0, 'memory': [2445332480.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8735
+torchatari.D0 [data] {'task': 'main', 'time': 1777990878.3953831, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 207.05}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990879.396356, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 120.118}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990878.7724206, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 2504301.0, 'read_chars': 106757719.0, 'write_chars': 2649621.0, 'memory': [2445664256.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990880.3966308, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.755}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990881.3969128, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 51.0, 'power': 222.337}}}
+torchatari.D0 [stdout] SPS: 8738
+torchatari.D0 [data] {'task': 'main', 'time': 1777990880.7863386, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 2511442.0, 'read_chars': 106911071.0, 'write_chars': 2656762.0, 'memory': [2445664256.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990882.3973703, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 147.979}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990883.3976595, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 119.523}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990882.80237, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 2515247.0, 'read_chars': 107064020.0, 'write_chars': 2661465.0, 'memory': [2445664256.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990884.3979359, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.263}}}
+torchatari.D0 [stdout] SPS: 8741
+torchatari.D0 [data] {'task': 'main', 'time': 1777990885.3981924, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 46.0, 'power': 247.635}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990884.8195212, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 2521037.0, 'read_chars': 107216962.0, 'write_chars': 2667255.0, 'memory': [2445664256.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990886.3984542, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 118.471}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990887.3987308, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.534}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990886.835096, 'process': {'pid': 1141014, 'load': 0.0, 'num': 17, 'read_bytes': 720760462.0, 'write_bytes': 2526193.0, 'read_chars': 107369907.0, 'write_chars': 2673403.0, 'memory': [2445664256.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990888.3990333, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 50.0, 'power': 195.322}}}
+torchatari.D0 [stdout] SPS: 8744
+torchatari.D0 [data] {'task': 'main', 'time': 1777990889.3992796, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 173.98}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990888.848141, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 2529998.0, 'read_chars': 107522850.0, 'write_chars': 2678353.0, 'memory': [2445680640.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990890.3995574, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 119.037}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990891.3998313, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.737}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990890.8619623, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 2535595.0, 'read_chars': 107675789.0, 'write_chars': 2683950.0, 'memory': [2445680640.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8747
+torchatari.D0 [data] {'task': 'main', 'time': 1777990892.4000978, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.91, 'temperature': 47.0, 'power': 242.003}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990893.4003553, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 120.109}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990892.8742664, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 2539593.0, 'read_chars': 107828731.0, 'write_chars': 2688941.0, 'memory': [2445680640.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990894.4006267, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.586}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990895.4008923, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 167.583}}}
+torchatari.D0 [stdout] SPS: 8749
+torchatari.D0 [data] {'task': 'main', 'time': 1777990894.8878598, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 2544804.0, 'read_chars': 107981679.0, 'write_chars': 2694152.0, 'memory': [2437357568.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990896.4011536, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 202.918}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990897.4014168, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 120.14}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990896.9039981, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 2549188.0, 'read_chars': 108134638.0, 'write_chars': 2699436.0, 'memory': [2437775360.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990898.4016798, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.919}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990899.4019394, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 50.0, 'power': 236.138}}}
+torchatari.D0 [stdout] SPS: 8751
+torchatari.D0 [data] {'task': 'main', 'time': 1777990898.9172, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 2554013.0, 'read_chars': 108287573.0, 'write_chars': 2704261.0, 'memory': [2437775360.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990900.4021766, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 137.126}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990901.4025085, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 117.073}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990900.9423747, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 2559169.0, 'read_chars': 108440514.0, 'write_chars': 2710561.0, 'memory': [2437992448.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990902.4027753, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 48.0, 'power': 133.517}}}
+torchatari.D0 [stdout] SPS: 8753
+torchatari.D0 [data] {'task': 'main', 'time': 1777990903.4030192, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 234.851}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990902.9559906, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 2562257.0, 'read_chars': 108593429.0, 'write_chars': 2713649.0, 'memory': [2437992448.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990904.4032893, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 119.612}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990905.403562, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 120.353}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990904.9692636, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 2567220.0, 'read_chars': 108746364.0, 'write_chars': 2719605.0, 'memory': [2439024640.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990906.4038336, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 50.0, 'power': 200.773}}}
+torchatari.D0 [stdout] SPS: 8756
+torchatari.D0 [data] {'task': 'main', 'time': 1777990907.4040983, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 181.49}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990906.986377, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 2571990.0, 'read_chars': 108899286.0, 'write_chars': 2725519.0, 'memory': [2437861376.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990908.4044344, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 118.851}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990909.4047027, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 119.845}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990909.0005143, 'process': {'pid': 1141014, 'load': 0.0, 'num': 5, 'read_bytes': 720760462.0, 'write_bytes': 2577780.0, 'read_chars': 109052251.0, 'write_chars': 2731309.0, 'memory': [2438082560.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8758
+torchatari.D0 [data] {'task': 'main', 'time': 1777990910.4049592, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.81, 'temperature': 46.0, 'power': 242.472}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990911.4052234, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 119.507}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990911.0128815, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 2580813.0, 'read_chars': 109205175.0, 'write_chars': 2735333.0, 'memory': [2439290880.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990912.405512, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.755}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990913.4571378, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 48.0, 'power': 163.652}}}
+torchatari.D0 [stdout] SPS: 8761
+torchatari.D0 [data] {'task': 'main', 'time': 1777990913.0265625, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 2589691.0, 'read_chars': 109358111.0, 'write_chars': 2744211.0, 'memory': [2439290880.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990914.4573963, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 209.926}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990915.4576528, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 120.308}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990915.041507, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 2593496.0, 'read_chars': 109511060.0, 'write_chars': 2748916.0, 'memory': [2438324224.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990916.457909, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.318}}}
+torchatari.D0 [stdout] SPS: 8763
+torchatari.D0 [data] {'task': 'main', 'time': 1777990917.4581766, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 237.318}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990917.0558574, 'process': {'pid': 1141014, 'load': 0.0, 'num': 29, 'read_bytes': 720760462.0, 'write_bytes': 2596970.0, 'read_chars': 109664006.0, 'write_chars': 2752390.0, 'memory': [2439512064.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990918.4586012, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 137.059}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990919.458869, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.966}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990919.0710144, 'process': {'pid': 1141014, 'load': 0.0, 'num': 27, 'read_bytes': 720760462.0, 'write_bytes': 2601547.0, 'read_chars': 109817875.0, 'write_chars': 2757960.0, 'memory': [2438340608.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990920.4591408, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 48.0, 'power': 135.648}}}
+torchatari.D0 [stdout] SPS: 8766
+torchatari.D0 [data] {'task': 'main', 'time': 1777990921.4808311, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 216.932}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990921.0851333, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 2605738.0, 'read_chars': 109970806.0, 'write_chars': 2763296.0, 'memory': [2439319552.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990922.481102, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 45.0, 'power': 118.673}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990923.4813921, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 44.0, 'power': 119.511}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990923.1121001, 'process': {'pid': 1141014, 'load': 0.0, 'num': 31, 'read_bytes': 720760462.0, 'write_bytes': 2609984.0, 'read_chars': 110123754.0, 'write_chars': 2767542.0, 'memory': [2441453568.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990924.4817557, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 49.0, 'power': 199.107}}}
+torchatari.D0 [stdout] SPS: 8768
+torchatari.D0 [data] {'task': 'main', 'time': 1777990925.4819689, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 168.275}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990925.1249917, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 2614049.0, 'read_chars': 110276679.0, 'write_chars': 2772751.0, 'memory': [2441723904.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990926.4823017, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 118.563}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990927.4825976, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 119.002}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990927.1400733, 'process': {'pid': 1141014, 'load': 0.0, 'num': 3, 'read_bytes': 720760462.0, 'write_bytes': 2620351.0, 'read_chars': 110429607.0, 'write_chars': 2779053.0, 'memory': [2441728000.0, 1081689419776]}}
+torchatari.D0 [stdout] SPS: 8770
+torchatari.D0 [data] {'task': 'main', 'time': 1777990928.4828575, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.56, 'temperature': 46.0, 'power': 233.966}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990929.4831305, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 117.931}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990929.153597, 'process': {'pid': 1141014, 'load': 0.0, 'num': 1, 'read_bytes': 720760462.0, 'write_bytes': 2622998.0, 'read_chars': 110582535.0, 'write_chars': 2782696.0, 'memory': [2441728000.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990930.4834447, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 118.919}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990931.4837058, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.95, 'temperature': 50.0, 'power': 181.92}}}
+torchatari.D0 [stdout] SPS:
+torchatari.D0 [stdout]  8771
+torchatari.D0 [data] {'task': 'main', 'time': 1777990931.1674664, 'process': {'pid': 1141014, 'load': 0.0, 'num': 7, 'read_bytes': 720760462.0, 'write_bytes': 2628981.0, 'read_chars': 110735484.0, 'write_chars': 2788679.0, 'memory': [2441728000.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990932.4840007, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 192.662}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990933.4843163, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 119.021}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990933.1814895, 'process': {'pid': 1141014, 'load': 0.0, 'num': 23, 'read_bytes': 720760462.0, 'write_bytes': 2633558.0, 'read_chars': 110888435.0, 'write_chars': 2794155.0, 'memory': [2466504704.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990934.4849346, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.641}}}
+torchatari.D0 [stdout] SPS: 8774
+torchatari.D0 [data] {'task': 'main', 'time': 1777990935.4852247, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.97, 'temperature': 50.0, 'power': 238.751}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990935.1947753, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 2637225.0, 'read_chars': 111041378.0, 'write_chars': 2797822.0, 'memory': [2467315712.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990936.485532, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 132.399}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990937.4858217, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 118.016}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990937.2096946, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 2642574.0, 'read_chars': 111194315.0, 'write_chars': 2804166.0, 'memory': [2467315712.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990938.4861248, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.79, 'temperature': 49.0, 'power': 150.957}}}
+torchatari.D0 [stdout] SPS: 8776
+torchatari.D0 [data] {'task': 'main', 'time': 1777990939.4863813, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 211.495}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990939.2223725, 'process': {'pid': 1141014, 'load': 0.0, 'num': 21, 'read_bytes': 720760462.0, 'write_bytes': 2645414.0, 'read_chars': 111347237.0, 'write_chars': 2808151.0, 'memory': [2438033408.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990940.4866548, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 45.0, 'power': 118.314}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990941.4869108, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 119.077}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990941.2359493, 'process': {'pid': 1141014, 'load': 0.0, 'num': 25, 'read_bytes': 720760462.0, 'write_bytes': 2651976.0, 'read_chars': 111500188.0, 'write_chars': 2814713.0, 'memory': [2438033408.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990942.4873588, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.96, 'temperature': 50.0, 'power': 215.717}}}
+torchatari.D0 [stdout] SPS: 8779
+torchatari.D0 [data] {'task': 'main', 'time': 1777990943.498369, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.1, 'temperature': 45.0, 'power': 149.869}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990943.24832, 'process': {'pid': 1141014, 'load': 0.0, 'num': 19, 'read_bytes': 720760462.0, 'write_bytes': 2655202.0, 'read_chars': 111653119.0, 'write_chars': 2819086.0, 'memory': [2438197248.0, 1081689419776]}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990944.4986446, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.08, 'temperature': 44.0, 'power': 118.985}}}
+torchatari.D0 [data] {'task': 'main', 'time': 1777990945.4989257, 'gpudata': {'0': {'memory': [7249.5625, 46068.0], 'load': 0.09, 'temperature': 44.0, 'power': 135.101}}}
+torchatari.D0 [message] Terminating process because it ran for longer than 600 seconds.
+torchatari.D0 [end (-15)] /network/scratch/b/bouthilx/milabench/results/venv/torch/bin/voir --config /network/scratch/b/bouthilx/milabench/results/extra/torchatari/voirconf-torchatari.D0-62d68086c2609d9dc9f007817b0f19c3.json /network/scratch/b/bouthilx/milabench/milabench/benchmarks/retired/torchatari/main.py --num-minibatches 4 --update-epochs 4 --num-steps 128 --num-envs 256 --total-timesteps 500000000 --env-id Breakout-v5 --seed 1 [at 2026-05-05 10:22:29.434120]
+╭──────────────────────────────────────────────────────────────────────────────╮
+│ GLOBAL                                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ (1/1) │
+│ torchatari.D0                         ━━━━━━━━━━━━━━╸      0:03:07 (153/205) │
+│                 gpu:0                   9% load | 7250/46068 MB | 44C        │
+│                 cpu.1141014             0% load | 2/1082 GB                  │
+│                 physical.io.1141014    687 Mo reads    2 Mo writes           │
+│                 virtual.io.1141014     106 Mo reads    2 Mo writes           │
+╰──────────────────────────────────────────────────────────────────────────────╯Source: /network/scratch/b/bouthilx/milabench/results/runs/prep2_sweep_e256_s128_m4_u4_9464144
+=================
+Benchmark results
+=================
+
+System
+------
+cpu:      Intel(R) Xeon(R) Gold 5418Y
+n_cpu:    48
+product:  NVIDIA L40S
+n_gpu:    1
+memory:   46068.0
+
+Breakdown
+---------
+index      | fail |   n | ngpu |       perf |   sem% |   std% | peak_memory |      score | weight | energy (Kj) | perf_watt | median_watt | enabled
+torchatari |    1 |   1 |    1 |        nan |   nan% |   nan% |        7250 |        nan |   0.00 |      88.427 |       nan |     120.189 | True
+
+Scores
+------
+Failure rate:     100.00% (FAIL)
+Score:              -1.00
+
+Errors
+------
+1 errors, details in HTML report.
+Metric Collection
+=================
+  torchatari
+  ----------
+    * 1 x no training rate retrieved (D0)
+    
+  
+Errors
+======
+  torchatari
+  ----------
+    * No exception were found
+    
+  
+
+
+[DONE] Reports directory: /network/scratch/b/bouthilx/milabench/results/runs/prep2_sweep_e256_s128_m4_u4_9464144
+exit=1

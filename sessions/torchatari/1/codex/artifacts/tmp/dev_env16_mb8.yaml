@@ -1,0 +1,21 @@
+
+torchatari:
+  max_duration: 600
+  inherits: _defaults
+  definition: /home/mila/r/rygaards/proj/milabench/benchmarks/retired/torchatari
+  install_variant: unpinned
+  install_group: torch
+  tags:
+    - rl
+    - monogpu
+    - gym
+  plan:
+    method: per_gpu
+
+  argv:
+    --num-minibatches: 8
+    --update-epochs: 4
+    --num-steps: 128
+    --num-envs: 16
+    --total-timesteps: 10000000
+    --env-id: Breakout-v5

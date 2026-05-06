@@ -1,0 +1,26 @@
+Session baseline capture
+========================
+
+Source job output:
+- artifacts/jobs/torchatari_p1_baseline_fix2_20260422_125835.out
+
+Primary baseline metrics source:
+- artifacts/benchmarks/torchatari_p1_baseline_fix2_20260422_125835.metrics.json
+
+Baseline metric summary (Phase-1 post-fix verification):
+- primary_metric(rate): 2152.2250169300974
+- quality_metric(avg_episodic_return): 0.20000000298023224
+- quality_verdict: PASS
+
+Raw job output excerpt:
+Metric Collection
+=================
+
+Early Stopped
+=============
+  * 1 x torchatari                     (1/1)
+
+Errors
+======
+
+[DONE] Reports directory: /home/mila/r/rygaards/proj/milabench/milabench/base/runs/torchatari_p1_baseline_fix2_20260422_125835

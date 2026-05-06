@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "/home/mila/r/rygaards/proj/milabench/milabench/base/venv/torch/bin/milabench", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/milabench/cli/__init__.py", line 165, in main
+    sys.exit(run_cli(Main, argv=argv))
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/.venv/lib/python3.12/site-packages/coleo/cli.py", line 615, in run_cli
+    return call(opts=opts, args=args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/.venv/lib/python3.12/site-packages/coleo/cli.py", line 574, in thunk
+    result = fn(*args)
+             ^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/milabench/cli/__init__.py", line 52, in run
+    return cli_run()
+       ^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/milabench/cli/run.py", line 236, in cli_run
+    mp = get_multipack(run_name=args.run_name)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/milabench/common.py", line 111, in get_multipack
+    override_obj = merge(override_obj, override_obj.pop(""))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/.venv/lib/python3.12/site-packages/ovld/core.py", line 316, in deco
+    return method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/.venv/lib/python3.12/site-packages/ovld/core.py", line 733, in merge.dispatch
+    return method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mila/r/rygaards/proj/milabench/milabench/merge.py", line 47, in merge[dict, *]
+    v2 = d2[k]
+         ~~^^^
+TypeError: string indices must be integers, not 'str'

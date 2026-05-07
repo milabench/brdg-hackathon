@@ -1,0 +1,52 @@
+=== Phase 3 C1 uint8 Tier-2 validation — seed 1/5 (voir stop=1020, max_duration=2000) ===
+warning: No `requires-python` value found in the workspace. Defaulting to `>=3.12`.
+Bench torchatari should have exactly one monitor tag. Found set()
+Bench torchatari should have exactly one monitor tag. Found set()
+torchatari.D0 [config.run_name] phase3_c1_uint8_t2_s1
+torchatari.D0 [config.group] torchatari
+torchatari.D0 [config.install_group] torch
+torchatari.D0 [config.install_variant] unpinned
+torchatari.D0 [config.enabled] True
+torchatari.D0 [config.capabilities.nodes] 1
+torchatari.D0 [config.dirs.venv] /network/scratch/r/rygaards/milabench/base/venv/torch
+torchatari.D0 [config.dirs.data] /network/scratch/r/rygaards/milabench/base/data
+torchatari.D0 [config.dirs.runs] /network/scratch/r/rygaards/milabench/base/runs
+torchatari.D0 [config.dirs.extra] /network/scratch/r/rygaards/milabench/base/extra/torchatari
+torchatari.D0 [config.dirs.cache] /network/scratch/r/rygaards/milabench/base/cache
+torchatari.D0 [config.max_duration] 2000
+torchatari.D0 [config.definition] /home/mila/r/rygaards/proj/milabench/benchmarks/retired/torchatari
+torchatari.D0 [config.plan.method] per_gpu
+torchatari.D0 [config.voir.options.stop] 1020
+torchatari.D0 [config.voir.options.interval] 1s
+torchatari.D0 [config.voir.options.skip] 5
+torchatari.D0 [config.argv.--num-minibatches] 32
+torchatari.D0 [config.argv.--update-epochs] 4
+torchatari.D0 [config.argv.--num-steps] 32
+torchatari.D0 [config.argv.--num-envs] 256
+torchatari.D0 [config.argv.--total-timesteps] 500000000
+torchatari.D0 [config.argv.--env-id] Breakout-v5
+torchatari.D0 [config.argv.--exp-name] c1_uint8
+torchatari.D0 [config.argv.--seed] 1
+torchatari.D0 [config.config_base] /home/mila/r/rygaards/proj/milabench/benchmarks/retired/torchatari
+torchatari.D0 [config.config_file] /home/mila/r/rygaards/proj/milabench/benchmarks/retired/torchatari/phase3_c1_uint8_t2_s1.yaml
+torchatari.D0 [config.tags] []
+torchatari.D0 [config.name] torchatari
+torchatari.D0 [config.tag] ['torchatari', 'D0']
+torchatari.D0 [config.device] 0
+torchatari.D0 [config.devices] [0]
+torchatari.D0 [config.env.CUDA_VISIBLE_DEVICES] 0
+torchatari.D0 [start] /network/scratch/r/rygaards/milabench/base/venv/torch/bin/voir --config /network/scratch/r/rygaards/milabench/base/extra/torchatari/voirconf-torchatari.D0-0a08c616c294879e04d939b115e32870.json /home/mila/r/rygaards/proj/milabench/benchmarks/retired/torchatari/main.py --num-minibatches 32 --update-epochs 4 --num-steps 32 --num-envs 256 --total-timesteps 500000000 --env-id Breakout-v5 --exp-name c1_uint8 --seed 1 [at 2026-05-06 16:41:38.339998]
+torchatari.D0 [stderr] /network/scratch/r/rygaards/milabench/base/venv/torch/lib/python3.12/site-packages/voir/cli.py:104: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+torchatari.D0 [stderr]   import pkg_resources
+torchatari.D0 [stderr] Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+torchatari.D0 [stderr] Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+torchatari.D0 [stderr] Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+torchatari.D0 [stderr] See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+torchatari.D0 [stderr] /network/scratch/r/rygaards/milabench/base/venv/torch/lib/python3.12/site-packages/codefind/registry.py:46: FutureWarning: `torch.distributed.reduce_op` is deprecated, please use `torch.distributed.ReduceOp` instead
+torchatari.D0 [stderr]   if isinstance(obj, types.FunctionType):
+torchatari.D0 [stderr] /network/scratch/r/rygaards/milabench/base/venv/torch/lib/python3.12/site-packages/tyro/_parsers.py:353: UserWarning: The field `wandb-entity` is annotated with type `<class 'str'>`, but the default value `None` has type `<class 'NoneType'>`. We'll try to handle this gracefully, but it may cause unexpected behavior.
+torchatari.D0 [stderr]   warnings.warn(message)
+torchatari.D0 [stderr] /network/scratch/r/rygaards/milabench/base/venv/torch/lib/python3.12/site-packages/tyro/_parsers.py:353: UserWarning: The field `target-kl` is annotated with type `<class 'float'>`, but the default value `None` has type `<class 'NoneType'>`. We'll try to handle this gracefully, but it may cause unexpected behavior.
+torchatari.D0 [stderr]   warnings.warn(message)
+torchatari.D0 [data] {'task': 'main', 'time': 1778100105.9567242, 'gpudata': {'0': {'memory': [361.8125, 46068.0], 'load': 0.0, 'temperature': 29.0, 'power': 34.722}}}
+[2026-05-06T16:42:09.725] error: *** JOB 9485850 ON cn-l009 CANCELLED AT 2026-05-06T16:42:09 DUE to SIGNAL Terminated ***

@@ -1,0 +1,52 @@
+# Preflight capture — torchatari iteration 2, agent sonnet4.6
+# Captured: 2026-05-06 (login node; GPU fields pending from Phase 1 Slurm job)
+
+## GPU state
+# NOTE: This session runs on the Mila Slurm cluster. GPU state (model, driver,
+# clocks, concurrent processes) cannot be queried from the login node. Accurate
+# GPU fields are captured inside Slurm job 9481384 and written to
+# artifacts/notes/gpu_preflight.txt by the job script. See that file for final values.
+# Expected allocation per WORKLOAD_CARD §9: 1× NVIDIA L40S (46 GB), exclusive GPU.
+GPU model:          NVIDIA L40S (Ada Lovelace), node cn-l090
+GPU memory:         46068 MiB (45 GiB usable)
+Driver version:     580.95.05 (confirmed from job 9481384)
+CUDA version:       13.0 (confirmed)
+Clock state:        DVFS active; Graphics 210 MHz / SM 210 MHz at capture (idle); no throttle events
+Temperature:        mean 41.2°C, max 44°C during run
+GPU utilization:    mean 25.0% over full job (includes install + startup)
+Concurrent CUDA:    no co-tenant processes at capture (exclusive allocation confirmed)
+Full nvidia-smi -q: artifacts/notes/gpu_preflight.txt (written by Slurm job 9481384)
+
+## Environment variables (login node at session start)
+CUDA_VISIBLE_DEVICES=<unset>
+CUDA_DEVICE_ORDER=<unset>
+TORCH_COMPILE_DEBUG=<unset>
+TORCHINDUCTOR_CACHE_DIR=<unset>
+PYTORCH_CUDA_ALLOC_CONF=<unset>
+OMP_NUM_THREADS=<unset>
+MKL_NUM_THREADS=<unset>
+MILABENCH_BASE=<unset at login node; set in sbatch scripts to /network/scratch/r/rygaards/milabench/base>
+
+## Framework versions (milabench venv: /network/scratch/r/rygaards/milabench/base/venv/torch)
+Python:   3.12.13  (WORKLOAD_CARD §6 lists 3.12.11 — minor patch delta, benign)
+PyTorch:  2.10.0+cu130
+CUDA:     13.0 (build)
+NumPy:    2.2.6
+Triton:   3.6.0
+cuDNN:    (pending — captured from first job log)
+
+## Repo state
+Workload repo:      https://github.com/srygaard/milabench.git
+Workload branch:    hackathon-torchatari-2
+Workload HEAD:      03e2828  (clean aside from session artifacts + untracked .env/uv.lock)
+  NOTE: WORKLOAD_CARD §1 / §10.5 pin prepared-branch head as e23ffee.
+  Current HEAD 03e2828 adds only 329 YAML run configs for the prep HP sweep
+  (no benchmark code changes vs e23ffee). Mismatch is benign; Tier-2 baselines
+  remain valid. Flagged in event_log.md.
+
+brdg-hackathon repo:  https://github.com/milabench/brdg-hackathon.git
+brdg-hackathon branch: torchatari-2-sonnet4.6
+brdg-hackathon HEAD:   a7032cf
+
+## MILABENCH_BASE contents (at /network/scratch/r/rygaards/milabench/base)
+cache/   extra/   runs/   venv/
